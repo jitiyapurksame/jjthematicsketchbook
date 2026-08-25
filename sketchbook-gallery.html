@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Sketchbook — Saved Drawings</title>
+<style>
+  :root{
+    --navy:#0B2545; --navy-deep:#071A33; --brass:#C9A24B; --brass-light:#E4C77C;
+    --paper:#F3EEE1; --paper-line:#DCD3BC; --ink:#1B2430; --ink-soft:#4B5563;
+    --ocean:#2E6E62; --coral:#D9603B; --radius:12px;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--navy-deep); font-family:"Segoe UI", Verdana, Geneva, sans-serif; color:var(--ink); min-height:100vh; }
+  header{ background:var(--navy); color:var(--paper); padding:20px 16px; border-bottom:3px solid var(--brass); text-align:center; }
+  h1{ font-family:Georgia,"Palatino Linotype",serif; font-size:clamp(22px,5vw,30px); margin:0 0 6px; }
+  .subtitle{ color:var(--brass-light); font-size:14px; margin:0; }
+  .back-link{ display:inline-block; margin-top:12px; color:var(--paper); font-size:13px; text-decoration:none; border:1px solid rgba(243,238,225,0.4); border-radius:999px; padding:6px 14px; }
+  .back-link:hover{ background:rgba(255,255,255,0.08); }
+
+  main{ max-width:900px; margin:0 auto; padding:22px 16px 60px; }
+  .empty-state{ text-align:center; color:var(--paper); padding:60px 20px; }
+  .empty-state .big-icon{ font-size:48px; margin-bottom:10px; }
+
+  .grid{ display:grid; grid-template-columns:1fr; gap:16px; }
+  @media (min-width:560px){ .grid{ grid-template-columns:1fr 1fr; } }
+  @media (min-width:860px){ .grid{ grid-template-columns:1fr 1fr 1fr; } }
+
+  .card{ background:var(--paper); border:1px solid var(--paper-line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; }
+  .card img{ width:100%; display:block; background:#fff; border-bottom:1px solid var(--paper-line); }
+  .card-body{ padding:12px; display:flex; flex-direction:column; gap:6px; flex:1; }
+  .card-title{ font-family:Georgia,"Palatino Linotype",serif; font-size:15px; margin:0; }
+  .card-date{ font-size:11px; color:var(--ink-soft); margin:0; }
+  .card-actions{ margin-top:auto; display:flex; gap:8px; padding-top:8px; }
+
+  button, .btn{ font-family:inherit; font-size:13px; font-weight:700; border:none; border-radius:8px; padding:8px 12px; cursor:pointer; background:var(--ocean); color:#fff; text-decoration:none; text-align:center; }
+  button.secondary, .btn.secondary{ background:transparent; color:var(--navy); border:2px solid var(--navy); }
+
+  .toolbar{ display:flex; justify-content:flex-end; margin-bottom:14px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🖼️ My Sketchbook</h1>
+  <p class="subtitle" id="count-label">Loading your drawings...</p>
+  <a class="back-link" href="index.html">← Back to all sketchbooks</a>
+</header>
+
+<main>
+  <div class="toolbar" id="toolbar" style="display:none;">
+    <button class="secondary" id="refresh-btn">🔄 Refresh</button>
+  </div>
+  <div id="content"></div>
+</main>
+
+<script>
+(function(){
+  function loadDrawings(){
+    var drawings = [];
+    for(var i = 0; i < localStorage.length; i++){
+      var key = localStorage.key(i);
+      if(key && key.indexOf("sketchbook-gallery::") === 0){
+        try{
+          var entry = JSON.parse(localStorage.getItem(key));
+          if(entry && entry.dataUrl){ drawings.push(entry); }
+        }catch(e){ /* skip corrupted entry */ }
+      }
+    }
+    drawings.sort(function(a, b){ return new Date(b.savedAt) - new Date(a.savedAt); });
+    return drawings;
+  }
+
+  function formatDate(iso){
+    try{
+      var d = new Date(iso);
+      return d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) +
+        " · " + d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+    }catch(e){ return ""; }
+  }
+
+  function safeFilename(title){
+    return (title || "drawing").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") + ".png";
+  }
+
+  function render(){
+    var drawings = loadDrawings();
+    var content = document.getElementById("content");
+    var countLabel = document.getElementById("count-label");
+    var toolbar = document.getElementById("toolbar");
+
+    if(drawings.length === 0){
+      countLabel.textContent = "No drawings saved yet";
+      toolbar.style.display = "none";
+      content.innerHTML =
+        '<div class="empty-state">' +
+          '<div class="big-icon">🎨</div>' +
+          '<p>Finish a Draw mission in any sketchbook and it\'ll show up here!</p>' +
+        '</div>';
+      return;
+    }
+
+    countLabel.textContent = drawings.length + " drawing" + (drawings.length === 1 ? "" : "s") + " saved (most recent per page)";
+    toolbar.style.display = "flex";
+
+    var grid = document.createElement("div");
+    grid.className = "grid";
+    drawings.forEach(function(entry){
+      var card = document.createElement("div");
+      card.className = "card";
+
+      var img = document.createElement("img");
+      img.src = entry.dataUrl;
+      img.alt = "Drawing for " + entry.title;
+      card.appendChild(img);
+
+      var body = document.createElement("div");
+      body.className = "card-body";
+      body.innerHTML =
+        '<p class="card-title">' + entry.title + '</p>' +
+        '<p class="card-date">Saved ' + formatDate(entry.savedAt) + '</p>' +
+        '<div class="card-actions"></div>';
+      card.appendChild(body);
+
+      var actions = body.querySelector(".card-actions");
+      var exportBtn = document.createElement("a");
+      exportBtn.className = "btn";
+      exportBtn.textContent = "⬇ Export PNG";
+      exportBtn.href = entry.dataUrl;
+      exportBtn.download = safeFilename(entry.title);
+      actions.appendChild(exportBtn);
+
+      grid.appendChild(card);
+    });
+
+    content.innerHTML = "";
+    content.appendChild(grid);
+  }
+
+  document.getElementById("refresh-btn").addEventListener("click", render);
+  render();
+})();
+</script>
+
+</body>
+</html>
