@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8. Design the Experiment — VST Thinking Lab</title>
+<style>
+  :root{
+    --navy:#0B2545; --navy-deep:#071A33; --brass:#C9A24B; --brass-light:#E4C77C;
+    --paper:#F3EEE1; --paper-line:#DCD3BC; --ink:#1B2430; --ink-soft:#4B5563;
+    --ocean:#2E6E62; --coral:#D9603B; --success:#3F8F5C; --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--navy-deep); font-family:"Segoe UI", Verdana, Geneva, sans-serif; color:var(--ink); min-height:100vh; }
+  header{ background:var(--navy); color:var(--paper); padding:14px 16px 10px; border-bottom:3px solid var(--brass); }
+  .crumb{ font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-light); margin:0 0 4px; }
+  h1{ font-family:Georgia,"Palatino Linotype",serif; font-size:clamp(20px,5vw,28px); margin:0 0 10px; font-weight:700; }
+  .domain-tag{ display:inline-block; background:rgba(228,199,124,0.18); border:1px solid var(--brass-light); color:var(--brass-light);
+    font-size:11px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; padding:3px 10px; border-radius:12px; margin-bottom:8px; }
+  .portholes{ display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch; }
+  .porthole{ flex:0 0 auto; width:46px; height:46px; border-radius:50%; border:3px solid rgba(243,238,225,0.35);
+    background:radial-gradient(circle at 35% 30%, rgba(255,255,255,0.15), rgba(0,0,0,0.25)); color:var(--paper);
+    font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; }
+  .porthole[aria-current="true"]{ border-color:var(--brass-light); box-shadow:0 0 0 3px rgba(228,199,124,0.25); }
+  .porthole.done{ background:radial-gradient(circle at 35% 30%, var(--brass-light), var(--brass)); border-color:var(--brass); color:var(--navy-deep); }
+  @media (prefers-reduced-motion:no-preference){ .porthole[aria-current="true"]{ animation:bob 2.4s ease-in-out infinite; } }
+  @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-2px);} }
+
+  main{ max-width:760px; margin:0 auto; padding:18px 16px 100px; }
+  .mission{ display:none; }
+  .mission.active{ display:block; animation:fadeIn .25s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+
+  .card{ background:var(--paper); border:1px solid var(--paper-line); border-radius:var(--radius); padding:18px; margin-bottom:16px;
+    background-image:linear-gradient(var(--paper-line) 1px, transparent 1px); background-size:100% 28px; }
+  .mission-eyebrow{ font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ocean); font-weight:700; margin:0 0 6px; }
+  .mission h2{ font-family:Georgia,"Palatino Linotype",serif; margin:0 0 10px; font-size:20px; }
+  .mission p{ line-height:1.5; margin:0 0 12px; }
+  .scenario-box{ background:#fff; border:2px solid var(--paper-line); border-radius:8px; padding:12px 14px; margin-bottom:12px; font-size:14px; }
+  .scenario-box .scenario-emoji{ font-size:22px; margin-right:6px; }
+
+  .diagram-frame{ width:100%; max-width:520px; margin:0 auto 12px; }
+  .diagram-frame svg{ width:100%; height:auto; display:block; }
+
+  button{ font-family:inherit; font-size:15px; font-weight:700; border:none; border-radius:8px; padding:12px 18px; cursor:pointer; background:var(--ocean); color:#fff; }
+  button.secondary{ background:transparent; color:var(--navy); border:2px solid var(--navy); }
+  button.brass{ background:var(--brass); color:var(--navy-deep); }
+  button:disabled{ opacity:0.5; cursor:not-allowed; }
+
+  .choice-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
+  .choice{ flex:1 1 140px; text-align:left; background:#fff; border:2px solid var(--paper-line); color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .choice[aria-pressed="true"]{ border-color:var(--ocean); background:#EAF3F0; }
+  .choice.correct{ border-color:var(--success); background:#E7F6EC; }
+  .choice.incorrect{ border-color:var(--coral); background:#FBEAE3; }
+
+  textarea{ width:100%; min-height:90px; padding:10px; border-radius:8px; border:2px solid var(--paper-line); font-family:inherit; font-size:15px; resize:vertical; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0; }
+  .chip{ background:#EAF3F0; border:1px solid var(--ocean); color:#1F4A40; font-size:13px; font-weight:700; padding:6px 12px; border-radius:16px; cursor:pointer; }
+  .chip.keyword{ background:#FBEAE3; border-color:var(--coral); color:#7A3319; }
+  .chip[aria-pressed="true"]{ background:var(--ocean); color:#fff; }
+  .chip-label{ font-size:12px; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.05em; margin:10px 0 2px; }
+
+  .draw-toolbar{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+  .color-swatches{ display:flex; gap:6px; }
+  .swatch{ width:28px; height:28px; border-radius:50%; border:2px solid var(--paper-line); cursor:pointer; padding:0; }
+  .swatch[aria-pressed="true"]{ border-color:var(--navy); box-shadow:0 0 0 2px var(--brass); }
+  #draw-canvas{ width:100%; height:260px; border:2px solid var(--paper-line); border-radius:8px; touch-action:none; background:var(--paper); display:block; }
+  .hint-panel{ margin-top:10px; padding:10px; border:2px dashed var(--brass); border-radius:8px; background:#fff; }
+  .hint-panel[hidden]{ display:none; }
+  .toolbar-btn{ padding:8px 12px; font-size:13px; }
+  [hidden]{ display:none !important; }
+
+  .reveal-box{ background:#EAF3F0; border:2px dashed var(--ocean); border-radius:8px; padding:12px 14px; margin:10px 0; font-size:14px; }
+
+  .feedback{ margin-top:10px; padding:10px 12px; border-radius:8px; font-size:14px; display:none; }
+  .feedback.show{ display:block; }
+  .feedback.good{ background:#E7F6EC; color:#215936; }
+  .feedback.retry{ background:#FBEAE3; color:#7A3319; }
+  .explain-text{ display:block; margin-top:6px; font-weight:400; font-size:13px; opacity:0.9; }
+
+  .level-row{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0; }
+  .level-chip{ flex:1 1 100px; text-align:center; background:#fff; border:2px solid var(--paper-line); border-radius:10px; padding:10px 6px; font-weight:700; font-size:12px; color:var(--ink); }
+  .level-chip[aria-pressed="true"]{ border-color:var(--brass); background:#FBF3DD; }
+  .level-chip .lv-dot{ font-size:18px; display:block; margin-bottom:4px; }
+
+  .nav-buttons{ display:flex; justify-content:space-between; gap:10px; }
+
+  footer{ position:fixed; bottom:0; left:0; right:0; background:var(--navy); color:var(--paper); padding:10px 16px;
+    display:flex; align-items:center; justify-content:space-between; border-top:3px solid var(--brass); }
+  .xp-badge{ display:flex; align-items:center; gap:8px; font-weight:700; font-size:14px; }
+  .bell{ width:24px; height:24px; border-radius:50%; background:var(--brass); display:flex; align-items:center; justify-content:center; color:var(--navy-deep); font-size:13px; }
+  #badge-toast{ position:fixed; top:16px; left:50%; transform:translate(-50%,-140%); background:var(--brass-light); color:var(--navy-deep);
+    font-weight:700; padding:10px 18px; border-radius:10px; transition:transform .35s ease; z-index:10; }
+  #badge-toast.show{ transform:translate(-50%,0); }
+</style>
+</head>
+<body data-concept-id="vst-08-design-the-experiment">
+
+<header>
+  <p class="crumb">🧠 VST Thinking Lab</p>
+  <span class="domain-tag" id="domain-tag">🧪 Investigate</span>
+  <h1 id="concept-title">8. Design the Experiment</h1>
+  <nav class="portholes" id="portholes" aria-label="Steps"></nav>
+</header>
+
+<main>
+
+  <!-- 1. NOTICE (warm-up scenario + gated quiz) -->
+  <section class="mission" data-mission="notice">
+    <div class="card">
+      <p class="mission-eyebrow">Step 1 · Warm-Up</p>
+      <h2>👀 What do you notice?</h2>
+      <div class="scenario-box" id="notice-scenario"></div>
+      <p id="notice-question"></p>
+      <div class="choice-row" id="notice-choices"></div>
+      <div class="feedback" id="notice-feedback"></div>
+    </div>
+    <div class="nav-buttons">
+      <span></span>
+      <button class="next-mission" id="notice-next" disabled>Next: Practice →</button>
+    </div>
+  </section>
+
+  <!-- 2. PRACTICE (mode: text OR draw, chosen per lab) -->
+  <section class="mission" data-mission="practice">
+    <div class="card">
+      <p class="mission-eyebrow">Step 2 · Skill Workout</p>
+      <h2 id="practice-heading">🎯 Practice</h2>
+      <p id="practice-instructions"></p>
+
+      <div id="practice-text-block">
+        <p class="chip-label">Stuck? Tap a sentence starter</p>
+        <div class="chip-row" id="practice-starters"></div>
+        <p class="chip-label">Try to use these words</p>
+        <div class="chip-row" id="practice-keywords"></div>
+        <textarea id="practice-text" placeholder="Type your thinking here..."></textarea>
+      </div>
+
+      <div id="practice-draw-block" hidden>
+        <div class="draw-toolbar">
+          <div class="color-swatches" id="color-swatches"></div>
+          <button type="button" class="secondary toolbar-btn" id="undo-btn">↶ Undo</button>
+          <button type="button" class="secondary toolbar-btn" id="clear-btn">🗑 Clear</button>
+          <button type="button" class="secondary toolbar-btn" id="hint-toggle">💡 Show hint</button>
+        </div>
+        <canvas id="draw-canvas" aria-label="Drawing canvas — use your finger or pencil"></canvas>
+        <div class="hint-panel" id="hint-panel" hidden>
+          <div class="diagram-frame" id="hint-diagram"></div>
+        </div>
+        <div style="margin-top:12px;">
+          <button class="brass" id="draw-finished-btn">✓ I'm finished</button>
+        </div>
+      </div>
+    </div>
+    <div class="nav-buttons">
+      <button class="secondary prev-mission">← Back</button>
+      <button class="next-mission" id="practice-next" disabled>Next: Predict →</button>
+    </div>
+  </section>
+
+  <!-- 3. PREDICT (I predict ___ because ___) -->
+  <section class="mission" data-mission="predict">
+    <div class="card">
+      <p class="mission-eyebrow">Step 3 · Predict</p>
+      <h2>🔮 Guess before you check</h2>
+      <div class="scenario-box" id="predict-scenario"></div>
+      <p>Finish this sentence:</p>
+      <textarea id="predict-text" placeholder="I predict ___ because ___."></textarea>
+    </div>
+    <div class="nav-buttons">
+      <button class="secondary prev-mission">← Back</button>
+      <button class="next-mission" id="predict-next">Next: Test →</button>
+    </div>
+  </section>
+
+  <!-- 4. TEST (reveal real answer + self-check) -->
+  <section class="mission" data-mission="test">
+    <div class="card">
+      <p class="mission-eyebrow">Step 4 · Test It</p>
+      <h2>🧪 Check your idea</h2>
+      <div class="reveal-box" id="test-reveal"></div>
+      <p id="test-question"></p>
+      <div class="choice-row" id="test-choices"></div>
+    </div>
+    <div class="nav-buttons">
+      <button class="secondary prev-mission">← Back</button>
+      <button class="next-mission" id="test-next">Next: Fix It →</button>
+    </div>
+  </section>
+
+  <!-- 5. FIX (error taxonomy chips + improved model text) -->
+  <section class="mission" data-mission="fix">
+    <div class="card">
+      <p class="mission-eyebrow">Step 5 · Fix It</p>
+      <h2>❌ Where did your thinking break?</h2>
+      <p>It's okay if it did! Real scientists fix their models all the time.</p>
+      <div class="chip-row" id="fix-error-chips"></div>
+      <p style="margin-top:12px;" id="fix-prompt"></p>
+      <textarea id="fix-text" placeholder="My better idea is..."></textarea>
+    </div>
+    <div class="nav-buttons">
+      <button class="secondary prev-mission">← Back</button>
+      <button class="next-mission" id="fix-next" disabled>Next: Level Check →</button>
+    </div>
+  </section>
+
+  <!-- 6. LEVEL UP (self-assessment badge tap) -->
+  <section class="mission" data-mission="levelup">
+    <div class="card">
+      <p class="mission-eyebrow">Step 6 · Level Check</p>
+      <h2>🚀 How did that feel?</h2>
+      <p>Pick where you are on this skill right now — there's no wrong answer.</p>
+      <div class="level-row" id="level-row"></div>
+    </div>
+    <div class="nav-buttons">
+      <button class="secondary prev-mission">← Back</button>
+      <button class="brass" id="complete-btn" disabled>🏁 Complete this Lab</button>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="xp-badge"><span class="bell">🔔</span><span id="xp-count">0 XP</span></div>
+  <span id="progress-text">0 / 6 steps</span>
+</footer>
+
+<div id="badge-toast">🎖️ Thinking level up!</div>
+
+<script>
+/* ============ PER-LAB DATA — this whole block gets swapped per lab file ============ */
+window.CONCEPT_DATA = {
+  "domain": "🧪 Investigate",
+  "notice": {
+    "scenario": "🍬 Question: Does temperature affect how fast sugar dissolves in water? A real experiment needs more than just 'try it once.'",
+    "question": "What's missing if you only test ONE cup of hot water with sugar in it, once?",
+    "choices": [
+      {
+        "text": "Nothing is missing, one test is enough",
+        "correct": false
+      },
+      {
+        "text": "A comparison — you need a COLD water cup too, to know if temperature actually made the difference",
+        "correct": true
+      },
+      {
+        "text": "You need a bigger spoon",
+        "correct": false
+      }
+    ],
+    "explanation": "An experiment needs a variable you change (temperature) and something to compare against (a control) — otherwise you can't tell what actually caused the result."
+  },
+  "practice": {
+    "mode": "text",
+    "heading": "🎯 Design the Experiment",
+    "instructions": "Design a simple experiment: Does hull width affect ship stability? List what you'd CHANGE, what you'd KEEP THE SAME (control), and what you'd MEASURE.",
+    "prompt": "Fill in: Change = ___, Keep the same = ___, Measure = ___.",
+    "starters": [
+      "I would change...",
+      "I would keep the same...",
+      "I would measure..."
+    ],
+    "keywords": [
+      "variable",
+      "control",
+      "measure",
+      "compare"
+    ],
+    "drawPrompt": "",
+    "hintSvg": "<svg viewBox='0 0 400 200'></svg>"
+  },
+  "predict": {
+    "scenario": "🍳 Now sketch the same 3-part plan for: does higher heat make pancakes brown faster?"
+  },
+  "test": {
+    "reveal": "A solid version: Change = stove temperature; Keep the same = pancake batter amount, pan, cook time checks; Measure = color/darkness at fixed time intervals.",
+    "question": "Did your plan have all 3 parts — change, control, and measurement?",
+    "choices": [
+      {
+        "text": "Yes, close enough!"
+      },
+      {
+        "text": "Not quite — I learned something new"
+      }
+    ]
+  },
+  "fix": {
+    "errorOptions": [
+      "I mixed up two ideas",
+      "I forgot a variable",
+      "My model was too simple",
+      "I read the pattern backwards",
+      "I'm not sure yet — and that's okay"
+    ],
+    "prompt": "If you forgot the 'keep the same' part, what would you control now?"
+  }
+};
+/* ===================================================================================== */
+
+(function(){
+  var DATA = window.CONCEPT_DATA;
+  var MISSIONS = ["notice","practice","predict","test","fix","levelup"];
+  var conceptId = document.body.dataset.conceptId;
+  var storeKey = "sketchbook-progress::" + conceptId;
+
+  function loadState(){
+    try{ var raw = localStorage.getItem(storeKey); return raw ? JSON.parse(raw) : { completed: [], xp: 0, practiceText: "", predictText: "", fixText: "" }; }
+    catch(e){ return { completed: [], xp: 0, practiceText: "", predictText: "", fixText: "" }; }
+  }
+  function saveState(state){ try{ localStorage.setItem(storeKey, JSON.stringify(state)); }catch(e){} }
+
+  var state = loadState();
+  var current = 0;
+
+  var nav = document.getElementById("portholes");
+  MISSIONS.forEach(function(m, i){
+    var b = document.createElement("button");
+    b.className = "porthole"; b.type = "button"; b.textContent = (i+1);
+    b.setAttribute("aria-label", "Step " + (i+1) + ": " + m);
+    b.addEventListener("click", function(){ goTo(i); });
+    nav.appendChild(b);
+  });
+
+  function refreshChrome(){
+    document.querySelectorAll(".porthole").forEach(function(el, i){
+      el.classList.toggle("done", state.completed.indexOf(MISSIONS[i]) !== -1);
+      el.setAttribute("aria-current", i === current ? "true" : "false");
+    });
+    document.getElementById("xp-count").textContent = state.xp + " XP";
+    document.getElementById("progress-text").textContent = state.completed.length + " / 6 steps";
+  }
+
+  function goTo(index){
+    current = Math.max(0, Math.min(MISSIONS.length - 1, index));
+    document.querySelectorAll(".mission").forEach(function(sec){
+      sec.classList.toggle("active", sec.dataset.mission === MISSIONS[current]);
+    });
+    refreshChrome();
+    if(MISSIONS[current] === "practice" && DATA.practice.mode === "draw"){ initCanvasIfNeeded(); }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function markComplete(missionName){
+    if(state.completed.indexOf(missionName) === -1){
+      state.completed.push(missionName); state.xp += 10; saveState(state); refreshChrome();
+      if(state.completed.length === MISSIONS.length){ showBadge(); }
+    }
+  }
+  function showBadge(){
+    var toast = document.getElementById("badge-toast");
+    toast.classList.add("show");
+    setTimeout(function(){ toast.classList.remove("show"); }, 2200);
+  }
+
+  document.querySelectorAll(".next-mission").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var section = btn.closest(".mission");
+      markComplete(section.dataset.mission);
+      goTo(current + 1);
+    });
+  });
+  document.querySelectorAll(".prev-mission").forEach(function(btn){
+    btn.addEventListener("click", function(){ goTo(current - 1); });
+  });
+
+  /* ---------- generic quiz renderer ---------- */
+  function renderQuiz(containerId, feedbackId, nextBtnId, choices, opts){
+    opts = opts || {};
+    var wrap = document.getElementById(containerId);
+    wrap.innerHTML = "";
+    choices.forEach(function(choice){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "choice";
+      btn.setAttribute("aria-pressed", "false");
+      btn.textContent = choice.text;
+      btn.addEventListener("click", function(){
+        wrap.querySelectorAll(".choice").forEach(function(c){ c.classList.remove("correct","incorrect"); c.setAttribute("aria-pressed","false"); });
+        var fb = feedbackId ? document.getElementById(feedbackId) : null;
+        btn.classList.add(choice.correct ? "correct" : "incorrect");
+        btn.setAttribute("aria-pressed", "true");
+        if(fb){
+          var msg = choice.correct ? (opts.correctMsg || "Nice noticing!") : (opts.incorrectMsg || "Look again — try another one.");
+          var explainHtml = opts.explanation ? ('<span class="explain-text">' + opts.explanation + "</span>") : "";
+          fb.innerHTML = msg + explainHtml;
+          fb.className = "feedback show " + (choice.correct ? "good" : "retry");
+        }
+        if(choice.correct && nextBtnId){ document.getElementById(nextBtnId).disabled = false; }
+      });
+      wrap.appendChild(btn);
+    });
+  }
+
+  /* ---------- Notice ---------- */
+  document.getElementById("domain-tag").textContent = DATA.domain;
+  document.getElementById("notice-scenario").textContent = DATA.notice.scenario;
+  document.getElementById("notice-question").textContent = DATA.notice.question;
+  renderQuiz("notice-choices", "notice-feedback", "notice-next", DATA.notice.choices, { explanation: DATA.notice.explanation });
+
+  /* ---------- Practice: text OR draw mode ---------- */
+  document.getElementById("practice-heading").textContent = DATA.practice.heading || "🎯 Practice";
+  document.getElementById("practice-instructions").textContent = DATA.practice.instructions;
+  var practiceNext = document.getElementById("practice-next");
+
+  if(DATA.practice.mode === "draw"){
+    document.getElementById("practice-text-block").hidden = true;
+    document.getElementById("practice-draw-block").hidden = false;
+  } else {
+    document.getElementById("practice-text-block").hidden = false;
+    document.getElementById("practice-draw-block").hidden = true;
+    practiceNext.disabled = false; // text mode is self-paced, not gated
+  }
+
+  var practiceText = document.getElementById("practice-text");
+  practiceText.value = state.practiceText || "";
+  practiceText.addEventListener("input", function(){ state.practiceText = practiceText.value; saveState(state); });
+  var pStarterWrap = document.getElementById("practice-starters");
+  (DATA.practice.starters || []).forEach(function(s){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip"; chip.textContent = s;
+    chip.addEventListener("click", function(){
+      practiceText.value = practiceText.value.trim().length ? practiceText.value : s;
+      practiceText.focus();
+      state.practiceText = practiceText.value; saveState(state);
+    });
+    pStarterWrap.appendChild(chip);
+  });
+  var pKeywordWrap = document.getElementById("practice-keywords");
+  (DATA.practice.keywords || []).forEach(function(k){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip keyword"; chip.textContent = k;
+    chip.addEventListener("click", function(){
+      var sep = practiceText.value.length && !practiceText.value.endsWith(" ") ? " " : "";
+      practiceText.value = practiceText.value + sep + k + " ";
+      practiceText.focus();
+      state.practiceText = practiceText.value; saveState(state);
+    });
+    pKeywordWrap.appendChild(chip);
+  });
+
+  /* ---------- Draw (used only when practice.mode === "draw") ---------- */
+  var canvas = document.getElementById("draw-canvas");
+  var ctx = null, canvasReady = false, canvasCSSWidth = 0, canvasCSSHeight = 0;
+  var undoStack = [], currentColor = "#0B2545", drawing = false, lastX = 0, lastY = 0;
+  var COLORS = ["#0B2545","#D9603B","#2E6E62","#C9A24B","#1B2430"];
+  var swatchWrap = document.getElementById("color-swatches");
+  COLORS.forEach(function(c, i){
+    var sw = document.createElement("button");
+    sw.type = "button"; sw.className = "swatch"; sw.style.background = c;
+    sw.setAttribute("aria-label", "Colour " + (i+1));
+    sw.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+    sw.addEventListener("click", function(){
+      currentColor = c;
+      swatchWrap.querySelectorAll(".swatch").forEach(function(s){ s.setAttribute("aria-pressed","false"); });
+      sw.setAttribute("aria-pressed","true");
+    });
+    swatchWrap.appendChild(sw);
+  });
+  function initCanvasIfNeeded(){
+    if(canvasReady) return;
+    var rect = canvas.getBoundingClientRect();
+    canvasCSSWidth = rect.width || 600;
+    canvasCSSHeight = rect.height || 260;
+    var dpr = window.devicePixelRatio || 1;
+    canvas.width = canvasCSSWidth * dpr;
+    canvas.height = canvasCSSHeight * dpr;
+    ctx = canvas.getContext && canvas.getContext("2d");
+    if(!ctx){ canvasReady = true; return; }
+    ctx.scale(dpr, dpr);
+    ctx.fillStyle = "#F3EEE1";
+    ctx.fillRect(0, 0, canvasCSSWidth, canvasCSSHeight);
+    pushUndo();
+    canvasReady = true;
+  }
+  function pushUndo(){
+    if(!ctx) return;
+    if(undoStack.length > 19) undoStack.shift();
+    undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+  }
+  function getPos(e){
+    var rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+  canvas.addEventListener("pointerdown", function(e){
+    if(!canvasReady) initCanvasIfNeeded();
+    pushUndo(); drawing = true;
+    var pos = getPos(e); lastX = pos.x; lastY = pos.y;
+    if(canvas.setPointerCapture){ try{ canvas.setPointerCapture(e.pointerId); }catch(err){} }
+  });
+  canvas.addEventListener("pointermove", function(e){
+    if(!drawing || !ctx) return;
+    var pos = getPos(e);
+    ctx.strokeStyle = currentColor; ctx.lineWidth = 4; ctx.lineCap = "round"; ctx.lineJoin = "round";
+    ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(pos.x, pos.y); ctx.stroke();
+    lastX = pos.x; lastY = pos.y;
+  });
+  function endStroke(){ drawing = false; }
+  canvas.addEventListener("pointerup", endStroke);
+  canvas.addEventListener("pointercancel", endStroke);
+  canvas.addEventListener("pointerleave", endStroke);
+  document.getElementById("undo-btn").addEventListener("click", function(){
+    if(!ctx) return;
+    if(undoStack.length > 1){ undoStack.pop(); }
+    var prev = undoStack[undoStack.length - 1];
+    if(prev){ ctx.putImageData(prev, 0, 0); }
+  });
+  document.getElementById("clear-btn").addEventListener("click", function(){
+    if(!ctx) return;
+    pushUndo(); ctx.fillStyle = "#F3EEE1"; ctx.fillRect(0, 0, canvasCSSWidth, canvasCSSHeight);
+  });
+  document.getElementById("hint-toggle").addEventListener("click", function(){
+    var panel = document.getElementById("hint-panel");
+    var isHidden = panel.hasAttribute("hidden");
+    if(isHidden){
+      document.getElementById("hint-diagram").innerHTML = DATA.practice.hintSvg || "";
+      panel.removeAttribute("hidden");
+      this.textContent = "💡 Hide hint";
+    } else {
+      panel.setAttribute("hidden", "");
+      this.textContent = "💡 Show hint";
+    }
+  });
+  document.getElementById("draw-finished-btn").addEventListener("click", function(){
+    saveDrawingToGallery();
+    practiceNext.disabled = false;
+    this.textContent = "✓ Marked as finished";
+    this.disabled = true;
+  });
+  function saveDrawingToGallery(){
+    if(!ctx || !canvas.toDataURL) return;
+    try{
+      var dataUrl = canvas.toDataURL("image/png");
+      var title = document.getElementById("concept-title").textContent;
+      var entry = { conceptId: conceptId, title: title, dataUrl: dataUrl, savedAt: new Date().toISOString() };
+      localStorage.setItem("sketchbook-gallery::" + conceptId, JSON.stringify(entry));
+    }catch(e){ /* fail quietly */ }
+  }
+
+  /* ---------- Predict ---------- */
+  document.getElementById("predict-scenario").textContent = DATA.predict.scenario;
+  var predictText = document.getElementById("predict-text");
+  predictText.value = state.predictText || "";
+  predictText.addEventListener("input", function(){ state.predictText = predictText.value; saveState(state); });
+
+  /* ---------- Test ---------- */
+  document.getElementById("test-reveal").textContent = DATA.test.reveal;
+  document.getElementById("test-question").textContent = DATA.test.question;
+  (function(){
+    var wrap = document.getElementById("test-choices");
+    (DATA.test.choices || []).forEach(function(c){
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "choice"; btn.textContent = c.text;
+      btn.addEventListener("click", function(){
+        wrap.querySelectorAll(".choice").forEach(function(b){ b.setAttribute("aria-pressed","false"); });
+        btn.setAttribute("aria-pressed","true");
+      });
+      wrap.appendChild(btn);
+    });
+  })();
+
+  /* ---------- Fix ---------- */
+  document.getElementById("fix-prompt").textContent = DATA.fix.prompt;
+  var fixText = document.getElementById("fix-text");
+  fixText.value = state.fixText || "";
+  fixText.addEventListener("input", function(){ state.fixText = fixText.value; saveState(state); });
+  var fixNext = document.getElementById("fix-next");
+  var errWrap = document.getElementById("fix-error-chips");
+  (DATA.fix.errorOptions || []).forEach(function(opt){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip"; chip.textContent = opt;
+    chip.setAttribute("aria-pressed","false");
+    chip.addEventListener("click", function(){
+      errWrap.querySelectorAll(".chip").forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+      chip.setAttribute("aria-pressed","true");
+      fixNext.disabled = false;
+    });
+    errWrap.appendChild(chip);
+  });
+
+  /* ---------- Level up ---------- */
+  var LEVELS = [
+    {dot:"🟢", label:"Observer"},
+    {dot:"🔵", label:"Model Builder"},
+    {dot:"🟡", label:"Scientist"},
+    {dot:"🟠", label:"Analyst"},
+    {dot:"🔴", label:"Olympiad Thinker"}
+  ];
+  var completeBtn = document.getElementById("complete-btn");
+  var levelWrap = document.getElementById("level-row");
+  LEVELS.forEach(function(lv){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "level-chip"; chip.setAttribute("aria-pressed","false");
+    chip.innerHTML = '<span class="lv-dot">' + lv.dot + '</span>' + lv.label;
+    chip.addEventListener("click", function(){
+      levelWrap.querySelectorAll(".level-chip").forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+      chip.setAttribute("aria-pressed","true");
+      completeBtn.disabled = false;
+    });
+    levelWrap.appendChild(chip);
+  });
+  completeBtn.addEventListener("click", function(){ markComplete("levelup"); });
+
+  goTo(0);
+})();
+</script>
+
+</body>
+</html>
