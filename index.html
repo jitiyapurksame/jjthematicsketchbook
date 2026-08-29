@@ -188,8 +188,18 @@ var BOOKS = [
     icon: "🔗",
     title: "Cross-Theme Connections",
     subtitle: "Link ideas across every world",
-    locked: true,
-    concepts: []
+    locked: false,
+    missionCount: 4,
+    concepts: [
+      { id: "connection-01-density", label: "1. Density Connection Map", file: "connection-01-density.html" },
+      { id: "connection-02-energy-transformation", label: "2. Energy Transformation Map", file: "connection-02-energy-transformation.html" },
+      { id: "connection-03-convection", label: "3. Convection Loops Map", file: "connection-03-convection.html" },
+      { id: "connection-04-diffusion", label: "4. Diffusion / Evening Out Map", file: "connection-04-diffusion.html" },
+      { id: "connection-05-force-balance", label: "5. Force Balance Map", file: "connection-05-force-balance.html" },
+      { id: "connection-06-pressure", label: "6. Pressure Connection Map", file: "connection-06-pressure.html" },
+      { id: "connection-07-states-of-matter", label: "7. States of Matter ↔ Motion Map", file: "connection-07-states-of-matter.html" },
+      { id: "connection-08-exception-beats-the-rule", label: "8. When the Exception Beats the Rule", file: "connection-08-exception-beats-the-rule.html" }
+    ]
   },
   {
     id: "vst",
@@ -252,7 +262,8 @@ function renderGrid(){
         return '<li><span class="locked-row"><span class="status">🔒</span>' + c.label + ' <span style="margin-left:auto;font-size:12px;">coming soon</span></span></li>';
       }
       var state = loadConceptState(c.id);
-      var isDone = state && state.completed && state.completed.length === 8;
+      var expectedMissions = book.missionCount || 8;
+      var isDone = state && state.completed && state.completed.length === expectedMissions;
       if(state){ totalXp += state.xp || 0; }
       if(isDone){ doneCount++; totalDone++; }
       var icon = isDone ? "✅" : (state ? "🟡" : "⬜");
