@@ -95,6 +95,9 @@
 </style>
 </head>
 <body data-concept-id="vst-07-predict-before-you-calculate">
+<!-- HUB-NAV-PATCH -->
+<a href="index.html" aria-label="Back to Sketchbook Hub" style="position:fixed;top:12px;right:12px;z-index:9999;width:44px;height:44px;border-radius:50%;background:#C9A24B;color:#071A33;display:flex;align-items:center;justify-content:center;font-size:20px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.35);border:2px solid #E4C77C;">🏠</a>
+
 
 <header>
   <p class="crumb">🧠 VST Thinking Lab</p>
@@ -604,5 +607,35 @@ window.CONCEPT_DATA = {
 })();
 </script>
 
+
+<script>
+/* HUB-NAV-PATCH: inject a Next-lab / Next-map link once the final step completes */
+(function(){
+  var NEXT_HREF = 'vst-08-design-the-experiment.html';
+  var NEXT_LABEL = 'Next Lab →';
+  function addNextLink(){
+    if(document.getElementById("hub-nav-next-link")) return;
+    var footer = document.querySelector("footer");
+    if(!footer) return;
+    var a = document.createElement("a");
+    a.id = "hub-nav-next-link";
+    a.href = NEXT_HREF;
+    a.textContent = NEXT_LABEL;
+    a.style.cssText = "position:fixed;bottom:64px;right:12px;z-index:9999;background:#C9A24B;color:#071A33;font-weight:700;font-size:13px;padding:10px 16px;border-radius:20px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.35);";
+    document.body.appendChild(a);
+  }
+  var target = document.getElementById("complete-btn");
+  if(target){
+    target.addEventListener("click", function(){ setTimeout(addNextLink, 150); });
+  }
+  var badgeToast = document.getElementById("badge-toast");
+  if(badgeToast){
+    var mo = new MutationObserver(function(){
+      if(badgeToast.classList.contains("show")) addNextLink();
+    });
+    mo.observe(badgeToast, { attributes: true, attributeFilter: ["class"] });
+  }
+})();
+</script>
 </body>
 </html>
