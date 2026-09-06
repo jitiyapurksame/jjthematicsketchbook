@@ -49,6 +49,7 @@
 
   .choice-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
   .choice{ flex:1 1 140px; text-align:left; background:#fff; border:2px solid var(--paper-line); color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .choice-visual{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; background:#EAF3F0; display:flex; align-items:center; justify-content:center; font-size:19px; }
   .choice[aria-pressed="true"]{ border-color:var(--ocean); background:#EAF3F0; }
   .choice.correct{ border-color:var(--success); background:#E7F6EC; }
   .choice.incorrect{ border-color:var(--coral); background:#FBEAE3; }
@@ -168,6 +169,10 @@
       <h2>🔮 Guess before you check</h2>
       <div class="scenario-box" id="predict-scenario"></div>
       <p>Finish this sentence:</p>
+      <p class="chip-label">Stuck? Tap a sentence starter</p>
+      <div class="chip-row" id="predict-starters"></div>
+      <p class="chip-label">Try to use these words</p>
+      <div class="chip-row" id="predict-keywords"></div>
       <textarea id="predict-text" placeholder="I predict ___ because ___."></textarea>
     </div>
     <div class="nav-buttons">
@@ -240,15 +245,18 @@ window.CONCEPT_DATA = {
     "choices": [
       {
         "text": "Nothing, it's basically the same task",
-        "correct": false
+        "correct": false,
+        "visual": "🚫"
       },
       {
         "text": "A design task means YOU invent the object, using science rules to make sure your invention would actually work",
-        "correct": true
+        "correct": true,
+        "visual": "🚀"
       },
       {
         "text": "Design tasks don't need any science at all",
-        "correct": false
+        "correct": false,
+        "visual": "❌"
       }
     ],
     "explanation": "Creative engineering is 'Understand → Apply → Create.' You're not just describing how something works — you're inventing something new that has to obey the same rules."
@@ -261,10 +269,22 @@ window.CONCEPT_DATA = {
     "starters": [],
     "keywords": [],
     "drawPrompt": "Sketch your safer-ship design. Add labels for at least 2 features (like a double hull, or extra buoyancy chambers) and note WHY each one helps using ideas like density or force balance.",
-    "hintSvg": "<svg viewBox='0 0 400 200'></svg>"
+    "hintSvg": "<svg viewBox='0 0 400 200'><path d='M40,120 Q200,180 360,120 L360,150 Q200,190 40,150 Z' fill='#C9A24B' opacity='0.3'/><path d='M40,120 Q200,180 360,120' stroke='#0B2545' stroke-width='4' fill='none'/><path d='M55,115 Q200,165 345,115' stroke='#2E6E62' stroke-width='3' fill='none' stroke-dasharray='4'/><text x='200' y='100' font-size='13' text-anchor='middle' fill='#071A33'>double hull (safety gap)</text><rect x='150' y='122' width='100' height='25' fill='#EAF3F0' stroke='#2E6E62' stroke-width='2'/><text x='200' y='139' font-size='11' text-anchor='middle' fill='#071A33'>extra buoyancy chamber</text></svg>"
   },
   "predict": {
-    "scenario": "🍄 Now imagine designing a Mario level that uses REAL gravity and force-balance rules, instead of cartoon physics. What would feel different to play?"
+    "scenario": "🍄 Now imagine designing a Mario level that uses REAL gravity and force-balance rules, instead of cartoon physics. What would feel different to play?",
+    "starters": [
+      "I predict...",
+      "...will increase because...",
+      "...will decrease because...",
+      "...will stay the same because..."
+    ],
+    "keywords": [
+      "momentum",
+      "gravity",
+      "real-physics",
+      "jump height"
+    ]
   },
   "test": {
     "reveal": "A real-physics Mario level would have MUCH lower jumps (since real gravity is stronger relative to a small jump push), slower falls would feel floatier only on smaller worlds (like the Moon), and momentum would carry Mario further before stopping — no instant stop-on-a-dime like cartoon physics allows.",
@@ -367,7 +387,16 @@ window.CONCEPT_DATA = {
       btn.type = "button";
       btn.className = "choice";
       btn.setAttribute("aria-pressed", "false");
-      btn.textContent = choice.text;
+      if(choice.visual){
+        var visualSpan = document.createElement("span");
+        visualSpan.className = "choice-visual";
+        visualSpan.textContent = choice.visual;
+        visualSpan.setAttribute("aria-hidden", "true");
+        btn.appendChild(visualSpan);
+      }
+      var textSpan = document.createElement("span");
+      textSpan.textContent = choice.text;
+      btn.appendChild(textSpan);
       btn.addEventListener("click", function(){
         wrap.querySelectorAll(".choice").forEach(function(c){ c.classList.remove("correct","incorrect"); c.setAttribute("aria-pressed","false"); });
         var fb = feedbackId ? document.getElementById(feedbackId) : null;
@@ -535,6 +564,29 @@ window.CONCEPT_DATA = {
   var predictText = document.getElementById("predict-text");
   predictText.value = state.predictText || "";
   predictText.addEventListener("input", function(){ state.predictText = predictText.value; saveState(state); });
+  var predStarterWrap = document.getElementById("predict-starters");
+  (DATA.predict.starters || []).forEach(function(s){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip"; chip.textContent = s;
+    chip.addEventListener("click", function(){
+      predictText.value = predictText.value.trim().length ? predictText.value : s;
+      predictText.focus();
+      state.predictText = predictText.value; saveState(state);
+    });
+    predStarterWrap.appendChild(chip);
+  });
+  var predKeywordWrap = document.getElementById("predict-keywords");
+  (DATA.predict.keywords || []).forEach(function(k){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip keyword"; chip.textContent = k;
+    chip.addEventListener("click", function(){
+      var sep = predictText.value.length && !predictText.value.endsWith(" ") ? " " : "";
+      predictText.value = predictText.value + sep + k + " ";
+      predictText.focus();
+      state.predictText = predictText.value; saveState(state);
+    });
+    predKeywordWrap.appendChild(chip);
+  });
 
   /* ---------- Test ---------- */
   document.getElementById("test-reveal").textContent = DATA.test.reveal;

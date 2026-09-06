@@ -45,6 +45,7 @@
 
   .choice-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
   .choice{ flex:1 1 140px; text-align:left; background:#fff; border:2px solid var(--paper-line); color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .choice-visual{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; background:#EAF3F0; display:flex; align-items:center; justify-content:center; font-size:19px; }
   .choice[aria-pressed="true"]{ border-color:var(--ocean); background:#EAF3F0; }
   .choice.correct{ border-color:var(--success); background:#E7F6EC; }
   .choice.incorrect{ border-color:var(--coral); background:#FBEAE3; }
@@ -220,7 +221,7 @@ window.CONCEPT_DATA = {
   },
   "draw": {
     "prompt": "Draw your OWN 3-step density chain. Pick any two things you know float or sink, and show why with arrows.",
-    "hintSvg": "<svg viewBox='0 0 400 200'></svg>"
+    "hintSvg": "<svg viewBox='0 0 400 200'><rect x='20' y='100' width='360' height='80' fill='#BFD9D3' opacity='0.6'/><circle cx='120' cy='65' r='22' fill='#C9A24B'/><text x='120' y='70' font-size='13' text-anchor='middle' fill='#071A33'>floats</text><line x1='120' y1='40' x2='120' y2='12' stroke='#2E6E62' stroke-width='4'/><polygon points='120,6 110,20 130,20' fill='#2E6E62'/><circle cx='280' cy='150' r='18' fill='#D9603B'/><text x='280' y='154' font-size='12' text-anchor='middle' fill='#fff'>sinks</text><line x1='280' y1='170' x2='280' y2='195' stroke='#D9603B' stroke-width='4'/><polygon points='280,199 270,186 290,186' fill='#D9603B'/></svg>"
   },
   "explain": {
     "prompt": "In your own words: what does 'density' actually control?",
@@ -243,15 +244,18 @@ window.CONCEPT_DATA = {
     "choices": [
       {
         "text": "The duck is smaller than the spoon",
-        "correct": false
+        "correct": false,
+        "visual": "📏"
       },
       {
         "text": "The duck is less dense than water, the spoon is denser than water",
-        "correct": true
+        "correct": true,
+        "visual": "⚖️"
       },
       {
         "text": "The spoon is heavier in total",
-        "correct": false
+        "correct": false,
+        "visual": "🏋️"
       }
     ],
     "explanation": "Size and total weight don't decide float/sink on their own — density (mass packed into that volume) does."
@@ -335,7 +339,16 @@ window.CONCEPT_DATA = {
       btn.type = "button";
       btn.className = "choice";
       btn.setAttribute("aria-pressed", "false");
-      btn.textContent = choice.text;
+      if(choice.visual){
+        var visualSpan = document.createElement("span");
+        visualSpan.className = "choice-visual";
+        visualSpan.textContent = choice.visual;
+        visualSpan.setAttribute("aria-hidden", "true");
+        btn.appendChild(visualSpan);
+      }
+      var textSpan = document.createElement("span");
+      textSpan.textContent = choice.text;
+      btn.appendChild(textSpan);
       btn.addEventListener("click", function(){
         wrap.querySelectorAll(".choice").forEach(function(c){ c.classList.remove("correct","incorrect"); c.setAttribute("aria-pressed","false"); });
         var fb = feedbackId ? document.getElementById(feedbackId) : null;

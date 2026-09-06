@@ -45,6 +45,7 @@
 
   .choice-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
   .choice{ flex:1 1 140px; text-align:left; background:#fff; border:2px solid var(--paper-line); color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .choice-visual{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; background:#EAF3F0; display:flex; align-items:center; justify-content:center; font-size:19px; }
   .choice[aria-pressed="true"]{ border-color:var(--ocean); background:#EAF3F0; }
   .choice.correct{ border-color:var(--success); background:#E7F6EC; }
   .choice.incorrect{ border-color:var(--coral); background:#FBEAE3; }
@@ -215,7 +216,7 @@ window.CONCEPT_DATA = {
   },
   "draw": {
     "prompt": "Draw 'before' and 'after' pictures of particles diffusing — crowded on one side, then spread evenly.",
-    "hintSvg": "<svg viewBox='0 0 400 200'></svg>"
+    "hintSvg": "<svg viewBox='0 0 400 200'><text x='90' y='30' font-size='13' text-anchor='middle' fill='#071A33'>crowded</text><circle cx='70' cy='80' r='6' fill='#D9603B'/><circle cx='85' cy='95' r='6' fill='#D9603B'/><circle cx='60' cy='105' r='6' fill='#D9603B'/><circle cx='90' cy='70' r='6' fill='#D9603B'/><circle cx='75' cy='60' r='6' fill='#D9603B'/><line x1='140' y1='90' x2='258' y2='90' stroke='#C9A24B' stroke-width='5'/><polygon points='270,90 254,80 254,100' fill='#C9A24B'/><text x='330' y='30' font-size='13' text-anchor='middle' fill='#071A33'>spread out</text><circle cx='300' cy='60' r='6' fill='#2E6E62'/><circle cx='340' cy='70' r='6' fill='#2E6E62'/><circle cx='310' cy='110' r='6' fill='#2E6E62'/><circle cx='360' cy='100' r='6' fill='#2E6E62'/><circle cx='330' cy='140' r='6' fill='#2E6E62'/></svg>"
   },
   "explain": {
     "prompt": "Diffusion always moves particles from where there are MANY to where there are FEW. Explain why that happens, in your own words.",
@@ -238,15 +239,18 @@ window.CONCEPT_DATA = {
     "choices": [
       {
         "text": "The chip smell particles diffuse from high to low concentration through the air",
-        "correct": true
+        "correct": true,
+        "visual": "💨"
       },
       {
         "text": "The smell teleports instantly to your nose",
-        "correct": false
+        "correct": false,
+        "visual": "⚡"
       },
       {
         "text": "Only chips do this — it's not a general rule",
-        "correct": false
+        "correct": false,
+        "visual": "🚫"
       }
     ],
     "explanation": "Same rule as the marinade and the dye — smell particles spread from crowded (near the bag) to less crowded (across the room) all on their own."
@@ -330,7 +334,16 @@ window.CONCEPT_DATA = {
       btn.type = "button";
       btn.className = "choice";
       btn.setAttribute("aria-pressed", "false");
-      btn.textContent = choice.text;
+      if(choice.visual){
+        var visualSpan = document.createElement("span");
+        visualSpan.className = "choice-visual";
+        visualSpan.textContent = choice.visual;
+        visualSpan.setAttribute("aria-hidden", "true");
+        btn.appendChild(visualSpan);
+      }
+      var textSpan = document.createElement("span");
+      textSpan.textContent = choice.text;
+      btn.appendChild(textSpan);
       btn.addEventListener("click", function(){
         wrap.querySelectorAll(".choice").forEach(function(c){ c.classList.remove("correct","incorrect"); c.setAttribute("aria-pressed","false"); });
         var fb = feedbackId ? document.getElementById(feedbackId) : null;

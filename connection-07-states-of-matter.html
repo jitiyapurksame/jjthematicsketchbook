@@ -45,6 +45,7 @@
 
   .choice-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
   .choice{ flex:1 1 140px; text-align:left; background:#fff; border:2px solid var(--paper-line); color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .choice-visual{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; background:#EAF3F0; display:flex; align-items:center; justify-content:center; font-size:19px; }
   .choice[aria-pressed="true"]{ border-color:var(--ocean); background:#EAF3F0; }
   .choice.correct{ border-color:var(--success); background:#E7F6EC; }
   .choice.incorrect{ border-color:var(--coral); background:#FBEAE3; }
@@ -215,7 +216,7 @@ window.CONCEPT_DATA = {
   },
   "draw": {
     "prompt": "Draw the SAME group of particles three times: packed and still (solid), loose and sliding (liquid), and flying apart (gas).",
-    "hintSvg": "<svg viewBox='0 0 400 200'></svg>"
+    "hintSvg": "<svg viewBox='0 0 400 200'><rect x='20' y='40' width='100' height='120' fill='none' stroke='#0B2545' stroke-width='2'/><text x='70' y='30' font-size='12' text-anchor='middle'>solid</text><circle cx='40' cy='60' r='5' fill='#0B2545'/><circle cx='70' cy='60' r='5' fill='#0B2545'/><circle cx='100' cy='60' r='5' fill='#0B2545'/><circle cx='40' cy='90' r='5' fill='#0B2545'/><circle cx='70' cy='90' r='5' fill='#0B2545'/><circle cx='100' cy='90' r='5' fill='#0B2545'/><circle cx='40' cy='120' r='5' fill='#0B2545'/><circle cx='70' cy='120' r='5' fill='#0B2545'/><circle cx='100' cy='120' r='5' fill='#0B2545'/><rect x='150' y='40' width='100' height='120' fill='none' stroke='#0B2545' stroke-width='2'/><text x='200' y='30' font-size='12' text-anchor='middle'>liquid</text><circle cx='170' cy='70' r='5' fill='#2E6E62'/><circle cx='210' cy='80' r='5' fill='#2E6E62'/><circle cx='190' cy='110' r='5' fill='#2E6E62'/><circle cx='230' cy='125' r='5' fill='#2E6E62'/><circle cx='165' cy='135' r='5' fill='#2E6E62'/><rect x='280' y='40' width='100' height='120' fill='none' stroke='#0B2545' stroke-width='2'/><text x='330' y='30' font-size='12' text-anchor='middle'>gas</text><circle cx='300' cy='55' r='5' fill='#D9603B'/><circle cx='360' cy='75' r='5' fill='#D9603B'/><circle cx='310' cy='140' r='5' fill='#D9603B'/><circle cx='355' cy='115' r='5' fill='#D9603B'/></svg>"
   },
   "explain": {
     "prompt": "What is heat actually DOING to particles when a solid melts into a liquid?",
@@ -238,15 +239,18 @@ window.CONCEPT_DATA = {
     "choices": [
       {
         "text": "The water particles vanish completely",
-        "correct": false
+        "correct": false,
+        "visual": "🚫"
       },
       {
         "text": "Sun energy speeds up surface particles enough to escape into the air as gas — evaporation",
-        "correct": true
+        "correct": true,
+        "visual": "☀️"
       },
       {
         "text": "The puddle sinks into the ground instead",
-        "correct": false
+        "correct": false,
+        "visual": "⬇️"
       }
     ],
     "explanation": "Same particle-speed rule as melting butter and boiling water — enough added energy, and particles break free into a gas, just at a slower pace (evaporation instead of boiling)."
@@ -330,7 +334,16 @@ window.CONCEPT_DATA = {
       btn.type = "button";
       btn.className = "choice";
       btn.setAttribute("aria-pressed", "false");
-      btn.textContent = choice.text;
+      if(choice.visual){
+        var visualSpan = document.createElement("span");
+        visualSpan.className = "choice-visual";
+        visualSpan.textContent = choice.visual;
+        visualSpan.setAttribute("aria-hidden", "true");
+        btn.appendChild(visualSpan);
+      }
+      var textSpan = document.createElement("span");
+      textSpan.textContent = choice.text;
+      btn.appendChild(textSpan);
       btn.addEventListener("click", function(){
         wrap.querySelectorAll(".choice").forEach(function(c){ c.classList.remove("correct","incorrect"); c.setAttribute("aria-pressed","false"); });
         var fb = feedbackId ? document.getElementById(feedbackId) : null;

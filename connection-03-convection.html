@@ -45,6 +45,7 @@
 
   .choice-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
   .choice{ flex:1 1 140px; text-align:left; background:#fff; border:2px solid var(--paper-line); color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .choice-visual{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; background:#EAF3F0; display:flex; align-items:center; justify-content:center; font-size:19px; }
   .choice[aria-pressed="true"]{ border-color:var(--ocean); background:#EAF3F0; }
   .choice.correct{ border-color:var(--success); background:#E7F6EC; }
   .choice.incorrect{ border-color:var(--coral); background:#FBEAE3; }
@@ -215,7 +216,7 @@ window.CONCEPT_DATA = {
   },
   "draw": {
     "prompt": "Draw a convection loop using arrows: where does it heat up, where does it cool down, which way does it circle?",
-    "hintSvg": "<svg viewBox='0 0 400 200'></svg>"
+    "hintSvg": "<svg viewBox='0 0 400 200'><rect x='60' y='20' width='280' height='160' rx='12' fill='none' stroke='#0B2545' stroke-width='3'/><line x1='140' y1='160' x2='140' y2='42' stroke='#D9603B' stroke-width='5'/><polygon points='140,32 128,50 152,50' fill='#D9603B'/><text x='140' y='185' font-size='13' text-anchor='middle' fill='#071A33'>hot rises</text><line x1='280' y1='40' x2='280' y2='158' stroke='#2E6E62' stroke-width='5'/><polygon points='280,168 268,150 292,150' fill='#2E6E62'/><text x='280' y='15' font-size='13' text-anchor='middle' fill='#071A33'>cool sinks</text></svg>"
   },
   "explain": {
     "prompt": "Why does hot fluid rise and cold fluid sink? Use the word 'density' in your answer.",
@@ -238,15 +239,18 @@ window.CONCEPT_DATA = {
     "choices": [
       {
         "text": "Heat only travels sideways, never up",
-        "correct": false
+        "correct": false,
+        "visual": "➡️"
       },
       {
         "text": "The warmed air near the floor becomes less dense and rises, circulating the whole room",
-        "correct": true
+        "correct": true,
+        "visual": "♨️"
       },
       {
         "text": "It doesn't matter where the heater is placed",
-        "correct": false
+        "correct": false,
+        "visual": "🤷"
       }
     ],
     "explanation": "Same convection loop as the soup pot and the ocean — warm air rises, cools at the top, sinks, and gets reheated at the bottom."
@@ -330,7 +334,16 @@ window.CONCEPT_DATA = {
       btn.type = "button";
       btn.className = "choice";
       btn.setAttribute("aria-pressed", "false");
-      btn.textContent = choice.text;
+      if(choice.visual){
+        var visualSpan = document.createElement("span");
+        visualSpan.className = "choice-visual";
+        visualSpan.textContent = choice.visual;
+        visualSpan.setAttribute("aria-hidden", "true");
+        btn.appendChild(visualSpan);
+      }
+      var textSpan = document.createElement("span");
+      textSpan.textContent = choice.text;
+      btn.appendChild(textSpan);
       btn.addEventListener("click", function(){
         wrap.querySelectorAll(".choice").forEach(function(c){ c.classList.remove("correct","incorrect"); c.setAttribute("aria-pressed","false"); });
         var fb = feedbackId ? document.getElementById(feedbackId) : null;

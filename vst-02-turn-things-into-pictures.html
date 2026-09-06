@@ -49,6 +49,7 @@
 
   .choice-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
   .choice{ flex:1 1 140px; text-align:left; background:#fff; border:2px solid var(--paper-line); color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .choice-visual{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; background:#EAF3F0; display:flex; align-items:center; justify-content:center; font-size:19px; }
   .choice[aria-pressed="true"]{ border-color:var(--ocean); background:#EAF3F0; }
   .choice.correct{ border-color:var(--success); background:#E7F6EC; }
   .choice.incorrect{ border-color:var(--coral); background:#FBEAE3; }
@@ -168,6 +169,10 @@
       <h2>🔮 Guess before you check</h2>
       <div class="scenario-box" id="predict-scenario"></div>
       <p>Finish this sentence:</p>
+      <p class="chip-label">Stuck? Tap a sentence starter</p>
+      <div class="chip-row" id="predict-starters"></div>
+      <p class="chip-label">Try to use these words</p>
+      <div class="chip-row" id="predict-keywords"></div>
       <textarea id="predict-text" placeholder="I predict ___ because ___."></textarea>
     </div>
     <div class="nav-buttons">
@@ -240,15 +245,18 @@ window.CONCEPT_DATA = {
     "choices": [
       {
         "text": "A detailed painting of the ship's colors and flags",
-        "correct": false
+        "correct": false,
+        "visual": "🎨"
       },
       {
         "text": "A simple ship shape with an up arrow and a down arrow labeled",
-        "correct": true
+        "correct": true,
+        "visual": "📐"
       },
       {
         "text": "A photo-realistic sketch with shading and shadows",
-        "correct": false
+        "correct": false,
+        "visual": "🖼️"
       }
     ],
     "explanation": "Scientific diagrams strip away decoration and keep only what matters: shapes, arrows, and labels that show forces or parts."
@@ -261,10 +269,23 @@ window.CONCEPT_DATA = {
     "starters": [],
     "keywords": [],
     "drawPrompt": "Draw particles (dots or circles) packed together to represent bread's structure. Don't draw a realistic bread photo — draw the PATTERN of particles instead.",
-    "hintSvg": "<svg viewBox='0 0 400 200'></svg>"
+    "hintSvg": "<svg viewBox='0 0 400 200'><rect x='60' y='30' width='280' height='140' rx='8' fill='#F3EEE1' stroke='#0B2545' stroke-width='2'/><circle cx='100' cy='60' r='7' fill='#C9A24B'/><circle cx='140' cy='60' r='7' fill='#C9A24B'/><circle cx='180' cy='60' r='7' fill='#C9A24B'/><circle cx='220' cy='60' r='7' fill='#C9A24B'/><circle cx='260' cy='60' r='7' fill='#C9A24B'/><circle cx='300' cy='60' r='7' fill='#C9A24B'/><circle cx='100' cy='95' r='7' fill='#C9A24B'/><circle cx='140' cy='95' r='7' fill='#C9A24B'/><circle cx='180' cy='95' r='7' fill='#C9A24B'/><circle cx='220' cy='95' r='7' fill='#C9A24B'/><circle cx='260' cy='95' r='7' fill='#C9A24B'/><circle cx='300' cy='95' r='7' fill='#C9A24B'/><circle cx='100' cy='130' r='7' fill='#C9A24B'/><circle cx='140' cy='130' r='7' fill='#C9A24B'/><circle cx='180' cy='130' r='7' fill='#C9A24B'/><circle cx='220' cy='130' r='7' fill='#C9A24B'/><circle cx='260' cy='130' r='7' fill='#C9A24B'/><circle cx='300' cy='130' r='7' fill='#C9A24B'/><text x='200' y='20' font-size='13' text-anchor='middle' fill='#071A33'>packed particles, not a bread photo</text></svg>"
   },
   "predict": {
-    "scenario": "🚢 If you turned the Titanic sideways and sliced it in half, what shapes would you expect to see inside?"
+    "scenario": "🚢 If you turned the Titanic sideways and sliced it in half, what shapes would you expect to see inside?",
+    "starters": [
+      "I predict...",
+      "...will increase because...",
+      "...will decrease because...",
+      "...will stay the same because..."
+    ],
+    "keywords": [
+      "deck",
+      "layer",
+      "hull",
+      "section",
+      "engine room"
+    ]
   },
   "test": {
     "reveal": "A real cross-section shows deck layers stacked like a cake, with the engine room low and heavy (for balance) and passenger decks higher up.",
@@ -367,7 +388,16 @@ window.CONCEPT_DATA = {
       btn.type = "button";
       btn.className = "choice";
       btn.setAttribute("aria-pressed", "false");
-      btn.textContent = choice.text;
+      if(choice.visual){
+        var visualSpan = document.createElement("span");
+        visualSpan.className = "choice-visual";
+        visualSpan.textContent = choice.visual;
+        visualSpan.setAttribute("aria-hidden", "true");
+        btn.appendChild(visualSpan);
+      }
+      var textSpan = document.createElement("span");
+      textSpan.textContent = choice.text;
+      btn.appendChild(textSpan);
       btn.addEventListener("click", function(){
         wrap.querySelectorAll(".choice").forEach(function(c){ c.classList.remove("correct","incorrect"); c.setAttribute("aria-pressed","false"); });
         var fb = feedbackId ? document.getElementById(feedbackId) : null;
@@ -535,6 +565,29 @@ window.CONCEPT_DATA = {
   var predictText = document.getElementById("predict-text");
   predictText.value = state.predictText || "";
   predictText.addEventListener("input", function(){ state.predictText = predictText.value; saveState(state); });
+  var predStarterWrap = document.getElementById("predict-starters");
+  (DATA.predict.starters || []).forEach(function(s){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip"; chip.textContent = s;
+    chip.addEventListener("click", function(){
+      predictText.value = predictText.value.trim().length ? predictText.value : s;
+      predictText.focus();
+      state.predictText = predictText.value; saveState(state);
+    });
+    predStarterWrap.appendChild(chip);
+  });
+  var predKeywordWrap = document.getElementById("predict-keywords");
+  (DATA.predict.keywords || []).forEach(function(k){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip keyword"; chip.textContent = k;
+    chip.addEventListener("click", function(){
+      var sep = predictText.value.length && !predictText.value.endsWith(" ") ? " " : "";
+      predictText.value = predictText.value + sep + k + " ";
+      predictText.focus();
+      state.predictText = predictText.value; saveState(state);
+    });
+    predKeywordWrap.appendChild(chip);
+  });
 
   /* ---------- Test ---------- */
   document.getElementById("test-reveal").textContent = DATA.test.reveal;
@@ -597,7 +650,6 @@ window.CONCEPT_DATA = {
   goTo(0);
 })();
 </script>
-
 
 
 <script>

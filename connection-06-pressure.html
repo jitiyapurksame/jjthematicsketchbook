@@ -45,6 +45,7 @@
 
   .choice-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
   .choice{ flex:1 1 140px; text-align:left; background:#fff; border:2px solid var(--paper-line); color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .choice-visual{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; background:#EAF3F0; display:flex; align-items:center; justify-content:center; font-size:19px; }
   .choice[aria-pressed="true"]{ border-color:var(--ocean); background:#EAF3F0; }
   .choice.correct{ border-color:var(--success); background:#E7F6EC; }
   .choice.incorrect{ border-color:var(--coral); background:#FBEAE3; }
@@ -215,7 +216,7 @@ window.CONCEPT_DATA = {
   },
   "draw": {
     "prompt": "Draw a tall arrow from deep ocean to high mountain. Mark where pressure is highest and where it's lowest.",
-    "hintSvg": "<svg viewBox='0 0 400 200'></svg>"
+    "hintSvg": "<svg viewBox='0 0 400 200'><text x='200' y='20' font-size='13' text-anchor='middle' fill='#071A33'>less pressure (high up)</text><line x1='200' y1='35' x2='200' y2='175' stroke='#0B2545' stroke-width='3'/><line x1='150' y1='60' x2='250' y2='60' stroke='#2E6E62' stroke-width='3'/><line x1='140' y1='105' x2='260' y2='105' stroke='#C9A24B' stroke-width='5'/><line x1='125' y1='155' x2='275' y2='155' stroke='#D9603B' stroke-width='7'/><text x='200' y='196' font-size='13' text-anchor='middle' fill='#071A33'>more pressure (deep down)</text></svg>"
   },
   "explain": {
     "prompt": "Explain why pressure goes UP as you go deeper in water, but goes DOWN as you go higher in the air.",
@@ -238,15 +239,18 @@ window.CONCEPT_DATA = {
     "choices": [
       {
         "text": "The chips got warmer and expanded",
-        "correct": false
+        "correct": false,
+        "visual": "🌡️"
       },
       {
         "text": "Outside air pressure dropped at altitude, so the air trapped inside the bag pushed the bag outward",
-        "correct": true
+        "correct": true,
+        "visual": "✈️"
       },
       {
         "text": "The bag absorbed extra air from the cabin",
-        "correct": false
+        "correct": false,
+        "visual": "🚫"
       }
     ],
     "explanation": "Same rule as the mountain air — less air pressure outside means the pressure difference pushes the bag to puff out."
@@ -330,7 +334,16 @@ window.CONCEPT_DATA = {
       btn.type = "button";
       btn.className = "choice";
       btn.setAttribute("aria-pressed", "false");
-      btn.textContent = choice.text;
+      if(choice.visual){
+        var visualSpan = document.createElement("span");
+        visualSpan.className = "choice-visual";
+        visualSpan.textContent = choice.visual;
+        visualSpan.setAttribute("aria-hidden", "true");
+        btn.appendChild(visualSpan);
+      }
+      var textSpan = document.createElement("span");
+      textSpan.textContent = choice.text;
+      btn.appendChild(textSpan);
       btn.addEventListener("click", function(){
         wrap.querySelectorAll(".choice").forEach(function(c){ c.classList.remove("correct","incorrect"); c.setAttribute("aria-pressed","false"); });
         var fb = feedbackId ? document.getElementById(feedbackId) : null;

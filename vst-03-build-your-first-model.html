@@ -49,6 +49,7 @@
 
   .choice-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
   .choice{ flex:1 1 140px; text-align:left; background:#fff; border:2px solid var(--paper-line); color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .choice-visual{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; background:#EAF3F0; display:flex; align-items:center; justify-content:center; font-size:19px; }
   .choice[aria-pressed="true"]{ border-color:var(--ocean); background:#EAF3F0; }
   .choice.correct{ border-color:var(--success); background:#E7F6EC; }
   .choice.incorrect{ border-color:var(--coral); background:#FBEAE3; }
@@ -168,6 +169,10 @@
       <h2>🔮 Guess before you check</h2>
       <div class="scenario-box" id="predict-scenario"></div>
       <p>Finish this sentence:</p>
+      <p class="chip-label">Stuck? Tap a sentence starter</p>
+      <div class="chip-row" id="predict-starters"></div>
+      <p class="chip-label">Try to use these words</p>
+      <div class="chip-row" id="predict-keywords"></div>
       <textarea id="predict-text" placeholder="I predict ___ because ___."></textarea>
     </div>
     <div class="nav-buttons">
@@ -240,15 +245,18 @@ window.CONCEPT_DATA = {
     "choices": [
       {
         "text": "A photo of the ship on calm water",
-        "correct": false
+        "correct": false,
+        "visual": "📷"
       },
       {
         "text": "Water ↑ Buoyant Force, Ship, ↓ Weight — with two labeled arrows",
-        "correct": true
+        "correct": true,
+        "visual": "📐"
       },
       {
         "text": "A drawing of passengers waving from the deck",
-        "correct": false
+        "correct": false,
+        "visual": "🖼️"
       }
     ],
     "explanation": "Model ≠ Picture. A model shows the invisible things — forces, variables, relationships — using arrows and labels, not just what a camera would see."
@@ -261,10 +269,23 @@ window.CONCEPT_DATA = {
     "starters": [],
     "keywords": [],
     "drawPrompt": "Draw Mario as a simple shape. Add an arrow pointing DOWN labeled 'weight' and an arrow pointing UP labeled 'normal force' — same two-arrow trick as the ship.",
-    "hintSvg": "<svg viewBox='0 0 400 200'></svg>"
+    "hintSvg": "<svg viewBox='0 0 400 200'><circle cx='200' cy='90' r='16' fill='#C9A24B'/><line x1='200' y1='106' x2='200' y2='150' stroke='#0B2545' stroke-width='5'/><line x1='200' y1='150' x2='180' y2='180' stroke='#0B2545' stroke-width='4'/><line x1='200' y1='150' x2='220' y2='180' stroke='#0B2545' stroke-width='4'/><line x1='200' y1='74' x2='200' y2='30' stroke='#2E6E62' stroke-width='5'/><polygon points='200,20 188,38 212,38' fill='#2E6E62'/><text x='200' y='15' font-size='12' text-anchor='middle' fill='#071A33'>normal force (up)</text><text x='200' y='198' font-size='12' text-anchor='middle' fill='#071A33'>weight (down, equal!)</text></svg>"
   },
   "predict": {
-    "scenario": "🌊 Now think about an iceberg floating in the ocean instead of a ship."
+    "scenario": "🌊 Now think about an iceberg floating in the ocean instead of a ship.",
+    "starters": [
+      "I predict...",
+      "...will increase because...",
+      "...will decrease because...",
+      "...will stay the same because..."
+    ],
+    "keywords": [
+      "buoyancy",
+      "weight",
+      "density",
+      "arrow",
+      "balance"
+    ]
   },
   "test": {
     "reveal": "An iceberg's model looks identical to the ship's: buoyant force pushing up, weight pulling down — just a different object. Same invisible rule, new example.",
@@ -367,7 +388,16 @@ window.CONCEPT_DATA = {
       btn.type = "button";
       btn.className = "choice";
       btn.setAttribute("aria-pressed", "false");
-      btn.textContent = choice.text;
+      if(choice.visual){
+        var visualSpan = document.createElement("span");
+        visualSpan.className = "choice-visual";
+        visualSpan.textContent = choice.visual;
+        visualSpan.setAttribute("aria-hidden", "true");
+        btn.appendChild(visualSpan);
+      }
+      var textSpan = document.createElement("span");
+      textSpan.textContent = choice.text;
+      btn.appendChild(textSpan);
       btn.addEventListener("click", function(){
         wrap.querySelectorAll(".choice").forEach(function(c){ c.classList.remove("correct","incorrect"); c.setAttribute("aria-pressed","false"); });
         var fb = feedbackId ? document.getElementById(feedbackId) : null;
@@ -535,6 +565,29 @@ window.CONCEPT_DATA = {
   var predictText = document.getElementById("predict-text");
   predictText.value = state.predictText || "";
   predictText.addEventListener("input", function(){ state.predictText = predictText.value; saveState(state); });
+  var predStarterWrap = document.getElementById("predict-starters");
+  (DATA.predict.starters || []).forEach(function(s){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip"; chip.textContent = s;
+    chip.addEventListener("click", function(){
+      predictText.value = predictText.value.trim().length ? predictText.value : s;
+      predictText.focus();
+      state.predictText = predictText.value; saveState(state);
+    });
+    predStarterWrap.appendChild(chip);
+  });
+  var predKeywordWrap = document.getElementById("predict-keywords");
+  (DATA.predict.keywords || []).forEach(function(k){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip keyword"; chip.textContent = k;
+    chip.addEventListener("click", function(){
+      var sep = predictText.value.length && !predictText.value.endsWith(" ") ? " " : "";
+      predictText.value = predictText.value + sep + k + " ";
+      predictText.focus();
+      state.predictText = predictText.value; saveState(state);
+    });
+    predKeywordWrap.appendChild(chip);
+  });
 
   /* ---------- Test ---------- */
   document.getElementById("test-reveal").textContent = DATA.test.reveal;
@@ -597,7 +650,6 @@ window.CONCEPT_DATA = {
   goTo(0);
 })();
 </script>
-
 
 
 <script>

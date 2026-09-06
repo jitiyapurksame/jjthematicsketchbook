@@ -49,6 +49,7 @@
 
   .choice-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
   .choice{ flex:1 1 140px; text-align:left; background:#fff; border:2px solid var(--paper-line); color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .choice-visual{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; background:#EAF3F0; display:flex; align-items:center; justify-content:center; font-size:19px; }
   .choice[aria-pressed="true"]{ border-color:var(--ocean); background:#EAF3F0; }
   .choice.correct{ border-color:var(--success); background:#E7F6EC; }
   .choice.incorrect{ border-color:var(--coral); background:#FBEAE3; }
@@ -168,6 +169,10 @@
       <h2>🔮 Guess before you check</h2>
       <div class="scenario-box" id="predict-scenario"></div>
       <p>Finish this sentence:</p>
+      <p class="chip-label">Stuck? Tap a sentence starter</p>
+      <div class="chip-row" id="predict-starters"></div>
+      <p class="chip-label">Try to use these words</p>
+      <div class="chip-row" id="predict-keywords"></div>
       <textarea id="predict-text" placeholder="I predict ___ because ___."></textarea>
     </div>
     <div class="nav-buttons">
@@ -240,15 +245,18 @@ window.CONCEPT_DATA = {
     "choices": [
       {
         "text": "What is the boiling point of water?",
-        "correct": false
+        "correct": false,
+        "visual": "📖"
       },
       {
         "text": "Does adding salt change how fast water boils, and by how much?",
-        "correct": true
+        "correct": true,
+        "visual": "🔬"
       },
       {
         "text": "What color is the ocean?",
-        "correct": false
+        "correct": false,
+        "visual": "📖"
       }
     ],
     "explanation": "A fact-lookup question already has a known answer somewhere. A research question compares something, tests a relationship, or explores something genuinely uncertain — that's what makes it worth investigating."
@@ -273,7 +281,19 @@ window.CONCEPT_DATA = {
     "hintSvg": "<svg viewBox='0 0 400 200'></svg>"
   },
   "predict": {
-    "scenario": "🧊 Example seed question: 'Does the SHAPE of an ice cube (cube vs. sphere vs. flat disc) change how fast it melts?'"
+    "scenario": "🧊 Example seed question: 'Does the SHAPE of an ice cube (cube vs. sphere vs. flat disc) change how fast it melts?'",
+    "starters": [
+      "I predict...",
+      "...will increase because...",
+      "...will decrease because...",
+      "...will stay the same because..."
+    ],
+    "keywords": [
+      "question",
+      "evidence",
+      "curious",
+      "uncertain"
+    ]
   },
   "test": {
     "reveal": "A real answer needs: a hypothesis (e.g., 'more surface area melts faster'), a fair test (same starting temp/size), data (melt times), and an honest note about limitations (like room temperature not staying perfectly constant).",
@@ -376,7 +396,16 @@ window.CONCEPT_DATA = {
       btn.type = "button";
       btn.className = "choice";
       btn.setAttribute("aria-pressed", "false");
-      btn.textContent = choice.text;
+      if(choice.visual){
+        var visualSpan = document.createElement("span");
+        visualSpan.className = "choice-visual";
+        visualSpan.textContent = choice.visual;
+        visualSpan.setAttribute("aria-hidden", "true");
+        btn.appendChild(visualSpan);
+      }
+      var textSpan = document.createElement("span");
+      textSpan.textContent = choice.text;
+      btn.appendChild(textSpan);
       btn.addEventListener("click", function(){
         wrap.querySelectorAll(".choice").forEach(function(c){ c.classList.remove("correct","incorrect"); c.setAttribute("aria-pressed","false"); });
         var fb = feedbackId ? document.getElementById(feedbackId) : null;
@@ -544,6 +573,29 @@ window.CONCEPT_DATA = {
   var predictText = document.getElementById("predict-text");
   predictText.value = state.predictText || "";
   predictText.addEventListener("input", function(){ state.predictText = predictText.value; saveState(state); });
+  var predStarterWrap = document.getElementById("predict-starters");
+  (DATA.predict.starters || []).forEach(function(s){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip"; chip.textContent = s;
+    chip.addEventListener("click", function(){
+      predictText.value = predictText.value.trim().length ? predictText.value : s;
+      predictText.focus();
+      state.predictText = predictText.value; saveState(state);
+    });
+    predStarterWrap.appendChild(chip);
+  });
+  var predKeywordWrap = document.getElementById("predict-keywords");
+  (DATA.predict.keywords || []).forEach(function(k){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip keyword"; chip.textContent = k;
+    chip.addEventListener("click", function(){
+      var sep = predictText.value.length && !predictText.value.endsWith(" ") ? " " : "";
+      predictText.value = predictText.value + sep + k + " ";
+      predictText.focus();
+      state.predictText = predictText.value; saveState(state);
+    });
+    predKeywordWrap.appendChild(chip);
+  });
 
   /* ---------- Test ---------- */
   document.getElementById("test-reveal").textContent = DATA.test.reveal;
