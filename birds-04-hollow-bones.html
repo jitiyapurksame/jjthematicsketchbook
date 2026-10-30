@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pigeon: Hollow Bones 🦴 — Thematic Sketchbook</title>
+<style>
+  :root{
+    --navy:#0B2545; --navy-deep:#071A33; --brass:#C9A24B; --brass-light:#E4C77C;
+    --paper:#F3EEE1; --paper-line:#DCD3BC; --ink:#1B2430; --ink-soft:#4B5563;
+    --ocean:#2E6E62; --coral:#D9603B; --success:#3F8F5C; --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--navy-deep); font-family:"Segoe UI", Verdana, Geneva, sans-serif; color:var(--ink); min-height:100vh; }
+  header{ background:var(--navy); color:var(--paper); padding:14px 16px 10px; border-bottom:3px solid var(--brass); }
+  .crumb{ font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-light); margin:0 0 4px; }
+  h1{ font-family:Georgia,"Palatino Linotype",serif; font-size:clamp(20px,5vw,28px); margin:0 0 10px; font-weight:700; }
+  .portholes{ display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch; }
+  .porthole{ flex:0 0 auto; width:46px; height:46px; border-radius:50%; border:3px solid rgba(243,238,225,0.35);
+    background:radial-gradient(circle at 35% 30%, rgba(255,255,255,0.15), rgba(0,0,0,0.25)); color:var(--paper);
+    font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; }
+  .porthole[aria-current="true"]{ border-color:var(--brass-light); box-shadow:0 0 0 3px rgba(228,199,124,0.25); }
+  .porthole.done{ background:radial-gradient(circle at 35% 30%, var(--brass-light), var(--brass)); border-color:var(--brass); color:var(--navy-deep); }
+  @media (prefers-reduced-motion:no-preference){ .porthole[aria-current="true"]{ animation:bob 2.4s ease-in-out infinite; } }
+  @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-2px);} }
+
+  main{ max-width:760px; margin:0 auto; padding:18px 16px 100px; }
+  .mission{ display:none; }
+  .mission.active{ display:block; animation:fadeIn .25s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+
+  .card{ background:var(--paper); border:1px solid var(--paper-line); border-radius:var(--radius); padding:18px; margin-bottom:16px;
+    background-image:linear-gradient(var(--paper-line) 1px, transparent 1px); background-size:100% 28px; }
+  .mission-eyebrow{ font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ocean); font-weight:700; margin:0 0 6px; }
+  .mission h2{ font-family:Georgia,"Palatino Linotype",serif; margin:0 0 10px; font-size:20px; }
+  .mission p{ line-height:1.5; margin:0 0 12px; }
+
+  .diagram-frame{ width:100%; max-width:520px; margin:0 auto 12px; }
+  .diagram-frame svg{ width:100%; height:auto; display:block; }
+
+  button{ font-family:inherit; font-size:15px; font-weight:700; border:none; border-radius:8px; padding:12px 18px; cursor:pointer; background:var(--ocean); color:#fff; }
+  button.secondary{ background:transparent; color:var(--navy); border:2px solid var(--navy); }
+  button.brass{ background:var(--brass); color:var(--navy-deep); }
+  button:disabled{ opacity:0.5; cursor:not-allowed; }
+
+  .choice-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
+  .choice{ flex:1 1 140px; text-align:left; background:#fff; border:2px solid var(--paper-line); color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .choice[aria-pressed="true"]{ border-color:var(--ocean); background:#EAF3F0; }
+  .choice.correct{ border-color:var(--success); background:#E7F6EC; }
+  .choice.incorrect{ border-color:var(--coral); background:#FBEAE3; }
+  .choice-icon{ width:26px; height:26px; flex:0 0 auto; }
+  .choice-icon svg{ width:100%; height:100%; display:block; }
+
+  .choice-picture{ flex-direction:column; text-align:center; padding:10px; }
+  .choice-picture .pic-wrap{ width:100%; max-width:140px; }
+  .choice-picture .pic-wrap svg{ width:100%; height:auto; display:block; }
+
+  .match-columns{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:10px; }
+  .match-col{ flex:1 1 140px; display:flex; flex-direction:column; gap:8px; }
+  .match-picture{ padding:8px; justify-content:center; }
+  .match-picture svg{ width:100%; max-width:90px; height:auto; }
+  .match-name{ justify-content:center; text-align:center; }
+
+  textarea{ width:100%; min-height:90px; padding:10px; border-radius:8px; border:2px solid var(--paper-line); font-family:inherit; font-size:15px; resize:vertical; }
+  .explain-visual{ max-width:150px; margin:0 auto 10px; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0; }
+  .chip{ background:#EAF3F0; border:1px solid var(--ocean); color:#1F4A40; font-size:13px; font-weight:700; padding:6px 12px; border-radius:16px; cursor:pointer; }
+  .chip.keyword{ background:#FBEAE3; border-color:var(--coral); color:#7A3319; }
+  .chip-label{ font-size:12px; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.05em; margin:10px 0 2px; }
+
+  .draw-toolbar{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+  .color-swatches{ display:flex; gap:6px; }
+  .swatch{ width:28px; height:28px; border-radius:50%; border:2px solid var(--paper-line); cursor:pointer; padding:0; }
+  .swatch[aria-pressed="true"]{ border-color:var(--navy); box-shadow:0 0 0 2px var(--brass); }
+  #draw-canvas{ width:100%; height:280px; border:2px solid var(--paper-line); border-radius:8px; touch-action:none; background:var(--paper); display:block; }
+  .hint-panel{ margin-top:10px; padding:10px; border:2px dashed var(--brass); border-radius:8px; background:#fff; }
+  .hint-panel[hidden]{ display:none; }
+  .toolbar-btn{ padding:8px 12px; font-size:13px; }
+
+  .feedback{ margin-top:10px; padding:10px 12px; border-radius:8px; font-size:14px; display:none; }
+  .feedback.show{ display:block; }
+  .feedback.good{ background:#E7F6EC; color:#215936; }
+  .feedback.retry{ background:#FBEAE3; color:#7A3319; }
+  .explain-text{ display:block; margin-top:6px; font-weight:400; font-size:13px; opacity:0.9; }
+
+  .nav-buttons{ display:flex; justify-content:space-between; gap:10px; }
+
+  footer{ position:fixed; bottom:0; left:0; right:0; background:var(--navy); color:var(--paper); padding:10px 16px;
+    display:flex; align-items:center; justify-content:space-between; border-top:3px solid var(--brass); }
+  .xp-badge{ display:flex; align-items:center; gap:8px; font-weight:700; font-size:14px; }
+  .bell{ width:24px; height:24px; border-radius:50%; background:var(--brass); display:flex; align-items:center; justify-content:center; color:var(--navy-deep); font-size:13px; }
+  #badge-toast{ position:fixed; top:16px; left:50%; transform:translate(-50%,-140%); background:var(--brass-light); color:var(--navy-deep);
+    font-weight:700; padding:10px 18px; border-radius:10px; transition:transform .35s ease; z-index:10; }
+  #badge-toast.show{ transform:translate(-50%,0); }
+</style>
+</head>
+<body data-concept-id="birds-04-hollow-bones">
+<!-- HUB-NAV-PATCH -->
+<a href="index.html" aria-label="Back to Sketchbook Hub" style="position:fixed;top:12px;right:12px;z-index:9999;width:44px;height:44px;border-radius:50%;background:#C9A24B;color:#071A33;display:flex;align-items:center;justify-content:center;font-size:20px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.35);border:2px solid #E4C77C;">🏠</a>
+
+
+<header>
+  <p class="crumb">🚢 Titanic &amp; Ocean Liner Sketchbook</p>
+  <h1 id="concept-title">Pigeon: Hollow Bones 🦴</h1>
+  <nav class="portholes" id="portholes" aria-label="Missions"></nav>
+</header>
+
+<main>
+
+  <!-- 1. OBSERVE (now a checkable quiz) -->
+  <section class="mission" data-mission="observe">
+    <div class="card">
+      <p class="mission-eyebrow">Mission 1 · Observe</p>
+      <h2>What do you see?</h2>
+      <div class="diagram-frame" id="observe-diagram"></div>
+      <p id="observe-question"></p>
+      <div class="choice-row" id="observe-choices"></div>
+      <div class="feedback" id="observe-feedback"></div>
+    </div>
+    <div class="nav-buttons">
+      <span></span>
+      <button class="next-mission" id="observe-next" disabled>Next: Label →</button>
+    </div>
+  </section>
+
+  <!-- 2. LABEL (picture-to-name matching) -->
+  <section class="mission" data-mission="label">
+    <div class="card">
+      <p class="mission-eyebrow">Mission 2 · Label</p>
+      <h2>Match each part to its name</h2>
+      <p>Tap a picture, then tap the name that matches it.</p>
+      <div class="match-columns">
+        <div class="match-col" id="match-pictures"></div>
+        <div class="match-col" id="match-names"></div>
+      </div>
+      <div class="feedback" id="label-feedback"></div>
+    </div>
+    <div class="nav-buttons">
+      <button class="secondary prev-mission">← Back</button>
+      <button class="next-mission" id="label-next" disabled>Next: Draw →</button>
+    </div>
+  </section>
+
+  <!-- 3. DRAW (real canvas, pen-friendly) -->
+  <section class="mission" data-mission="draw">
+    <div class="card">
+      <p class="mission-eyebrow">Mission 3 · Draw</p>
+      <h2>Sketch it yourself</h2>
+      <p id="draw-prompt"></p>
+      <div class="draw-toolbar">
+        <div class="color-swatches" id="color-swatches"></div>
+        <button type="button" class="secondary toolbar-btn" id="undo-btn">↶ Undo</button>
+        <button type="button" class="secondary toolbar-btn" id="clear-btn">🗑 Clear</button>
+        <button type="button" class="secondary toolbar-btn" id="hint-toggle">💡 Show hint</button>
+      </div>
+      <canvas id="draw-canvas" aria-label="Drawing canvas — use your finger or pencil"></canvas>
+      <div class="hint-panel" id="hint-panel" hidden>
+        <div class="diagram-frame" id="hint-diagram"></div>
+      </div>
+      <div style="margin-top:12px;">
+        <button class="brass" id="draw-finished-btn">✓ I'm finished drawing</button>
+      </div>
+    </div>
+    <div class="nav-buttons">
+      <button class="secondary prev-mission">← Back</button>
+      <button class="next-mission" id="draw-next" disabled>Next: Rotate →</button>
+    </div>
+  </section>
+
+  <!-- 4. ROTATE -->
+  <section class="mission" data-mission="rotate">
+    <div class="card">
+      <p class="mission-eyebrow">Mission 4 · Rotate</p>
+      <h2>Turn it around</h2>
+      <p id="rotate-prompt"></p>
+      <div class="diagram-frame">
+        <svg id="rotate-svg" viewBox="0 0 300 300" role="img" aria-label="rotatable diagram" style="transition:transform .3s ease;"></svg>
+      </div>
+      <div class="choice-row">
+        <button class="secondary" id="rotate-left">↺ Rotate left</button>
+        <button class="secondary" id="rotate-right">↻ Rotate right</button>
+      </div>
+    </div>
+    <div class="nav-buttons">
+      <button class="secondary prev-mission">← Back</button>
+      <button class="next-mission">Next: Compare →</button>
+    </div>
+  </section>
+
+  <!-- 5. COMPARE (click the correct picture) -->
+  <section class="mission" data-mission="compare">
+    <div class="card">
+      <p class="mission-eyebrow">Mission 5 · Compare</p>
+      <h2>Which one is it?</h2>
+      <p id="compare-question"></p>
+      <div class="choice-row" id="compare-choices"></div>
+      <div class="feedback" id="compare-feedback"></div>
+    </div>
+    <div class="nav-buttons">
+      <button class="secondary prev-mission">← Back</button>
+      <button class="next-mission" id="compare-next" disabled>Next: Connect →</button>
+    </div>
+  </section>
+
+  <!-- 6. CONNECT (chain with icons) -->
+  <section class="mission" data-mission="connect">
+    <div class="card">
+      <p class="mission-eyebrow">Mission 6 · Connect</p>
+      <h2>Link the chain</h2>
+      <p>Tap the pictures in order to build the cause → effect chain.</p>
+      <div class="choice-row" id="connect-chain"></div>
+      <div class="feedback" id="connect-feedback"></div>
+    </div>
+    <div class="nav-buttons">
+      <button class="secondary prev-mission">← Back</button>
+      <button class="next-mission">Next: Explain →</button>
+    </div>
+  </section>
+
+  <!-- 7. EXPLAIN (visual aid + sentence starters + keywords) -->
+  <section class="mission" data-mission="explain">
+    <div class="card">
+      <p class="mission-eyebrow">Mission 7 · Explain</p>
+      <h2>Tell it in your own words</h2>
+      <div class="diagram-frame explain-visual" id="explain-visual"></div>
+      <p id="explain-prompt"></p>
+      <p class="chip-label">Stuck? Tap a sentence starter</p>
+      <div class="chip-row" id="explain-starters"></div>
+      <p class="chip-label">Try to use these words</p>
+      <div class="chip-row" id="explain-keywords"></div>
+      <textarea id="explain-text" placeholder="I think this happens because..."></textarea>
+    </div>
+    <div class="nav-buttons">
+      <button class="secondary prev-mission">← Back</button>
+      <button class="next-mission" id="explain-next">Next: Predict →</button>
+    </div>
+  </section>
+
+  <!-- 8. PREDICT -->
+  <section class="mission" data-mission="predict">
+    <div class="card">
+      <p class="mission-eyebrow">Mission 8 · Predict</p>
+      <h2>What happens next?</h2>
+      <p id="predict-question"></p>
+      <div class="choice-row" id="predict-choices"></div>
+      <div class="feedback" id="predict-feedback"></div>
+    </div>
+    <div class="nav-buttons">
+      <button class="secondary prev-mission">← Back</button>
+      <button class="brass" id="complete-btn" disabled>🏁 Complete concept</button>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="xp-badge"><span class="bell">🔔</span><span id="xp-count">0 XP</span></div>
+  <span id="progress-text">0 / 8 missions</span>
+</footer>
+
+<div id="badge-toast">🎖️ Badge earned!</div>
+
+<script>
+/* ============ PER-CONCEPT DATA — this whole block gets swapped per concept file ============ */
+window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 180' role='img' aria-label='End view of a solid bone next to a hollow bone with tiny struts inside'><circle cx='80' cy='85' r='45' fill='#DCD3BC' stroke='#0B2545' stroke-width='2.5'/><circle cx='220' cy='85' r='45' fill='#DCD3BC' stroke='#0B2545' stroke-width='2.5'/><circle cx='220' cy='85' r='33' fill='#FFFFFF' stroke='#0B2545' stroke-width='2'/><line x1='187' y1='85' x2='253' y2='85' stroke='#0B2545' stroke-width='2.5'/><line x1='220' y1='52' x2='220' y2='118' stroke='#0B2545' stroke-width='2.5'/><line x1='196.669' y1='61.669' x2='243.331' y2='108.331' stroke='#0B2545' stroke-width='2'/><line x1='243.331' y1='61.669' x2='196.669' y2='108.331' stroke='#0B2545' stroke-width='2'/><text x='80' y='155' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='normal'>solid bone</text><text x='220' y='155' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='normal'>hollow bone + struts</text></svg>", "question": "Both bone slices are the same width. Which bone is lighter?", "explanation": "The hollow bone has air where the solid bone has material. Less material in the same space means less mass, so the hollow bone is lighter. The tiny struts keep it strong.", "choices": [{"text": "The hollow bone with struts", "correct": true}, {"text": "The solid bone", "correct": false}, {"text": "They weigh the same", "correct": false}]}, "label": {"items": [{"id": "air", "name": "Air space", "icon": "<svg viewBox='0 0 40 40'><circle cx='20' cy='20' r='13' fill='#FFFFFF' stroke='#0B2545' stroke-width='3'/><path d='M12 18 q4 -4 8 0 t8 0 M12 24 q4 -4 8 0 t8 0' fill='none' stroke='#2E6E62' stroke-width='1.5'/></svg>", "fact": "💨 Air inside means less mass in the same space. That is a LOWER density. (Many bird bones are hollow like this.)"}, {"id": "struts", "name": "Tiny struts", "icon": "<svg viewBox='0 0 40 40'><circle cx='20' cy='20' r='14' fill='#FFFFFF' stroke='#0B2545' stroke-width='3'/><line x1='6' y1='20' x2='34' y2='20' stroke='#0B2545' stroke-width='2'/><line x1='20' y1='6' x2='20' y2='34' stroke='#0B2545' stroke-width='2'/><line x1='10' y1='10' x2='30' y2='30' stroke='#0B2545' stroke-width='2'/><line x1='30' y1='10' x2='10' y2='30' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "🏗️ Tiny cross-braces stop the tube from snapping. Light but strong!"}, {"id": "wall", "name": "Thin bone wall", "icon": "<svg viewBox='0 0 40 40'><circle cx='20' cy='20' r='12' fill='none' stroke='#DCD3BC' stroke-width='7'/><circle cx='20' cy='20' r='15.5' fill='none' stroke='#0B2545' stroke-width='1.5'/><circle cx='20' cy='20' r='8.5' fill='none' stroke='#0B2545' stroke-width='1.5'/></svg>", "fact": "🦴 The thin hard wall takes the pushing and pulling when the wing flaps."}]}, "draw": {"prompt": "Draw the end of a hollow bone: a thick ring with 3 or 4 tiny struts across the middle.", "hintSvg": "<svg viewBox='0 0 300 200' role='img' aria-label='hint: ring with struts'><circle cx='150' cy='100' r='62' fill='#DCD3BC' stroke='#0B2545' stroke-width='2.5'/><circle cx='150' cy='100' r='46' fill='#FFFFFF' stroke='#0B2545' stroke-width='2'/><line x1='104' y1='100' x2='196' y2='100' stroke='#0B2545' stroke-width='2.5'/><line x1='150' y1='54' x2='150' y2='146' stroke='#0B2545' stroke-width='2.5'/><line x1='117.478' y1='67.478' x2='182.522' y2='132.522' stroke='#0B2545' stroke-width='2'/><line x1='182.522' y1='67.478' x2='117.478' y2='132.522' stroke='#0B2545' stroke-width='2'/><text x='150' y='190' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='normal'>ring + struts</text></svg>"}, "rotate": {"prompt": "Rotate the bone slice. The gold dot turns, but the ring with its struts looks almost the same from every side. It is strong in all directions!", "svg": "<circle cx='150' cy='150' r='95' fill='#DCD3BC' stroke='#0B2545' stroke-width='2.5'/><circle cx='150' cy='150' r='72' fill='#FFFFFF' stroke='#0B2545' stroke-width='2'/><line x1='78' y1='150' x2='222' y2='150' stroke='#0B2545' stroke-width='2.5'/><line x1='150' y1='78' x2='150' y2='222' stroke='#0B2545' stroke-width='2.5'/><line x1='99.096' y1='99.096' x2='200.904' y2='200.904' stroke='#0B2545' stroke-width='2'/><line x1='200.904' y1='99.096' x2='99.096' y2='200.904' stroke='#0B2545' stroke-width='2'/><circle cx='150' cy='66.5' r='7' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/>"}, "compare": {"question": "Both boxes are the same size. Each dot is a bit of material. Tap the box with the LOWER density.", "explanation": "Density = mass ÷ volume. Same size box means same volume. Fewer dots means less mass, so the density is lower.", "choices": [{"label": "A — packed with dots", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='box packed with nine dots'><rect x='40' y='25' width='120' height='90' fill='#FFFFFF' stroke='#0B2545' stroke-width='2.5'/><circle cx='65' cy='50' r='6' fill='#0B2545'/><circle cx='100' cy='50' r='6' fill='#0B2545'/><circle cx='135' cy='50' r='6' fill='#0B2545'/><circle cx='65' cy='70' r='6' fill='#0B2545'/><circle cx='100' cy='70' r='6' fill='#0B2545'/><circle cx='135' cy='70' r='6' fill='#0B2545'/><circle cx='65' cy='92' r='6' fill='#0B2545'/><circle cx='100' cy='92' r='6' fill='#0B2545'/><circle cx='135' cy='92' r='6' fill='#0B2545'/></svg>", "correct": false}, {"label": "B — only a few dots", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='box with two dots'><rect x='40' y='25' width='120' height='90' fill='#FFFFFF' stroke='#0B2545' stroke-width='2.5'/><circle cx='70' cy='70' r='6' fill='#0B2545'/><circle cx='130' cy='70' r='6' fill='#0B2545'/></svg>", "correct": true}]}, "connect": {"items": [{"text": "A hollow bone has an air core", "icon": "<svg viewBox='0 0 40 40'><circle cx='20' cy='20' r='13' fill='#FFFFFF' stroke='#0B2545' stroke-width='3'/><path d='M12 18 q4 -4 8 0 t8 0 M12 24 q4 -4 8 0 t8 0' fill='none' stroke='#2E6E62' stroke-width='1.5'/></svg>"}, {"text": "Less material fills the same space", "icon": "<svg viewBox='0 0 40 40'><circle cx='20' cy='20' r='12' fill='none' stroke='#DCD3BC' stroke-width='7'/><circle cx='20' cy='20' r='15.5' fill='none' stroke='#0B2545' stroke-width='1.5'/><circle cx='20' cy='20' r='8.5' fill='none' stroke='#0B2545' stroke-width='1.5'/></svg>"}, {"text": "Less mass for the same volume = lower density", "icon": "<svg viewBox='0 0 40 40'><path d='M20 5 Q34 24 20 35 Q6 24 20 5 Z' fill='#2E6E62' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "🔗 Links to Titanic Mass–Volume–Density: a ship's hull is mostly air too. Same density idea. The ship floats, the pigeon flies", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "Why is a bird with hollow bones easier to lift into the air than a bird with solid bones of the same size?", "visualSvg": "<svg viewBox='0 0 200 100' role='img' aria-label='hollow bone with the words light and strong'><circle cx='60' cy='50' r='32' fill='#DCD3BC' stroke='#0B2545' stroke-width='2.5'/><circle cx='60' cy='50' r='24' fill='#FFFFFF' stroke='#0B2545' stroke-width='2'/><line x1='36' y1='50' x2='84' y2='50' stroke='#0B2545' stroke-width='2.5'/><line x1='60' y1='26' x2='60' y2='74' stroke='#0B2545' stroke-width='2.5'/><line x1='43.032' y1='33.032' x2='76.968' y2='66.968' stroke='#0B2545' stroke-width='2'/><line x1='76.968' y1='33.032' x2='43.032' y2='66.968' stroke='#0B2545' stroke-width='2'/><text x='115' y='45' font-size='12' fill='#2E6E62' text-anchor='start' font-weight='bold'>light</text><text x='115' y='63' font-size='12' fill='#2E6E62' text-anchor='start' font-weight='bold'>+ strong</text></svg>", "starters": ["Hollow bones have less mass, so...", "Lower density means..."], "keywords": ["mass", "density", "light", "strong"]}, "predict": {"question": "A pigeon's bone is filled in until it is solid, but it stays the same size. What happens to its density?", "explanation": "Same size means same volume, but now there is more material inside, so more mass. More mass in the same volume means higher density.", "choices": [{"text": "Density goes UP", "correct": true}, {"text": "Density goes DOWN", "correct": false}, {"text": "Density stays the same", "correct": false}]}};
+/* ============================================================================================ */
+
+(function(){
+  var DATA = window.CONCEPT_DATA;
+  var MISSIONS = ["observe","label","draw","rotate","compare","connect","explain","predict"];
+  var conceptId = document.body.dataset.conceptId;
+  var storeKey = "sketchbook-progress::" + conceptId;
+
+  function loadState(){
+    try{ var raw = localStorage.getItem(storeKey); return raw ? JSON.parse(raw) : { completed: [], xp: 0, explainText: "" }; }
+    catch(e){ return { completed: [], xp: 0, explainText: "" }; }
+  }
+  function saveState(state){ try{ localStorage.setItem(storeKey, JSON.stringify(state)); }catch(e){} }
+
+  var state = loadState();
+  var current = 0;
+
+  var nav = document.getElementById("portholes");
+  MISSIONS.forEach(function(m, i){
+    var b = document.createElement("button");
+    b.className = "porthole"; b.type = "button"; b.textContent = (i+1);
+    b.setAttribute("aria-label", "Mission " + (i+1) + ": " + m);
+    b.addEventListener("click", function(){ goTo(i); });
+    nav.appendChild(b);
+  });
+
+  function refreshChrome(){
+    document.querySelectorAll(".porthole").forEach(function(el, i){
+      el.classList.toggle("done", state.completed.indexOf(MISSIONS[i]) !== -1);
+      el.setAttribute("aria-current", i === current ? "true" : "false");
+    });
+    document.getElementById("xp-count").textContent = state.xp + " XP";
+    document.getElementById("progress-text").textContent = state.completed.length + " / 8 missions";
+  }
+
+  function goTo(index){
+    current = Math.max(0, Math.min(MISSIONS.length - 1, index));
+    document.querySelectorAll(".mission").forEach(function(sec){
+      sec.classList.toggle("active", sec.dataset.mission === MISSIONS[current]);
+    });
+    refreshChrome();
+    if(MISSIONS[current] === "draw"){ initCanvasIfNeeded(); }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function markComplete(missionName){
+    if(state.completed.indexOf(missionName) === -1){
+      state.completed.push(missionName); state.xp += 10; saveState(state); refreshChrome();
+      if(state.completed.length === MISSIONS.length){ showBadge(); }
+    }
+  }
+  function showBadge(){
+    var toast = document.getElementById("badge-toast");
+    toast.classList.add("show");
+    setTimeout(function(){ toast.classList.remove("show"); }, 2200);
+  }
+
+  document.querySelectorAll(".next-mission").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var section = btn.closest(".mission");
+      markComplete(section.dataset.mission);
+      goTo(current + 1);
+    });
+  });
+  document.querySelectorAll(".prev-mission").forEach(function(btn){
+    btn.addEventListener("click", function(){ goTo(current - 1); });
+  });
+
+  /* ---------- generic quiz renderer (used by Observe, Compare, Predict) ---------- */
+  function renderQuiz(containerId, feedbackId, nextBtnId, choices, opts){
+    opts = opts || {};
+    var wrap = document.getElementById(containerId);
+    wrap.innerHTML = "";
+    choices.forEach(function(choice){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "choice" + (choice.svg ? " choice-picture" : "");
+      btn.setAttribute("aria-pressed", "false");
+      if(choice.svg){
+        var picWrap = document.createElement("span");
+        picWrap.className = "pic-wrap";
+        picWrap.innerHTML = choice.svg;
+        btn.appendChild(picWrap);
+        var lbl = document.createElement("span");
+        lbl.textContent = choice.label || choice.text || "";
+        btn.appendChild(lbl);
+      } else {
+        btn.textContent = choice.text;
+      }
+      btn.addEventListener("click", function(){
+        wrap.querySelectorAll(".choice").forEach(function(c){ c.classList.remove("correct","incorrect"); c.setAttribute("aria-pressed","false"); });
+        var fb = feedbackId ? document.getElementById(feedbackId) : null;
+        btn.classList.add(choice.correct ? "correct" : "incorrect");
+        btn.setAttribute("aria-pressed", "true");
+        if(fb){
+          var msg = choice.correct ? (opts.correctMsg || "Nice — that's it!") : (opts.incorrectMsg || "Not quite, try another one.");
+          var explainHtml = opts.explanation ? ('<span class="explain-text">' + opts.explanation + "</span>") : "";
+          fb.innerHTML = msg + explainHtml;
+          fb.className = "feedback show " + (choice.correct ? "good" : "retry");
+        }
+        if(choice.correct && nextBtnId){ document.getElementById(nextBtnId).disabled = false; }
+      });
+      wrap.appendChild(btn);
+    });
+  }
+
+  document.getElementById("observe-diagram").innerHTML = DATA.observe.svg;
+  document.getElementById("observe-question").textContent = DATA.observe.question;
+  renderQuiz("observe-choices", "observe-feedback", "observe-next", DATA.observe.choices, { explanation: DATA.observe.explanation });
+
+  document.getElementById("compare-question").textContent = DATA.compare.question;
+  renderQuiz("compare-choices", "compare-feedback", "compare-next", DATA.compare.choices.map(function(c){
+    return { svg:c.svg, label:c.label, correct:c.correct };
+  }), { explanation: DATA.compare.explanation });
+
+  document.getElementById("predict-question").textContent = DATA.predict.question;
+  renderQuiz("predict-choices", "predict-feedback", null, DATA.predict.choices, { explanation: DATA.predict.explanation });
+  // predict has its own "complete concept" gating handled below
+
+  /* ---------- Label: picture-to-name matching ---------- */
+  (function renderMatchGame(){
+    var items = DATA.label.items;
+    var picCol = document.getElementById("match-pictures");
+    var nameCol = document.getElementById("match-names");
+    picCol.innerHTML = ""; nameCol.innerHTML = "";
+    var selectedPic = null;
+    var matchedCount = 0;
+    var shuffled = items.slice().sort(function(){ return Math.random() - 0.5; });
+
+    items.forEach(function(item){
+      var picBtn = document.createElement("button");
+      picBtn.type = "button";
+      picBtn.className = "choice match-picture";
+      picBtn.innerHTML = item.icon;
+      picBtn.dataset.id = item.id;
+      picBtn.setAttribute("aria-pressed", "false");
+      picBtn.addEventListener("click", function(){
+        if(picBtn.classList.contains("correct")) return;
+        picCol.querySelectorAll(".match-picture").forEach(function(b){ b.setAttribute("aria-pressed","false"); });
+        picBtn.setAttribute("aria-pressed", "true");
+        selectedPic = picBtn;
+      });
+      picCol.appendChild(picBtn);
+    });
+
+    shuffled.forEach(function(item){
+      var nameBtn = document.createElement("button");
+      nameBtn.type = "button";
+      nameBtn.className = "choice match-name";
+      nameBtn.textContent = item.name;
+      nameBtn.dataset.id = item.id;
+      nameBtn.addEventListener("click", function(){
+        if(!selectedPic || nameBtn.classList.contains("correct")) return;
+        var fb = document.getElementById("label-feedback");
+        if(selectedPic.dataset.id === nameBtn.dataset.id){
+          selectedPic.classList.add("correct"); selectedPic.disabled = true;
+          nameBtn.classList.add("correct"); nameBtn.disabled = true;
+          matchedCount++;
+          var matchedItem = items.filter(function(it){ return it.id === nameBtn.dataset.id; })[0];
+          fb.textContent = (matchedItem && matchedItem.fact) || "Match!";
+          fb.className = "feedback show good";
+          selectedPic = null;
+          if(matchedCount === items.length){ document.getElementById("label-next").disabled = false; }
+        } else {
+          nameBtn.classList.add("incorrect");
+          setTimeout(function(){ nameBtn.classList.remove("incorrect"); }, 500);
+          fb.textContent = "Not a match — try again.";
+          fb.className = "feedback show retry";
+        }
+      });
+      nameCol.appendChild(nameBtn);
+    });
+  })();
+
+  /* ---------- Draw: real canvas with pen support, undo, clear, hint ---------- */
+  document.getElementById("draw-prompt").textContent = DATA.draw.prompt;
+  var canvas = document.getElementById("draw-canvas");
+  var ctx = null;
+  var canvasReady = false;
+  var canvasCSSWidth = 0, canvasCSSHeight = 0;
+  var undoStack = [];
+  var currentColor = "#0B2545";
+  var drawing = false;
+  var lastX = 0, lastY = 0;
+
+  var COLORS = ["#0B2545","#D9603B","#2E6E62","#C9A24B","#1B2430"];
+  var swatchWrap = document.getElementById("color-swatches");
+  COLORS.forEach(function(c, i){
+    var sw = document.createElement("button");
+    sw.type = "button"; sw.className = "swatch"; sw.style.background = c;
+    sw.setAttribute("aria-label", "Colour " + (i+1));
+    sw.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+    sw.addEventListener("click", function(){
+      currentColor = c;
+      swatchWrap.querySelectorAll(".swatch").forEach(function(s){ s.setAttribute("aria-pressed","false"); });
+      sw.setAttribute("aria-pressed","true");
+    });
+    swatchWrap.appendChild(sw);
+  });
+
+  function initCanvasIfNeeded(){
+    if(canvasReady) return;
+    var rect = canvas.getBoundingClientRect();
+    canvasCSSWidth = rect.width || 600;
+    canvasCSSHeight = rect.height || 280;
+    var dpr = window.devicePixelRatio || 1;
+    canvas.width = canvasCSSWidth * dpr;
+    canvas.height = canvasCSSHeight * dpr;
+    ctx = canvas.getContext && canvas.getContext("2d");
+    if(!ctx){ canvasReady = true; return; }
+    ctx.scale(dpr, dpr);
+    ctx.fillStyle = "#F3EEE1";
+    ctx.fillRect(0, 0, canvasCSSWidth, canvasCSSHeight);
+    pushUndo();
+    canvasReady = true;
+  }
+  function pushUndo(){
+    if(!ctx) return;
+    if(undoStack.length > 19) undoStack.shift();
+    undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+  }
+  function getPos(e){
+    var rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+  canvas.addEventListener("pointerdown", function(e){
+    if(!canvasReady) initCanvasIfNeeded();
+    pushUndo();
+    drawing = true;
+    var pos = getPos(e);
+    lastX = pos.x; lastY = pos.y;
+    if(canvas.setPointerCapture){ try{ canvas.setPointerCapture(e.pointerId); }catch(err){} }
+  });
+  canvas.addEventListener("pointermove", function(e){
+    if(!drawing || !ctx) return;
+    var pos = getPos(e);
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = 4;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    lastX = pos.x; lastY = pos.y;
+  });
+  function endStroke(){ drawing = false; }
+  canvas.addEventListener("pointerup", endStroke);
+  canvas.addEventListener("pointercancel", endStroke);
+  canvas.addEventListener("pointerleave", endStroke);
+
+  document.getElementById("undo-btn").addEventListener("click", function(){
+    if(!ctx) return;
+    if(undoStack.length > 1){ undoStack.pop(); }
+    var prev = undoStack[undoStack.length - 1];
+    if(prev){ ctx.putImageData(prev, 0, 0); }
+  });
+  document.getElementById("clear-btn").addEventListener("click", function(){
+    if(!ctx) return;
+    pushUndo();
+    ctx.fillStyle = "#F3EEE1";
+    ctx.fillRect(0, 0, canvasCSSWidth, canvasCSSHeight);
+  });
+  document.getElementById("hint-toggle").addEventListener("click", function(){
+    var panel = document.getElementById("hint-panel");
+    var isHidden = panel.hasAttribute("hidden");
+    if(isHidden){
+      document.getElementById("hint-diagram").innerHTML = DATA.draw.hintSvg;
+      panel.removeAttribute("hidden");
+      this.textContent = "💡 Hide hint";
+    } else {
+      panel.setAttribute("hidden", "");
+      this.textContent = "💡 Show hint";
+    }
+  });
+
+  var drawBtn = document.getElementById("draw-finished-btn");
+  var drawNext = document.getElementById("draw-next");
+  drawBtn.addEventListener("click", function(){
+    saveDrawingToGallery();
+    drawNext.disabled = false;
+    drawBtn.textContent = "✓ Marked as finished";
+    drawBtn.disabled = true;
+  });
+
+  function saveDrawingToGallery(){
+    if(!ctx || !canvas.toDataURL) return;
+    try{
+      var dataUrl = canvas.toDataURL("image/png");
+      var title = document.getElementById("concept-title").textContent;
+      var entry = { conceptId: conceptId, title: title, dataUrl: dataUrl, savedAt: new Date().toISOString() };
+      localStorage.setItem("sketchbook-gallery::" + conceptId, JSON.stringify(entry));
+    }catch(e){ /* canvas may be untainted-restricted in some environments; fail quietly */ }
+  }
+
+  /* ---------- Rotate ---------- */
+  document.getElementById("rotate-prompt").textContent = DATA.rotate.prompt;
+  var rotateSvg = document.getElementById("rotate-svg");
+  rotateSvg.innerHTML = DATA.rotate.svg;
+  var rotation = 0;
+  document.getElementById("rotate-left").addEventListener("click", function(){ rotation -= 90; rotateSvg.style.transform = "rotate(" + rotation + "deg)"; });
+  document.getElementById("rotate-right").addEventListener("click", function(){ rotation += 90; rotateSvg.style.transform = "rotate(" + rotation + "deg)"; });
+
+  /* ---------- Connect: chain with icons ---------- */
+  (function(){
+    var wrap = document.getElementById("connect-chain");
+    var feedback = document.getElementById("connect-feedback");
+    var items = DATA.connect.items;
+    var expectedNext = 1;
+    items.forEach(function(item, i){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "choice";
+      btn.dataset.order = (i + 1);
+      var iconSpan = document.createElement("span");
+      iconSpan.className = "choice-icon";
+      iconSpan.innerHTML = item.icon;
+      btn.appendChild(iconSpan);
+      var textSpan = document.createElement("span");
+      textSpan.textContent = item.text;
+      btn.appendChild(textSpan);
+      btn.addEventListener("click", function(){
+        var order = parseInt(btn.dataset.order, 10);
+        if(order === expectedNext){
+          btn.classList.add("correct"); btn.disabled = true; expectedNext++;
+          if(expectedNext > items.length){
+            feedback.textContent = "You built the whole chain!";
+            feedback.className = "feedback show good";
+            markComplete("connect");
+          }
+        } else {
+          btn.classList.add("incorrect");
+          setTimeout(function(){ btn.classList.remove("incorrect"); }, 500);
+          feedback.textContent = "Not yet — tap the chain in order, starting from the first step.";
+          feedback.className = "feedback show retry";
+        }
+      });
+      wrap.appendChild(btn);
+    });
+  })();
+
+  /* ---------- Explain: visual aid + sentence starters + keyword chips ---------- */
+  document.getElementById("explain-visual").innerHTML = DATA.explain.visualSvg;
+  document.getElementById("explain-prompt").textContent = DATA.explain.prompt;
+  var explainText = document.getElementById("explain-text");
+  explainText.value = state.explainText || "";
+  explainText.addEventListener("input", function(){ state.explainText = explainText.value; saveState(state); });
+
+  var starterWrap = document.getElementById("explain-starters");
+  DATA.explain.starters.forEach(function(s){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip"; chip.textContent = s;
+    chip.addEventListener("click", function(){
+      explainText.value = explainText.value.trim().length ? explainText.value : s;
+      if(explainText.value !== s && !explainText.value.endsWith(s)){ /* leave user text alone if they already started */ }
+      explainText.focus();
+      state.explainText = explainText.value; saveState(state);
+    });
+    starterWrap.appendChild(chip);
+  });
+  var keywordWrap = document.getElementById("explain-keywords");
+  DATA.explain.keywords.forEach(function(k){
+    var chip = document.createElement("button");
+    chip.type = "button"; chip.className = "chip keyword"; chip.textContent = k;
+    chip.addEventListener("click", function(){
+      var sep = explainText.value.length && !explainText.value.endsWith(" ") ? " " : "";
+      explainText.value = explainText.value + sep + k + " ";
+      explainText.focus();
+      state.explainText = explainText.value; saveState(state);
+    });
+    keywordWrap.appendChild(chip);
+  });
+
+  /* ---------- Predict: gates the final complete button ---------- */
+  var completeBtn = document.getElementById("complete-btn");
+  document.getElementById("predict-choices").querySelectorAll(".choice").forEach(function(btn, i){
+    btn.addEventListener("click", function(){
+      if(DATA.predict.choices[i] && DATA.predict.choices[i].correct){ completeBtn.disabled = false; }
+    });
+  });
+  completeBtn.addEventListener("click", function(){ markComplete("predict"); });
+
+  goTo(0);
+})();
+</script>
+
+</body>
+</html>
