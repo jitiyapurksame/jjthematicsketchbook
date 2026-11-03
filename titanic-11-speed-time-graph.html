@@ -92,6 +92,16 @@
   #badge-toast{ position:fixed; top:16px; left:50%; transform:translate(-50%,-140%); background:var(--brass-light); color:var(--navy-deep);
     font-weight:700; padding:10px 18px; border-radius:10px; transition:transform .35s ease; z-index:10; }
   #badge-toast.show{ transform:translate(-50%,0); }
+
+/*PILLS-V1-CSS*/
+.pill-tray{ background:#FFFBF0; border:2px dashed #C9A24B; border-radius:10px; padding:10px 12px; margin:10px 0; }
+.pill-title{ margin:0 0 4px; font-weight:700; font-size:.95rem; display:flex; justify-content:space-between; gap:8px; }
+.pill-help{ margin:0 0 8px; font-size:.92rem; }
+.pill-help.warn{ color:#B3401F; font-weight:700; }
+.pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.pill{ border:2px solid #0B2545; background:#FFFFFF; color:#0B2545; border-radius:999px; padding:8px 14px; font-weight:700; font-size:.95rem; min-height:44px; cursor:pointer; }
+.pill.armed{ background:#C9A24B; box-shadow:0 0 0 3px rgba(201,162,75,.45); }
+.pill.placed{ background:#2E6E62; border-color:#2E6E62; color:#FFFFFF; cursor:default; opacity:1; }
 </style>
 </head>
 <body data-concept-id="titanic-11-speed-time-graph">
@@ -262,7 +272,7 @@
 
 <script>
 /* ============ PER-CONCEPT DATA — this whole block gets swapped per concept file ============ */
-window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 320 180\" role=\"img\" aria-label=\"Speed time graph: rising, then flat, then falling\">\n      <line x1=\"30\" y1=\"20\" x2=\"30\" y2=\"150\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <line x1=\"30\" y1=\"150\" x2=\"300\" y2=\"150\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <polyline points=\"30,150 100,50 200,50 280,140\" fill=\"none\" stroke=\"#2E6E62\" stroke-width=\"3\"/>\n      <text x=\"16\" y=\"90\" font-size=\"11\" fill=\"#0B2545\" transform=\"rotate(-90 16 90)\">speed</text>\n      <text x=\"160\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"#0B2545\">time</text>\n    </svg>", "question": "Looking at this speed-time graph, during which part is the ship going at a CONSTANT speed?", "explanation": "On a speed-time graph, the vertical axis is speed. If the line isn't rising or falling, speed isn't changing — that's constant speed.", "choices": [{"text": "The flat middle part", "correct": true}, {"text": "The rising part at the start", "correct": false}, {"text": "The falling part at the end", "correct": false}]}, "label": {"items": [{"id": "speedup", "name": "Speeding up", "icon": "<svg viewBox='0 0 80 60'><polyline points='8,50 40,50 72,10' fill='none' stroke='#2E6E62' stroke-width='3'/></svg>", "fact": "A line rising means the ship's speed is increasing over time."}, {"id": "constant", "name": "Constant speed", "icon": "<svg viewBox='0 0 80 60'><polyline points='8,50 30,20 72,20' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>", "fact": "A flat line means the speed isn't changing — it's steady."}, {"id": "slowdown", "name": "Slowing down", "icon": "<svg viewBox='0 0 80 60'><polyline points='8,20 50,20 72,50' fill='none' stroke='#D9603B' stroke-width='3'/></svg>", "fact": "A line falling means the ship's speed is decreasing over time."}, {"id": "axes", "name": "Axes", "icon": "<svg viewBox='0 0 80 60'><line x1='12' y1='10' x2='12' y2='50' stroke='#0B2545' stroke-width='2'/><line x1='12' y1='50' x2='72' y2='50' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "The up-down axis is speed, the side-to-side axis is time."}]}, "draw": {"prompt": "Draw a speed-time graph for a ship leaving port: speeding up, cruising, then slowing to dock.", "hintSvg": "<svg viewBox=\"0 0 320 180\" role=\"img\" aria-label=\"hint\">\n      <line x1=\"30\" y1=\"20\" x2=\"30\" y2=\"150\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <line x1=\"30\" y1=\"150\" x2=\"300\" y2=\"150\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <polyline points=\"30,150 100,50 200,50 280,140\" fill=\"none\" stroke=\"#2E6E62\" stroke-width=\"3\"/>\n    </svg>"}, "rotate": {"prompt": "Rotate the graph. Does a steeper line still mean a faster change in speed, from this angle?", "svg": "<line x1=\"30\" y1=\"20\" x2=\"30\" y2=\"130\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <line x1=\"30\" y1=\"130\" x2=\"260\" y2=\"130\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <polyline points=\"30,130 90,40 180,40 240,120\" fill=\"none\" stroke=\"#2E6E62\" stroke-width=\"3\"/>"}, "compare": {"question": "Tap the graph that shows the ship SPEEDING UP the fastest (steepest rising line).", "explanation": "A steeper line means speed changes more for the same amount of time — that's a bigger acceleration.", "choices": [{"label": "A — gentle slope", "svg": "<svg viewBox=\"0 0 160 140\"><line x1=\"20\" y1=\"10\" x2=\"20\" y2=\"120\" stroke=\"#0B2545\" stroke-width=\"2\"/><line x1=\"20\" y1=\"120\" x2=\"140\" y2=\"120\" stroke=\"#0B2545\" stroke-width=\"2\"/><polyline points=\"20,120 140,90\" fill=\"none\" stroke=\"#2E6E62\" stroke-width=\"3\"/></svg>", "correct": false}, {"label": "B — steep slope", "svg": "<svg viewBox=\"0 0 160 140\"><line x1=\"20\" y1=\"10\" x2=\"20\" y2=\"120\" stroke=\"#0B2545\" stroke-width=\"2\"/><line x1=\"20\" y1=\"120\" x2=\"140\" y2=\"120\" stroke=\"#0B2545\" stroke-width=\"2\"/><polyline points=\"20,120 60,20\" fill=\"none\" stroke=\"#D9603B\" stroke-width=\"3\"/></svg>", "correct": true}]}, "connect": {"items": [{"text": "Engine pushes harder", "icon": "<svg viewBox='0 0 80 60'><rect x='16' y='16' width='48' height='30' rx='4' fill='#F3EEE1' stroke='#0B2545' stroke-width='2'/><circle cx='30' cy='31' r='6' fill='none' stroke='#C9A24B' stroke-width='2'/><circle cx='50' cy='31' r='6' fill='none' stroke='#C9A24B' stroke-width='2'/></svg>"}, {"text": "Ship accelerates", "icon": "<svg viewBox='0 0 80 60'><polyline points='8,50 40,50 72,10' fill='none' stroke='#2E6E62' stroke-width='3'/></svg>"}, {"text": "Speed increases over time", "icon": "<svg viewBox='0 0 40 40'><line x1='6' y1='20' x2='30' y2='20' stroke='#D9603B' stroke-width='4'/><path d='M22 10 L34 20 L22 30 Z' fill='#D9603B'/></svg>"}]}, "explain": {"prompt": "What does a flat (horizontal) line on a speed-time graph tell you about the ship's speed?", "visualSvg": "<svg viewBox=\"0 0 200 100\"><line x1=\"20\" y1=\"10\" x2=\"20\" y2=\"80\" stroke=\"#0B2545\" stroke-width=\"2\"/><line x1=\"20\" y1=\"80\" x2=\"180\" y2=\"80\" stroke=\"#0B2545\" stroke-width=\"2\"/><polyline points=\"20,80 60,40 160,40\" fill=\"none\" stroke=\"#C9A24B\" stroke-width=\"3\"/></svg>", "starters": ["A flat line means the speed is...", "If the line isn't rising or falling, that tells me..."], "keywords": ["constant", "speed", "flat", "time"]}, "predict": {"question": "If the line on a speed-time graph suddenly drops straight down to zero, what does that mean happened?", "explanation": "A near-vertical drop means speed fell to zero in almost no time at all — a sudden stop.", "choices": [{"text": "The ship stopped very suddenly", "correct": true}, {"text": "The ship sped up", "correct": false}, {"text": "The ship turned around", "correct": false}]}};
+window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 320 180\" role=\"img\" aria-label=\"Speed time graph: rising, then flat, then falling\">\n      <line x1=\"30\" y1=\"20\" x2=\"30\" y2=\"150\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <line x1=\"30\" y1=\"150\" x2=\"300\" y2=\"150\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <polyline points=\"30,150 100,50 200,50 280,140\" fill=\"none\" stroke=\"#2E6E62\" stroke-width=\"3\"/>\n      <text x=\"16\" y=\"90\" font-size=\"11\" fill=\"#0B2545\" transform=\"rotate(-90 16 90)\">speed</text>\n      <text x=\"160\" y=\"170\" text-anchor=\"middle\" font-size=\"11\" fill=\"#0B2545\">time</text>\n    </svg>", "question": "Looking at this speed-time graph, during which part is the ship going at a CONSTANT speed?", "explanation": "On a speed-time graph, the vertical axis is speed. If the line isn't rising or falling, speed isn't changing — that's constant speed.", "choices": [{"text": "The flat middle part", "correct": true}, {"text": "The rising part at the start", "correct": false}, {"text": "The falling part at the end", "correct": false}]}, "label": {"items": [{"id": "speedup", "name": "Speeding up", "icon": "<svg viewBox='0 0 80 60'><polyline points='8,50 40,50 72,10' fill='none' stroke='#2E6E62' stroke-width='3'/></svg>", "fact": "A line rising means the ship's speed is increasing over time."}, {"id": "constant", "name": "Constant speed", "icon": "<svg viewBox='0 0 80 60'><polyline points='8,50 30,20 72,20' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>", "fact": "A flat line means the speed isn't changing — it's steady."}, {"id": "slowdown", "name": "Slowing down", "icon": "<svg viewBox='0 0 80 60'><polyline points='8,20 50,20 72,50' fill='none' stroke='#D9603B' stroke-width='3'/></svg>", "fact": "A line falling means the ship's speed is decreasing over time."}, {"id": "axes", "name": "Axes", "icon": "<svg viewBox='0 0 80 60'><line x1='12' y1='10' x2='12' y2='50' stroke='#0B2545' stroke-width='2'/><line x1='12' y1='50' x2='72' y2='50' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "The up-down axis is speed, the side-to-side axis is time."}]}, "draw": {"prompt": "Draw a speed-time graph for a ship leaving port: speeding up, cruising, then slowing to dock.", "hintSvg": "<svg viewBox=\"0 0 320 180\" role=\"img\" aria-label=\"hint\">\n      <line x1=\"30\" y1=\"20\" x2=\"30\" y2=\"150\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <line x1=\"30\" y1=\"150\" x2=\"300\" y2=\"150\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <polyline points=\"30,150 100,50 200,50 280,140\" fill=\"none\" stroke=\"#2E6E62\" stroke-width=\"3\"/>\n    </svg>", "pills": ["Speeding up", "Cruising", "Slowing down", "Speed", "Time"]}, "rotate": {"prompt": "Rotate the graph. Does a steeper line still mean a faster change in speed, from this angle?", "svg": "<line x1=\"30\" y1=\"20\" x2=\"30\" y2=\"130\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <line x1=\"30\" y1=\"130\" x2=\"260\" y2=\"130\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <polyline points=\"30,130 90,40 180,40 240,120\" fill=\"none\" stroke=\"#2E6E62\" stroke-width=\"3\"/>"}, "compare": {"question": "Tap the graph that shows the ship SPEEDING UP the fastest (steepest rising line).", "explanation": "A steeper line means speed changes more for the same amount of time — that's a bigger acceleration.", "choices": [{"label": "A — gentle slope", "svg": "<svg viewBox=\"0 0 160 140\"><line x1=\"20\" y1=\"10\" x2=\"20\" y2=\"120\" stroke=\"#0B2545\" stroke-width=\"2\"/><line x1=\"20\" y1=\"120\" x2=\"140\" y2=\"120\" stroke=\"#0B2545\" stroke-width=\"2\"/><polyline points=\"20,120 140,90\" fill=\"none\" stroke=\"#2E6E62\" stroke-width=\"3\"/></svg>", "correct": false}, {"label": "B — steep slope", "svg": "<svg viewBox=\"0 0 160 140\"><line x1=\"20\" y1=\"10\" x2=\"20\" y2=\"120\" stroke=\"#0B2545\" stroke-width=\"2\"/><line x1=\"20\" y1=\"120\" x2=\"140\" y2=\"120\" stroke=\"#0B2545\" stroke-width=\"2\"/><polyline points=\"20,120 60,20\" fill=\"none\" stroke=\"#D9603B\" stroke-width=\"3\"/></svg>", "correct": true}]}, "connect": {"items": [{"text": "Engine pushes harder", "icon": "<svg viewBox='0 0 80 60'><rect x='16' y='16' width='48' height='30' rx='4' fill='#F3EEE1' stroke='#0B2545' stroke-width='2'/><circle cx='30' cy='31' r='6' fill='none' stroke='#C9A24B' stroke-width='2'/><circle cx='50' cy='31' r='6' fill='none' stroke='#C9A24B' stroke-width='2'/></svg>"}, {"text": "Ship accelerates", "icon": "<svg viewBox='0 0 80 60'><polyline points='8,50 40,50 72,10' fill='none' stroke='#2E6E62' stroke-width='3'/></svg>"}, {"text": "Speed increases over time", "icon": "<svg viewBox='0 0 40 40'><line x1='6' y1='20' x2='30' y2='20' stroke='#D9603B' stroke-width='4'/><path d='M22 10 L34 20 L22 30 Z' fill='#D9603B'/></svg>"}]}, "explain": {"prompt": "What does a flat (horizontal) line on a speed-time graph tell you about the ship's speed?", "visualSvg": "<svg viewBox=\"0 0 200 100\"><line x1=\"20\" y1=\"10\" x2=\"20\" y2=\"80\" stroke=\"#0B2545\" stroke-width=\"2\"/><line x1=\"20\" y1=\"80\" x2=\"180\" y2=\"80\" stroke=\"#0B2545\" stroke-width=\"2\"/><polyline points=\"20,80 60,40 160,40\" fill=\"none\" stroke=\"#C9A24B\" stroke-width=\"3\"/></svg>", "starters": ["A flat line means the speed is...", "If the line isn't rising or falling, that tells me..."], "keywords": ["constant", "speed", "flat", "time"]}, "predict": {"question": "If the line on a speed-time graph suddenly drops straight down to zero, what does that mean happened?", "explanation": "A near-vertical drop means speed fell to zero in almost no time at all — a sudden stop.", "choices": [{"text": "The ship stopped very suddenly", "correct": true}, {"text": "The ship sped up", "correct": false}, {"text": "The ship turned around", "correct": false}]}};
 /* ============================================================================================ */
 
 (function(){
@@ -481,14 +491,16 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 320 180\" role=\"i
   }
   function pushUndo(){
     if(!ctx) return;
-    if(undoStack.length > 19) undoStack.shift();
+    if(undoStack.length > 19){ undoStack.shift(); actionLog.shift(); }
     undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    actionLog.push(null);
   }
   function getPos(e){
     var rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }
   canvas.addEventListener("pointerdown", function(e){
+    if(pillPointerDown(e)) return;
     if(!canvasReady) initCanvasIfNeeded();
     pushUndo();
     drawing = true;
@@ -497,6 +509,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 320 180\" role=\"i
     if(canvas.setPointerCapture){ try{ canvas.setPointerCapture(e.pointerId); }catch(err){} }
   });
   canvas.addEventListener("pointermove", function(e){
+    if(drawing) pillStrokeSeen();
     if(!drawing || !ctx) return;
     var pos = getPos(e);
     ctx.strokeStyle = currentColor;
@@ -514,17 +527,133 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 320 180\" role=\"i
   canvas.addEventListener("pointercancel", endStroke);
   canvas.addEventListener("pointerleave", endStroke);
 
+  /*PILLS-V1*/
+  /* ---------- Concept pills: tap an idea, tap the drawing to stamp it in; all must be placed to finish ---------- */
+  var PILLS = ((DATA.draw && DATA.draw.pills) || (DATA.practice && DATA.practice.pills) || []).slice();
+  var placed = {};
+  var armedPill = null;
+  var strokeTotal = 0, strokeMarked = false;
+  var actionLog = [];
+  var pillRow = null, pillCount = null, pillHelp = null;
+
+  function stampPill(text, x, y){
+    ctx.save();
+    ctx.font = "700 15px system-ui, -apple-system, 'Segoe UI', sans-serif";
+    var w = Math.ceil(ctx.measureText(text).width) + 22, h = 30, r = 15;
+    var px = Math.min(Math.max(x - w / 2, 4), canvasCSSWidth - w - 4);
+    var py = Math.min(Math.max(y - h / 2, 4), canvasCSSHeight - h - 4);
+    ctx.beginPath();
+    ctx.moveTo(px + r, py);
+    ctx.lineTo(px + w - r, py);
+    ctx.arc(px + w - r, py + r, r, -Math.PI / 2, Math.PI / 2);
+    ctx.lineTo(px + r, py + h);
+    ctx.arc(px + r, py + r, r, Math.PI / 2, Math.PI * 1.5);
+    ctx.closePath();
+    ctx.fillStyle = "#0B2545"; ctx.fill();
+    ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(text, px + w / 2, py + h / 2 + 1);
+    ctx.restore();
+  }
+  function pillRefresh(){
+    if(!pillRow) return;
+    var n = 0;
+    Array.prototype.forEach.call(pillRow.children, function(b){
+      var t = b.dataset.pill, done = !!placed[t];
+      if(done) n++;
+      b.classList.toggle("placed", done);
+      b.classList.toggle("armed", armedPill === t);
+      b.disabled = done;
+      b.textContent = (done ? "✓ " : "") + t;
+      b.setAttribute("aria-pressed", armedPill === t ? "true" : "false");
+    });
+    pillCount.textContent = n + " / " + PILLS.length + " placed";
+    pillHelp.className = "pill-help";
+    pillHelp.textContent = armedPill
+      ? ("Now tap your drawing where “" + armedPill + "” belongs.")
+      : (n === PILLS.length ? "All ideas placed! Join them with lines and arrows, then press finished."
+                            : "Tap an idea, then tap your drawing where it belongs.");
+    canvas.style.cursor = armedPill ? "crosshair" : "";
+  }
+  (function(){
+    if(!PILLS.length) return;
+    var tray = document.createElement("div");
+    tray.className = "pill-tray"; tray.id = "pill-tray";
+    tray.innerHTML = '<p class="pill-title"><span>🧩 Put these ideas in your picture</span><span id="pill-count"></span></p><p class="pill-help" id="pill-help"></p><div class="pill-row" id="pill-row"></div>';
+    canvas.parentNode.insertBefore(tray, canvas);
+    pillRow = tray.querySelector("#pill-row"); pillCount = tray.querySelector("#pill-count"); pillHelp = tray.querySelector("#pill-help");
+    PILLS.forEach(function(p){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "pill"; b.dataset.pill = p; b.textContent = p;
+      b.addEventListener("click", function(){
+        if(placed[p]) return;
+        armedPill = (armedPill === p) ? null : p;
+        pillRefresh();
+      });
+      pillRow.appendChild(b);
+    });
+    pillRefresh();
+  })();
+  function pillPointerDown(e){
+    strokeMarked = false;
+    if(!armedPill) return false;
+    if(!canvasReady) initCanvasIfNeeded();
+    var pos = getPos(e);
+    var text = armedPill;
+    if(ctx){
+      pushUndo();
+      if(actionLog.length) actionLog[actionLog.length - 1] = { type: "stamp", text: text };
+      stampPill(text, pos.x, pos.y);
+    }
+    placed[text] = true;
+    armedPill = null;
+    drawing = false;
+    pillRefresh();
+    return true;
+  }
+  function pillStrokeSeen(){
+    if(strokeMarked) return;
+    strokeMarked = true; strokeTotal++;
+    if(actionLog.length && actionLog[actionLog.length - 1] === null) actionLog[actionLog.length - 1] = { type: "stroke" };
+  }
+  function pillUndoRecord(rec){
+    if(!rec) return;
+    if(rec.type === "stamp"){ placed[rec.text] = false; }
+    else if(rec.type === "stroke"){ strokeTotal = Math.max(0, strokeTotal - 1); }
+    else if(rec.type === "clear"){ placed = rec.placedBefore; strokeTotal = rec.strokesBefore; }
+    pillRefresh();
+  }
+  function pillGateOk(){
+    if(!PILLS.length) return true;
+    var missing = PILLS.filter(function(p){ return !placed[p]; });
+    if(missing.length){
+      pillHelp.textContent = "Almost! Still to place: " + missing.join(", ") + ".";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    if(strokeTotal < 1){
+      pillHelp.textContent = "Now DRAW something too: join your ideas with lines and arrows.";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    return true;
+  }
+
   document.getElementById("undo-btn").addEventListener("click", function(){
     if(!ctx) return;
-    if(undoStack.length > 1){ undoStack.pop(); }
-    var prev = undoStack[undoStack.length - 1];
-    if(prev){ ctx.putImageData(prev, 0, 0); }
+    if(undoStack.length < 2) return;
+    var prev = undoStack.pop();
+    var rec = actionLog.pop();
+    ctx.putImageData(prev, 0, 0);
+    pillUndoRecord(rec);
   });
   document.getElementById("clear-btn").addEventListener("click", function(){
     if(!ctx) return;
     pushUndo();
+    if(actionLog.length) actionLog[actionLog.length - 1] = { type: "clear", placedBefore: JSON.parse(JSON.stringify(placed)), strokesBefore: strokeTotal };
     ctx.fillStyle = "#F3EEE1";
     ctx.fillRect(0, 0, canvasCSSWidth, canvasCSSHeight);
+    placed = {}; strokeTotal = 0; armedPill = null;
+    pillRefresh();
   });
   document.getElementById("hint-toggle").addEventListener("click", function(){
     var panel = document.getElementById("hint-panel");
@@ -542,6 +671,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 320 180\" role=\"i
   var drawBtn = document.getElementById("draw-finished-btn");
   var drawNext = document.getElementById("draw-next");
   drawBtn.addEventListener("click", function(){
+    if(!pillGateOk()) return;
     saveDrawingToGallery();
     drawNext.disabled = false;
     drawBtn.textContent = "✓ Marked as finished";

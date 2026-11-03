@@ -92,6 +92,16 @@
   #badge-toast{ position:fixed; top:16px; left:50%; transform:translate(-50%,-140%); background:var(--brass-light); color:var(--navy-deep);
     font-weight:700; padding:10px 18px; border-radius:10px; transition:transform .35s ease; z-index:10; }
   #badge-toast.show{ transform:translate(-50%,0); }
+
+/*PILLS-V1-CSS*/
+.pill-tray{ background:#FFFBF0; border:2px dashed #C9A24B; border-radius:10px; padding:10px 12px; margin:10px 0; }
+.pill-title{ margin:0 0 4px; font-weight:700; font-size:.95rem; display:flex; justify-content:space-between; gap:8px; }
+.pill-help{ margin:0 0 8px; font-size:.92rem; }
+.pill-help.warn{ color:#B3401F; font-weight:700; }
+.pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.pill{ border:2px solid #0B2545; background:#FFFFFF; color:#0B2545; border-radius:999px; padding:8px 14px; font-weight:700; font-size:.95rem; min-height:44px; cursor:pointer; }
+.pill.armed{ background:#C9A24B; box-shadow:0 0 0 3px rgba(201,162,75,.45); }
+.pill.placed{ background:#2E6E62; border-color:#2E6E62; color:#FFFFFF; cursor:default; opacity:1; }
 </style>
 </head>
 <body data-concept-id="cooking-01-states-of-matter">
@@ -262,7 +272,7 @@
 
 <script>
 /* ============ PER-CONCEPT DATA — this whole block gets swapped per concept file ============ */
-window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 320 200\" role=\"img\" aria-label=\"Ice cube melting into water then boiling into steam, showing the three states of matter\">\n      <rect x=\"20\" y=\"120\" width=\"60\" height=\"60\" fill=\"#B9D8EA\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <text x=\"20\" y=\"112\" font-size=\"11\" fill=\"#0B2545\">Solid (ice)</text>\n      <path d=\"M140 130 Q150 110 160 130 Q170 150 180 130\" fill=\"#2E6E62\" stroke=\"#0B2545\" stroke-width=\"1.5\"/>\n      <rect x=\"120\" y=\"130\" width=\"80\" height=\"50\" fill=\"#2E6E62\" opacity=\"0.6\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <text x=\"120\" y=\"122\" font-size=\"11\" fill=\"#0B2545\">Liquid (water)</text>\n      <path d=\"M260 160 Q255 140 262 120 Q268 100 260 80\" fill=\"none\" stroke=\"#B9D8EA\" stroke-width=\"3\"/>\n      <path d=\"M280 160 Q275 140 282 120 Q288 100 280 80\" fill=\"none\" stroke=\"#B9D8EA\" stroke-width=\"3\"/>\n      <text x=\"245\" y=\"70\" font-size=\"11\" fill=\"#0B2545\">Gas (steam)</text>\n    </svg>", "question": "Ice, water, and steam are all the SAME substance. What's actually different between them?", "explanation": "It's still H₂O the whole time — only how much heat energy is in it, and how tightly the molecules are packed, changes as it goes solid → liquid → gas.", "choices": [{"text": "How much heat energy the molecules have", "correct": true}, {"text": "They're totally different chemicals", "correct": false}, {"text": "Nothing — they're identical in every way", "correct": false}]}, "label": {"items": [{"id": "solid", "name": "Solid (ice)", "icon": "<svg viewBox='0 0 40 40'><rect x='8' y='8' width='24' height='24' fill='#B9D8EA' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "🧊 Molecules packed tight, barely moving — holds its own shape."}, {"id": "liquid", "name": "Liquid (water)", "icon": "<svg viewBox='0 0 40 40'><path d='M20 4 Q28 20 20 30 Q12 20 20 4 Z' fill='#2E6E62' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "💧 Molecules loose enough to slide past each other — takes the shape of its container."}, {"id": "gas", "name": "Gas (steam)", "icon": "<svg viewBox='0 0 40 40'><path d='M14 34 Q10 24 16 18 Q20 12 14 4' fill='none' stroke='#B9D8EA' stroke-width='3'/><path d='M26 34 Q22 24 28 18 Q32 12 26 4' fill='none' stroke='#B9D8EA' stroke-width='3'/></svg>", "fact": "💨 Molecules zooming apart with lots of energy — spreads out to fill any space."}]}, "draw": {"prompt": "Draw all 3 states side by side: an ice cube, a puddle of water, and steam rising. Label each with 'solid,' 'liquid,' or 'gas.'", "hintSvg": "<svg viewBox=\"0 0 320 200\" role=\"img\" aria-label=\"hint\">\n      <rect x=\"20\" y=\"120\" width=\"60\" height=\"60\" fill=\"#B9D8EA\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <rect x=\"120\" y=\"130\" width=\"80\" height=\"50\" fill=\"#2E6E62\" opacity=\"0.6\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <path d=\"M260 160 Q255 140 262 120 Q268 100 260 80\" fill=\"none\" stroke=\"#B9D8EA\" stroke-width=\"3\"/>\n    </svg>"}, "rotate": {"prompt": "Rotate the ice-water-steam picture. Does 'solid on the left, gas on the right' still make sense in a different orientation?", "svg": "<rect x=\"10\" y=\"80\" width=\"40\" height=\"40\" fill=\"#B9D8EA\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <rect x=\"70\" y=\"90\" width=\"55\" height=\"30\" fill=\"#2E6E62\" opacity=\"0.6\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <path d=\"M170 110 Q166 95 172 80\" fill=\"none\" stroke=\"#B9D8EA\" stroke-width=\"3\"/>"}, "compare": {"question": "Tap the picture showing molecules PACKED TIGHT (a solid).", "explanation": "A solid's molecules barely move and stay locked in place — that's why ice holds a fixed shape while water and steam don't.", "choices": [{"label": "A — tightly packed dots (solid)", "svg": "<svg viewBox=\"0 0 200 140\"><rect x=\"30\" y=\"30\" width=\"140\" height=\"80\" fill=\"none\" stroke=\"#0B2545\" stroke-width=\"2\"/><circle cx=\"55\" cy=\"50\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"80\" cy=\"50\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"105\" cy=\"50\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"55\" cy=\"75\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"80\" cy=\"75\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"105\" cy=\"75\" r=\"5\" fill=\"#2E6E62\"/></svg>", "correct": true}, {"label": "B — scattered spread-out dots (gas)", "svg": "<svg viewBox=\"0 0 200 140\"><rect x=\"30\" y=\"30\" width=\"140\" height=\"80\" fill=\"none\" stroke=\"#0B2545\" stroke-width=\"2\"/><circle cx=\"45\" cy=\"45\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"140\" cy=\"95\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"90\" cy=\"50\" r=\"5\" fill=\"#2E6E62\"/></svg>", "correct": false}]}, "connect": {"items": [{"text": "A pot of ice sits on the stove", "icon": "<svg viewBox='0 0 40 40'><rect x='8' y='8' width='24' height='24' fill='#B9D8EA' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "Heat energy pours in, molecules start moving faster", "icon": "<svg viewBox='0 0 40 40'><rect x='16' y='4' width='8' height='22' rx='4' fill='#F3EEE1' stroke='#0B2545' stroke-width='2'/><circle cx='20' cy='30' r='7' fill='#D9603B' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "Enough energy melts it to liquid, even more turns it to gas", "icon": "<svg viewBox='0 0 40 40'><path d='M14 34 Q10 24 16 18 Q20 12 14 4' fill='none' stroke='#B9D8EA' stroke-width='3'/><path d='M26 34 Q22 24 28 18 Q32 12 26 4' fill='none' stroke='#B9D8EA' stroke-width='3'/></svg>"}, {"text": "🔗 Links to Mario Energy Transformation: adding heat energy here works just like adding height (potential energy) there — energy in, state changes", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "Why does it take a LOT of heat to turn boiling water into steam, way more than to melt the same amount of ice?", "visualSvg": "<svg viewBox=\"0 0 200 100\"><rect x=\"20\" y=\"60\" width=\"50\" height=\"30\" fill=\"#B9D8EA\" stroke=\"#0B2545\" stroke-width=\"2\"/><path d=\"M150 70 Q146 55 152 40\" fill=\"none\" stroke=\"#B9D8EA\" stroke-width=\"3\"/></svg>", "starters": ["Turning liquid into gas needs more energy because...", "The molecules in steam are..."], "keywords": ["energy", "molecules", "heat", "state"]}, "predict": {"question": "You keep adding heat to boiling water, but the temperature stays at 100°C and doesn't rise. Where is all that extra heat energy going?", "explanation": "During a change of state, added energy goes into breaking molecules apart (turning liquid into gas) instead of raising temperature — that's why boiling water sits at a steady 100°C while it turns to steam.", "choices": [{"text": "Into changing the water into steam (changing state)", "correct": true}, {"text": "The heat just disappears with no effect", "correct": false}, {"text": "It makes the water colder", "correct": false}]}};
+window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 320 200\" role=\"img\" aria-label=\"Ice cube melting into water then boiling into steam, showing the three states of matter\">\n      <rect x=\"20\" y=\"120\" width=\"60\" height=\"60\" fill=\"#B9D8EA\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <text x=\"20\" y=\"112\" font-size=\"11\" fill=\"#0B2545\">Solid (ice)</text>\n      <path d=\"M140 130 Q150 110 160 130 Q170 150 180 130\" fill=\"#2E6E62\" stroke=\"#0B2545\" stroke-width=\"1.5\"/>\n      <rect x=\"120\" y=\"130\" width=\"80\" height=\"50\" fill=\"#2E6E62\" opacity=\"0.6\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <text x=\"120\" y=\"122\" font-size=\"11\" fill=\"#0B2545\">Liquid (water)</text>\n      <path d=\"M260 160 Q255 140 262 120 Q268 100 260 80\" fill=\"none\" stroke=\"#B9D8EA\" stroke-width=\"3\"/>\n      <path d=\"M280 160 Q275 140 282 120 Q288 100 280 80\" fill=\"none\" stroke=\"#B9D8EA\" stroke-width=\"3\"/>\n      <text x=\"245\" y=\"70\" font-size=\"11\" fill=\"#0B2545\">Gas (steam)</text>\n    </svg>", "question": "Ice, water, and steam are all the SAME substance. What's actually different between them?", "explanation": "It's still H₂O the whole time — only how much heat energy is in it, and how tightly the molecules are packed, changes as it goes solid → liquid → gas.", "choices": [{"text": "How much heat energy the molecules have", "correct": true}, {"text": "They're totally different chemicals", "correct": false}, {"text": "Nothing — they're identical in every way", "correct": false}]}, "label": {"items": [{"id": "solid", "name": "Solid (ice)", "icon": "<svg viewBox='0 0 40 40'><rect x='8' y='8' width='24' height='24' fill='#B9D8EA' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "🧊 Molecules packed tight, barely moving — holds its own shape."}, {"id": "liquid", "name": "Liquid (water)", "icon": "<svg viewBox='0 0 40 40'><path d='M20 4 Q28 20 20 30 Q12 20 20 4 Z' fill='#2E6E62' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "💧 Molecules loose enough to slide past each other — takes the shape of its container."}, {"id": "gas", "name": "Gas (steam)", "icon": "<svg viewBox='0 0 40 40'><path d='M14 34 Q10 24 16 18 Q20 12 14 4' fill='none' stroke='#B9D8EA' stroke-width='3'/><path d='M26 34 Q22 24 28 18 Q32 12 26 4' fill='none' stroke='#B9D8EA' stroke-width='3'/></svg>", "fact": "💨 Molecules zooming apart with lots of energy — spreads out to fill any space."}]}, "draw": {"prompt": "Draw all 3 states side by side: an ice cube, a puddle of water, and steam rising. Label each with 'solid,' 'liquid,' or 'gas.'", "hintSvg": "<svg viewBox=\"0 0 320 200\" role=\"img\" aria-label=\"hint\">\n      <rect x=\"20\" y=\"120\" width=\"60\" height=\"60\" fill=\"#B9D8EA\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <rect x=\"120\" y=\"130\" width=\"80\" height=\"50\" fill=\"#2E6E62\" opacity=\"0.6\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <path d=\"M260 160 Q255 140 262 120 Q268 100 260 80\" fill=\"none\" stroke=\"#B9D8EA\" stroke-width=\"3\"/>\n    </svg>", "pills": ["Solid (ice)", "Liquid (water)", "Gas (steam)"]}, "rotate": {"prompt": "Rotate the ice-water-steam picture. Does 'solid on the left, gas on the right' still make sense in a different orientation?", "svg": "<rect x=\"10\" y=\"80\" width=\"40\" height=\"40\" fill=\"#B9D8EA\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <rect x=\"70\" y=\"90\" width=\"55\" height=\"30\" fill=\"#2E6E62\" opacity=\"0.6\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <path d=\"M170 110 Q166 95 172 80\" fill=\"none\" stroke=\"#B9D8EA\" stroke-width=\"3\"/>"}, "compare": {"question": "Tap the picture showing molecules PACKED TIGHT (a solid).", "explanation": "A solid's molecules barely move and stay locked in place — that's why ice holds a fixed shape while water and steam don't.", "choices": [{"label": "A — tightly packed dots (solid)", "svg": "<svg viewBox=\"0 0 200 140\"><rect x=\"30\" y=\"30\" width=\"140\" height=\"80\" fill=\"none\" stroke=\"#0B2545\" stroke-width=\"2\"/><circle cx=\"55\" cy=\"50\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"80\" cy=\"50\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"105\" cy=\"50\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"55\" cy=\"75\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"80\" cy=\"75\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"105\" cy=\"75\" r=\"5\" fill=\"#2E6E62\"/></svg>", "correct": true}, {"label": "B — scattered spread-out dots (gas)", "svg": "<svg viewBox=\"0 0 200 140\"><rect x=\"30\" y=\"30\" width=\"140\" height=\"80\" fill=\"none\" stroke=\"#0B2545\" stroke-width=\"2\"/><circle cx=\"45\" cy=\"45\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"140\" cy=\"95\" r=\"5\" fill=\"#2E6E62\"/><circle cx=\"90\" cy=\"50\" r=\"5\" fill=\"#2E6E62\"/></svg>", "correct": false}]}, "connect": {"items": [{"text": "A pot of ice sits on the stove", "icon": "<svg viewBox='0 0 40 40'><rect x='8' y='8' width='24' height='24' fill='#B9D8EA' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "Heat energy pours in, molecules start moving faster", "icon": "<svg viewBox='0 0 40 40'><rect x='16' y='4' width='8' height='22' rx='4' fill='#F3EEE1' stroke='#0B2545' stroke-width='2'/><circle cx='20' cy='30' r='7' fill='#D9603B' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "Enough energy melts it to liquid, even more turns it to gas", "icon": "<svg viewBox='0 0 40 40'><path d='M14 34 Q10 24 16 18 Q20 12 14 4' fill='none' stroke='#B9D8EA' stroke-width='3'/><path d='M26 34 Q22 24 28 18 Q32 12 26 4' fill='none' stroke='#B9D8EA' stroke-width='3'/></svg>"}, {"text": "🔗 Links to Mario Energy Transformation: adding heat energy here works just like adding height (potential energy) there — energy in, state changes", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "Why does it take a LOT of heat to turn boiling water into steam, way more than to melt the same amount of ice?", "visualSvg": "<svg viewBox=\"0 0 200 100\"><rect x=\"20\" y=\"60\" width=\"50\" height=\"30\" fill=\"#B9D8EA\" stroke=\"#0B2545\" stroke-width=\"2\"/><path d=\"M150 70 Q146 55 152 40\" fill=\"none\" stroke=\"#B9D8EA\" stroke-width=\"3\"/></svg>", "starters": ["Turning liquid into gas needs more energy because...", "The molecules in steam are..."], "keywords": ["energy", "molecules", "heat", "state"]}, "predict": {"question": "You keep adding heat to boiling water, but the temperature stays at 100°C and doesn't rise. Where is all that extra heat energy going?", "explanation": "During a change of state, added energy goes into breaking molecules apart (turning liquid into gas) instead of raising temperature — that's why boiling water sits at a steady 100°C while it turns to steam.", "choices": [{"text": "Into changing the water into steam (changing state)", "correct": true}, {"text": "The heat just disappears with no effect", "correct": false}, {"text": "It makes the water colder", "correct": false}]}};
 /* ============================================================================================ */
 
 (function(){
@@ -481,14 +491,16 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 320 200\" role=\"i
   }
   function pushUndo(){
     if(!ctx) return;
-    if(undoStack.length > 19) undoStack.shift();
+    if(undoStack.length > 19){ undoStack.shift(); actionLog.shift(); }
     undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    actionLog.push(null);
   }
   function getPos(e){
     var rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }
   canvas.addEventListener("pointerdown", function(e){
+    if(pillPointerDown(e)) return;
     if(!canvasReady) initCanvasIfNeeded();
     pushUndo();
     drawing = true;
@@ -497,6 +509,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 320 200\" role=\"i
     if(canvas.setPointerCapture){ try{ canvas.setPointerCapture(e.pointerId); }catch(err){} }
   });
   canvas.addEventListener("pointermove", function(e){
+    if(drawing) pillStrokeSeen();
     if(!drawing || !ctx) return;
     var pos = getPos(e);
     ctx.strokeStyle = currentColor;
@@ -514,17 +527,133 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 320 200\" role=\"i
   canvas.addEventListener("pointercancel", endStroke);
   canvas.addEventListener("pointerleave", endStroke);
 
+  /*PILLS-V1*/
+  /* ---------- Concept pills: tap an idea, tap the drawing to stamp it in; all must be placed to finish ---------- */
+  var PILLS = ((DATA.draw && DATA.draw.pills) || (DATA.practice && DATA.practice.pills) || []).slice();
+  var placed = {};
+  var armedPill = null;
+  var strokeTotal = 0, strokeMarked = false;
+  var actionLog = [];
+  var pillRow = null, pillCount = null, pillHelp = null;
+
+  function stampPill(text, x, y){
+    ctx.save();
+    ctx.font = "700 15px system-ui, -apple-system, 'Segoe UI', sans-serif";
+    var w = Math.ceil(ctx.measureText(text).width) + 22, h = 30, r = 15;
+    var px = Math.min(Math.max(x - w / 2, 4), canvasCSSWidth - w - 4);
+    var py = Math.min(Math.max(y - h / 2, 4), canvasCSSHeight - h - 4);
+    ctx.beginPath();
+    ctx.moveTo(px + r, py);
+    ctx.lineTo(px + w - r, py);
+    ctx.arc(px + w - r, py + r, r, -Math.PI / 2, Math.PI / 2);
+    ctx.lineTo(px + r, py + h);
+    ctx.arc(px + r, py + r, r, Math.PI / 2, Math.PI * 1.5);
+    ctx.closePath();
+    ctx.fillStyle = "#0B2545"; ctx.fill();
+    ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(text, px + w / 2, py + h / 2 + 1);
+    ctx.restore();
+  }
+  function pillRefresh(){
+    if(!pillRow) return;
+    var n = 0;
+    Array.prototype.forEach.call(pillRow.children, function(b){
+      var t = b.dataset.pill, done = !!placed[t];
+      if(done) n++;
+      b.classList.toggle("placed", done);
+      b.classList.toggle("armed", armedPill === t);
+      b.disabled = done;
+      b.textContent = (done ? "✓ " : "") + t;
+      b.setAttribute("aria-pressed", armedPill === t ? "true" : "false");
+    });
+    pillCount.textContent = n + " / " + PILLS.length + " placed";
+    pillHelp.className = "pill-help";
+    pillHelp.textContent = armedPill
+      ? ("Now tap your drawing where “" + armedPill + "” belongs.")
+      : (n === PILLS.length ? "All ideas placed! Join them with lines and arrows, then press finished."
+                            : "Tap an idea, then tap your drawing where it belongs.");
+    canvas.style.cursor = armedPill ? "crosshair" : "";
+  }
+  (function(){
+    if(!PILLS.length) return;
+    var tray = document.createElement("div");
+    tray.className = "pill-tray"; tray.id = "pill-tray";
+    tray.innerHTML = '<p class="pill-title"><span>🧩 Put these ideas in your picture</span><span id="pill-count"></span></p><p class="pill-help" id="pill-help"></p><div class="pill-row" id="pill-row"></div>';
+    canvas.parentNode.insertBefore(tray, canvas);
+    pillRow = tray.querySelector("#pill-row"); pillCount = tray.querySelector("#pill-count"); pillHelp = tray.querySelector("#pill-help");
+    PILLS.forEach(function(p){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "pill"; b.dataset.pill = p; b.textContent = p;
+      b.addEventListener("click", function(){
+        if(placed[p]) return;
+        armedPill = (armedPill === p) ? null : p;
+        pillRefresh();
+      });
+      pillRow.appendChild(b);
+    });
+    pillRefresh();
+  })();
+  function pillPointerDown(e){
+    strokeMarked = false;
+    if(!armedPill) return false;
+    if(!canvasReady) initCanvasIfNeeded();
+    var pos = getPos(e);
+    var text = armedPill;
+    if(ctx){
+      pushUndo();
+      if(actionLog.length) actionLog[actionLog.length - 1] = { type: "stamp", text: text };
+      stampPill(text, pos.x, pos.y);
+    }
+    placed[text] = true;
+    armedPill = null;
+    drawing = false;
+    pillRefresh();
+    return true;
+  }
+  function pillStrokeSeen(){
+    if(strokeMarked) return;
+    strokeMarked = true; strokeTotal++;
+    if(actionLog.length && actionLog[actionLog.length - 1] === null) actionLog[actionLog.length - 1] = { type: "stroke" };
+  }
+  function pillUndoRecord(rec){
+    if(!rec) return;
+    if(rec.type === "stamp"){ placed[rec.text] = false; }
+    else if(rec.type === "stroke"){ strokeTotal = Math.max(0, strokeTotal - 1); }
+    else if(rec.type === "clear"){ placed = rec.placedBefore; strokeTotal = rec.strokesBefore; }
+    pillRefresh();
+  }
+  function pillGateOk(){
+    if(!PILLS.length) return true;
+    var missing = PILLS.filter(function(p){ return !placed[p]; });
+    if(missing.length){
+      pillHelp.textContent = "Almost! Still to place: " + missing.join(", ") + ".";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    if(strokeTotal < 1){
+      pillHelp.textContent = "Now DRAW something too: join your ideas with lines and arrows.";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    return true;
+  }
+
   document.getElementById("undo-btn").addEventListener("click", function(){
     if(!ctx) return;
-    if(undoStack.length > 1){ undoStack.pop(); }
-    var prev = undoStack[undoStack.length - 1];
-    if(prev){ ctx.putImageData(prev, 0, 0); }
+    if(undoStack.length < 2) return;
+    var prev = undoStack.pop();
+    var rec = actionLog.pop();
+    ctx.putImageData(prev, 0, 0);
+    pillUndoRecord(rec);
   });
   document.getElementById("clear-btn").addEventListener("click", function(){
     if(!ctx) return;
     pushUndo();
+    if(actionLog.length) actionLog[actionLog.length - 1] = { type: "clear", placedBefore: JSON.parse(JSON.stringify(placed)), strokesBefore: strokeTotal };
     ctx.fillStyle = "#F3EEE1";
     ctx.fillRect(0, 0, canvasCSSWidth, canvasCSSHeight);
+    placed = {}; strokeTotal = 0; armedPill = null;
+    pillRefresh();
   });
   document.getElementById("hint-toggle").addEventListener("click", function(){
     var panel = document.getElementById("hint-panel");
@@ -542,6 +671,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 320 200\" role=\"i
   var drawBtn = document.getElementById("draw-finished-btn");
   var drawNext = document.getElementById("draw-next");
   drawBtn.addEventListener("click", function(){
+    if(!pillGateOk()) return;
     saveDrawingToGallery();
     drawNext.disabled = false;
     drawBtn.textContent = "✓ Marked as finished";

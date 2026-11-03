@@ -92,6 +92,16 @@
   #badge-toast{ position:fixed; top:16px; left:50%; transform:translate(-50%,-140%); background:var(--brass-light); color:var(--navy-deep);
     font-weight:700; padding:10px 18px; border-radius:10px; transition:transform .35s ease; z-index:10; }
   #badge-toast.show{ transform:translate(-50%,0); }
+
+/*PILLS-V1-CSS*/
+.pill-tray{ background:#FFFBF0; border:2px dashed #C9A24B; border-radius:10px; padding:10px 12px; margin:10px 0; }
+.pill-title{ margin:0 0 4px; font-weight:700; font-size:.95rem; display:flex; justify-content:space-between; gap:8px; }
+.pill-help{ margin:0 0 8px; font-size:.92rem; }
+.pill-help.warn{ color:#B3401F; font-weight:700; }
+.pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.pill{ border:2px solid #0B2545; background:#FFFFFF; color:#0B2545; border-radius:999px; padding:8px 14px; font-weight:700; font-size:.95rem; min-height:44px; cursor:pointer; }
+.pill.armed{ background:#C9A24B; box-shadow:0 0 0 3px rgba(201,162,75,.45); }
+.pill.placed{ background:#2E6E62; border-color:#2E6E62; color:#FFFFFF; cursor:default; opacity:1; }
 </style>
 </head>
 <body data-concept-id="titanic-06-buoyancy-model">
@@ -262,7 +272,7 @@
 
 <script>
 /* ============ PER-CONCEPT DATA — this whole block gets swapped per concept file ============ */
-window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 300 220\" role=\"img\" aria-label=\"Ship floating in water with the displaced water shown to the side and an upward arrow showing buoyant force\">\n      <rect x=\"20\" y=\"120\" width=\"260\" height=\"80\" fill=\"#B9D8EA\" opacity=\"0.5\"/>\n      <path d=\"M100 100 L200 100 L190 140 L110 140 Z\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <path d=\"M110 140 Q150 155 190 140 L190 150 Q150 165 110 150 Z\" fill=\"#2E6E62\" opacity=\"0.6\"/>\n      <text x=\"150\" y=\"175\" text-anchor=\"middle\" font-size=\"11\" fill=\"#0B2545\">displaced water</text>\n      <line x1=\"150\" y1=\"100\" x2=\"150\" y2=\"60\" stroke=\"#2E6E62\" stroke-width=\"3\"/><path d=\"M142 70 L150 56 L158 70 Z\" fill=\"#2E6E62\"/>\n      <text x=\"150\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2E6E62\">buoyant force ↑</text>\n    </svg>", "question": "When the ship pushes water out of the way, what pushes back?", "explanation": "This is Archimedes' Principle: an object pushes fluid out of the way, and that fluid pushes back with an equal upward force.", "choices": [{"text": "The displaced water pushes up on the ship", "correct": true}, {"text": "Nothing pushes back", "correct": false}, {"text": "The water pushes the ship sideways", "correct": false}]}, "label": {"items": [{"id": "displaced", "name": "Displaced water", "icon": "<svg viewBox='0 0 80 60'><path d='M8 34 Q18 20 28 34 T48 34 T68 34' fill='none' stroke='#2E6E62' stroke-width='3'/><path d='M8 44 Q18 30 28 44 T48 44 T68 44' fill='none' stroke='#2E6E62' stroke-width='2' opacity='0.6'/></svg>", "fact": "Displaced water is the water the ship's hull pushes out of the way."}, {"id": "buoyant", "name": "Buoyant force", "icon": "<svg viewBox='0 0 40 40'><line x1='20' y1='34' x2='20' y2='8' stroke='#2E6E62' stroke-width='4'/><path d='M10 16 L20 4 L30 16 Z' fill='#2E6E62'/></svg>", "fact": "Buoyant force is the upward push the displaced water gives back to the ship."}, {"id": "ship", "name": "Ship", "icon": "<svg viewBox='0 0 80 60'><path d='M10 34 L70 34 L60 50 L20 50 Z' fill='#F3EEE1' stroke='#0B2545' stroke-width='2'/><line x1='6' y1='34' x2='74' y2='34' stroke='#2E6E62' stroke-width='1' stroke-dasharray='4 3'/></svg>", "fact": "The ship floats where these forces balance out."}, {"id": "waterline", "name": "Waterline", "icon": "<svg viewBox='0 0 80 60'><line x1='8' y1='30' x2='72' y2='30' stroke='#2E6E62' stroke-width='2' stroke-dasharray='6 4'/></svg>", "fact": "The waterline shows exactly how deep the ship sits in the water."}]}, "draw": {"prompt": "Draw the ship floating, then draw the water it pushes out of the way, and an arrow showing the force pushing back up.", "hintSvg": "<svg viewBox=\"0 0 300 220\" role=\"img\" aria-label=\"hint\">\n      <path d=\"M100 100 L200 100 L190 140 L110 140 Z\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <line x1=\"150\" y1=\"100\" x2=\"150\" y2=\"60\" stroke=\"#2E6E62\" stroke-width=\"3\"/>\n    </svg>"}, "rotate": {"prompt": "Rotate the buoyancy diagram — does the upward force change direction with the ship, or stay pointing up?", "svg": "<path d=\"M100 100 L200 100 L190 140 L110 140 Z\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <line x1=\"150\" y1=\"100\" x2=\"150\" y2=\"60\" stroke=\"#2E6E62\" stroke-width=\"3\"/>"}, "compare": {"question": "Tap the picture that shows MORE water being displaced (a heavier ship).", "explanation": "A heavier ship sinks deeper, displacing more water, until the extra buoyant force balances its extra weight.", "choices": [{"label": "A — small displacement", "svg": "<svg viewBox=\"0 0 160 160\"><rect x=\"30\" y=\"20\" width=\"100\" height=\"140\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"0\" opacity=\"0\"/><path d=\"M40 90 L120 90 L115 105 L45 105 Z\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"2\"/><rect x=\"20\" y=\"105\" width=\"120\" height=\"35\" fill=\"#B9D8EA\"/></svg>", "correct": false}, {"label": "B — large displacement", "svg": "<svg viewBox=\"0 0 160 160\"><path d=\"M30 70 L130 70 L120 105 L40 105 Z\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"2\"/><rect x=\"20\" y=\"105\" width=\"120\" height=\"45\" fill=\"#B9D8EA\"/></svg>", "correct": true}]}, "connect": {"items": [{"text": "Ship enters the water", "icon": "<svg viewBox='0 0 40 40'><path d='M8 24 L32 24 L28 32 L12 32 Z' fill='#F3EEE1' stroke='#0B2545' stroke-width='2'/><rect x='16' y='10' width='6' height='14' fill='#D9603B'/></svg>"}, {"text": "Pushes water out of the way (displaces it)", "icon": "<svg viewBox='0 0 80 60'><path d='M8 34 Q18 20 28 34 T48 34 T68 34' fill='none' stroke='#2E6E62' stroke-width='3'/><path d='M8 44 Q18 30 28 44 T48 44 T68 44' fill='none' stroke='#2E6E62' stroke-width='2' opacity='0.6'/></svg>"}, {"text": "Displaced water pushes back up", "icon": "<svg viewBox='0 0 40 40'><line x1='20' y1='34' x2='20' y2='8' stroke='#2E6E62' stroke-width='4'/><path d='M10 16 L20 4 L30 16 Z' fill='#2E6E62'/></svg>"}]}, "explain": {"prompt": "Why does a heavier ship need to displace more water to float?", "visualSvg": "<svg viewBox=\"0 0 200 120\"><path d=\"M40 50 L160 50 L150 85 L50 85 Z\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"2\"/><rect x=\"30\" y=\"85\" width=\"140\" height=\"25\" fill=\"#B9D8EA\"/></svg>", "starters": ["A heavier ship needs to displace more water because...", "To balance the extra weight, ..."], "keywords": ["displace", "weight", "buoyant", "balance"]}, "predict": {"question": "If you replaced the ship with a much heavier version of the same shape, what happens to how much water it displaces?", "explanation": "Buoyant force must equal weight for a ship to float, so more weight means more water must be displaced to generate that extra upward force.", "choices": [{"text": "It displaces more water and sits lower", "correct": true}, {"text": "It displaces less water", "correct": false}, {"text": "Nothing changes", "correct": false}]}};
+window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 300 220\" role=\"img\" aria-label=\"Ship floating in water with the displaced water shown to the side and an upward arrow showing buoyant force\">\n      <rect x=\"20\" y=\"120\" width=\"260\" height=\"80\" fill=\"#B9D8EA\" opacity=\"0.5\"/>\n      <path d=\"M100 100 L200 100 L190 140 L110 140 Z\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <path d=\"M110 140 Q150 155 190 140 L190 150 Q150 165 110 150 Z\" fill=\"#2E6E62\" opacity=\"0.6\"/>\n      <text x=\"150\" y=\"175\" text-anchor=\"middle\" font-size=\"11\" fill=\"#0B2545\">displaced water</text>\n      <line x1=\"150\" y1=\"100\" x2=\"150\" y2=\"60\" stroke=\"#2E6E62\" stroke-width=\"3\"/><path d=\"M142 70 L150 56 L158 70 Z\" fill=\"#2E6E62\"/>\n      <text x=\"150\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2E6E62\">buoyant force ↑</text>\n    </svg>", "question": "When the ship pushes water out of the way, what pushes back?", "explanation": "This is Archimedes' Principle: an object pushes fluid out of the way, and that fluid pushes back with an equal upward force.", "choices": [{"text": "The displaced water pushes up on the ship", "correct": true}, {"text": "Nothing pushes back", "correct": false}, {"text": "The water pushes the ship sideways", "correct": false}]}, "label": {"items": [{"id": "displaced", "name": "Displaced water", "icon": "<svg viewBox='0 0 80 60'><path d='M8 34 Q18 20 28 34 T48 34 T68 34' fill='none' stroke='#2E6E62' stroke-width='3'/><path d='M8 44 Q18 30 28 44 T48 44 T68 44' fill='none' stroke='#2E6E62' stroke-width='2' opacity='0.6'/></svg>", "fact": "Displaced water is the water the ship's hull pushes out of the way."}, {"id": "buoyant", "name": "Buoyant force", "icon": "<svg viewBox='0 0 40 40'><line x1='20' y1='34' x2='20' y2='8' stroke='#2E6E62' stroke-width='4'/><path d='M10 16 L20 4 L30 16 Z' fill='#2E6E62'/></svg>", "fact": "Buoyant force is the upward push the displaced water gives back to the ship."}, {"id": "ship", "name": "Ship", "icon": "<svg viewBox='0 0 80 60'><path d='M10 34 L70 34 L60 50 L20 50 Z' fill='#F3EEE1' stroke='#0B2545' stroke-width='2'/><line x1='6' y1='34' x2='74' y2='34' stroke='#2E6E62' stroke-width='1' stroke-dasharray='4 3'/></svg>", "fact": "The ship floats where these forces balance out."}, {"id": "waterline", "name": "Waterline", "icon": "<svg viewBox='0 0 80 60'><line x1='8' y1='30' x2='72' y2='30' stroke='#2E6E62' stroke-width='2' stroke-dasharray='6 4'/></svg>", "fact": "The waterline shows exactly how deep the ship sits in the water."}]}, "draw": {"prompt": "Draw the ship floating, then draw the water it pushes out of the way, and an arrow showing the force pushing back up.", "hintSvg": "<svg viewBox=\"0 0 300 220\" role=\"img\" aria-label=\"hint\">\n      <path d=\"M100 100 L200 100 L190 140 L110 140 Z\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <line x1=\"150\" y1=\"100\" x2=\"150\" y2=\"60\" stroke=\"#2E6E62\" stroke-width=\"3\"/>\n    </svg>", "pills": ["Ship", "Displaced water", "Buoyant force", "Waterline"]}, "rotate": {"prompt": "Rotate the buoyancy diagram — does the upward force change direction with the ship, or stay pointing up?", "svg": "<path d=\"M100 100 L200 100 L190 140 L110 140 Z\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"2\"/>\n      <line x1=\"150\" y1=\"100\" x2=\"150\" y2=\"60\" stroke=\"#2E6E62\" stroke-width=\"3\"/>"}, "compare": {"question": "Tap the picture that shows MORE water being displaced (a heavier ship).", "explanation": "A heavier ship sinks deeper, displacing more water, until the extra buoyant force balances its extra weight.", "choices": [{"label": "A — small displacement", "svg": "<svg viewBox=\"0 0 160 160\"><rect x=\"30\" y=\"20\" width=\"100\" height=\"140\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"0\" opacity=\"0\"/><path d=\"M40 90 L120 90 L115 105 L45 105 Z\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"2\"/><rect x=\"20\" y=\"105\" width=\"120\" height=\"35\" fill=\"#B9D8EA\"/></svg>", "correct": false}, {"label": "B — large displacement", "svg": "<svg viewBox=\"0 0 160 160\"><path d=\"M30 70 L130 70 L120 105 L40 105 Z\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"2\"/><rect x=\"20\" y=\"105\" width=\"120\" height=\"45\" fill=\"#B9D8EA\"/></svg>", "correct": true}]}, "connect": {"items": [{"text": "Ship enters the water", "icon": "<svg viewBox='0 0 40 40'><path d='M8 24 L32 24 L28 32 L12 32 Z' fill='#F3EEE1' stroke='#0B2545' stroke-width='2'/><rect x='16' y='10' width='6' height='14' fill='#D9603B'/></svg>"}, {"text": "Pushes water out of the way (displaces it)", "icon": "<svg viewBox='0 0 80 60'><path d='M8 34 Q18 20 28 34 T48 34 T68 34' fill='none' stroke='#2E6E62' stroke-width='3'/><path d='M8 44 Q18 30 28 44 T48 44 T68 44' fill='none' stroke='#2E6E62' stroke-width='2' opacity='0.6'/></svg>"}, {"text": "Displaced water pushes back up", "icon": "<svg viewBox='0 0 40 40'><line x1='20' y1='34' x2='20' y2='8' stroke='#2E6E62' stroke-width='4'/><path d='M10 16 L20 4 L30 16 Z' fill='#2E6E62'/></svg>"}]}, "explain": {"prompt": "Why does a heavier ship need to displace more water to float?", "visualSvg": "<svg viewBox=\"0 0 200 120\"><path d=\"M40 50 L160 50 L150 85 L50 85 Z\" fill=\"#F3EEE1\" stroke=\"#0B2545\" stroke-width=\"2\"/><rect x=\"30\" y=\"85\" width=\"140\" height=\"25\" fill=\"#B9D8EA\"/></svg>", "starters": ["A heavier ship needs to displace more water because...", "To balance the extra weight, ..."], "keywords": ["displace", "weight", "buoyant", "balance"]}, "predict": {"question": "If you replaced the ship with a much heavier version of the same shape, what happens to how much water it displaces?", "explanation": "Buoyant force must equal weight for a ship to float, so more weight means more water must be displaced to generate that extra upward force.", "choices": [{"text": "It displaces more water and sits lower", "correct": true}, {"text": "It displaces less water", "correct": false}, {"text": "Nothing changes", "correct": false}]}};
 /* ============================================================================================ */
 
 (function(){
@@ -481,14 +491,16 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 300 220\" role=\"i
   }
   function pushUndo(){
     if(!ctx) return;
-    if(undoStack.length > 19) undoStack.shift();
+    if(undoStack.length > 19){ undoStack.shift(); actionLog.shift(); }
     undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    actionLog.push(null);
   }
   function getPos(e){
     var rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }
   canvas.addEventListener("pointerdown", function(e){
+    if(pillPointerDown(e)) return;
     if(!canvasReady) initCanvasIfNeeded();
     pushUndo();
     drawing = true;
@@ -497,6 +509,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 300 220\" role=\"i
     if(canvas.setPointerCapture){ try{ canvas.setPointerCapture(e.pointerId); }catch(err){} }
   });
   canvas.addEventListener("pointermove", function(e){
+    if(drawing) pillStrokeSeen();
     if(!drawing || !ctx) return;
     var pos = getPos(e);
     ctx.strokeStyle = currentColor;
@@ -514,17 +527,133 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 300 220\" role=\"i
   canvas.addEventListener("pointercancel", endStroke);
   canvas.addEventListener("pointerleave", endStroke);
 
+  /*PILLS-V1*/
+  /* ---------- Concept pills: tap an idea, tap the drawing to stamp it in; all must be placed to finish ---------- */
+  var PILLS = ((DATA.draw && DATA.draw.pills) || (DATA.practice && DATA.practice.pills) || []).slice();
+  var placed = {};
+  var armedPill = null;
+  var strokeTotal = 0, strokeMarked = false;
+  var actionLog = [];
+  var pillRow = null, pillCount = null, pillHelp = null;
+
+  function stampPill(text, x, y){
+    ctx.save();
+    ctx.font = "700 15px system-ui, -apple-system, 'Segoe UI', sans-serif";
+    var w = Math.ceil(ctx.measureText(text).width) + 22, h = 30, r = 15;
+    var px = Math.min(Math.max(x - w / 2, 4), canvasCSSWidth - w - 4);
+    var py = Math.min(Math.max(y - h / 2, 4), canvasCSSHeight - h - 4);
+    ctx.beginPath();
+    ctx.moveTo(px + r, py);
+    ctx.lineTo(px + w - r, py);
+    ctx.arc(px + w - r, py + r, r, -Math.PI / 2, Math.PI / 2);
+    ctx.lineTo(px + r, py + h);
+    ctx.arc(px + r, py + r, r, Math.PI / 2, Math.PI * 1.5);
+    ctx.closePath();
+    ctx.fillStyle = "#0B2545"; ctx.fill();
+    ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(text, px + w / 2, py + h / 2 + 1);
+    ctx.restore();
+  }
+  function pillRefresh(){
+    if(!pillRow) return;
+    var n = 0;
+    Array.prototype.forEach.call(pillRow.children, function(b){
+      var t = b.dataset.pill, done = !!placed[t];
+      if(done) n++;
+      b.classList.toggle("placed", done);
+      b.classList.toggle("armed", armedPill === t);
+      b.disabled = done;
+      b.textContent = (done ? "✓ " : "") + t;
+      b.setAttribute("aria-pressed", armedPill === t ? "true" : "false");
+    });
+    pillCount.textContent = n + " / " + PILLS.length + " placed";
+    pillHelp.className = "pill-help";
+    pillHelp.textContent = armedPill
+      ? ("Now tap your drawing where “" + armedPill + "” belongs.")
+      : (n === PILLS.length ? "All ideas placed! Join them with lines and arrows, then press finished."
+                            : "Tap an idea, then tap your drawing where it belongs.");
+    canvas.style.cursor = armedPill ? "crosshair" : "";
+  }
+  (function(){
+    if(!PILLS.length) return;
+    var tray = document.createElement("div");
+    tray.className = "pill-tray"; tray.id = "pill-tray";
+    tray.innerHTML = '<p class="pill-title"><span>🧩 Put these ideas in your picture</span><span id="pill-count"></span></p><p class="pill-help" id="pill-help"></p><div class="pill-row" id="pill-row"></div>';
+    canvas.parentNode.insertBefore(tray, canvas);
+    pillRow = tray.querySelector("#pill-row"); pillCount = tray.querySelector("#pill-count"); pillHelp = tray.querySelector("#pill-help");
+    PILLS.forEach(function(p){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "pill"; b.dataset.pill = p; b.textContent = p;
+      b.addEventListener("click", function(){
+        if(placed[p]) return;
+        armedPill = (armedPill === p) ? null : p;
+        pillRefresh();
+      });
+      pillRow.appendChild(b);
+    });
+    pillRefresh();
+  })();
+  function pillPointerDown(e){
+    strokeMarked = false;
+    if(!armedPill) return false;
+    if(!canvasReady) initCanvasIfNeeded();
+    var pos = getPos(e);
+    var text = armedPill;
+    if(ctx){
+      pushUndo();
+      if(actionLog.length) actionLog[actionLog.length - 1] = { type: "stamp", text: text };
+      stampPill(text, pos.x, pos.y);
+    }
+    placed[text] = true;
+    armedPill = null;
+    drawing = false;
+    pillRefresh();
+    return true;
+  }
+  function pillStrokeSeen(){
+    if(strokeMarked) return;
+    strokeMarked = true; strokeTotal++;
+    if(actionLog.length && actionLog[actionLog.length - 1] === null) actionLog[actionLog.length - 1] = { type: "stroke" };
+  }
+  function pillUndoRecord(rec){
+    if(!rec) return;
+    if(rec.type === "stamp"){ placed[rec.text] = false; }
+    else if(rec.type === "stroke"){ strokeTotal = Math.max(0, strokeTotal - 1); }
+    else if(rec.type === "clear"){ placed = rec.placedBefore; strokeTotal = rec.strokesBefore; }
+    pillRefresh();
+  }
+  function pillGateOk(){
+    if(!PILLS.length) return true;
+    var missing = PILLS.filter(function(p){ return !placed[p]; });
+    if(missing.length){
+      pillHelp.textContent = "Almost! Still to place: " + missing.join(", ") + ".";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    if(strokeTotal < 1){
+      pillHelp.textContent = "Now DRAW something too: join your ideas with lines and arrows.";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    return true;
+  }
+
   document.getElementById("undo-btn").addEventListener("click", function(){
     if(!ctx) return;
-    if(undoStack.length > 1){ undoStack.pop(); }
-    var prev = undoStack[undoStack.length - 1];
-    if(prev){ ctx.putImageData(prev, 0, 0); }
+    if(undoStack.length < 2) return;
+    var prev = undoStack.pop();
+    var rec = actionLog.pop();
+    ctx.putImageData(prev, 0, 0);
+    pillUndoRecord(rec);
   });
   document.getElementById("clear-btn").addEventListener("click", function(){
     if(!ctx) return;
     pushUndo();
+    if(actionLog.length) actionLog[actionLog.length - 1] = { type: "clear", placedBefore: JSON.parse(JSON.stringify(placed)), strokesBefore: strokeTotal };
     ctx.fillStyle = "#F3EEE1";
     ctx.fillRect(0, 0, canvasCSSWidth, canvasCSSHeight);
+    placed = {}; strokeTotal = 0; armedPill = null;
+    pillRefresh();
   });
   document.getElementById("hint-toggle").addEventListener("click", function(){
     var panel = document.getElementById("hint-panel");
@@ -542,6 +671,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox=\"0 0 300 220\" role=\"i
   var drawBtn = document.getElementById("draw-finished-btn");
   var drawNext = document.getElementById("draw-next");
   drawBtn.addEventListener("click", function(){
+    if(!pillGateOk()) return;
     saveDrawingToGallery();
     drawNext.disabled = false;
     drawBtn.textContent = "✓ Marked as finished";
