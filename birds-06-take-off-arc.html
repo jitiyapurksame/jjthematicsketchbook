@@ -92,6 +92,16 @@
   #badge-toast{ position:fixed; top:16px; left:50%; transform:translate(-50%,-140%); background:var(--brass-light); color:var(--navy-deep);
     font-weight:700; padding:10px 18px; border-radius:10px; transition:transform .35s ease; z-index:10; }
   #badge-toast.show{ transform:translate(-50%,0); }
+
+/*PILLS-V1-CSS*/
+.pill-tray{ background:#FFFBF0; border:2px dashed #C9A24B; border-radius:10px; padding:10px 12px; margin:10px 0; }
+.pill-title{ margin:0 0 4px; font-weight:700; font-size:.95rem; display:flex; justify-content:space-between; gap:8px; }
+.pill-help{ margin:0 0 8px; font-size:.92rem; }
+.pill-help.warn{ color:#B3401F; font-weight:700; }
+.pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.pill{ border:2px solid #0B2545; background:#FFFFFF; color:#0B2545; border-radius:999px; padding:8px 14px; font-weight:700; font-size:.95rem; min-height:44px; cursor:pointer; }
+.pill.armed{ background:#C9A24B; box-shadow:0 0 0 3px rgba(201,162,75,.45); }
+.pill.placed{ background:#2E6E62; border-color:#2E6E62; color:#FFFFFF; cursor:default; opacity:1; }
 </style>
 </head>
 <body data-concept-id="birds-06-take-off-arc">
@@ -262,7 +272,7 @@
 
 <script>
 /* ============ PER-CONCEPT DATA — this whole block gets swapped per concept file ============ */
-window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 200' role='img' aria-label='A jump arc that returns to the ground and a flapping path that keeps climbing'><line x1='10' y1='170' x2='290' y2='170' stroke='#DCD3BC' stroke-width='4'/><path d='M30 165 Q130 20 230 165' fill='none' stroke='#0B2545' stroke-width='3' stroke-dasharray='6 5'/><path d='M30 165 Q95 70 150 85 Q220 100 280 40' fill='none' stroke='#2E6E62' stroke-width='4'/><line x1='268.0' y1='50.0' x2='274.4' y2='44.5' stroke='#2E6E62' stroke-width='2' stroke-linecap='round'/><polygon points='282.0,38.0 278.3,49.1 270.5,40.0' fill='#2E6E62'/><circle cx='30' cy='165' r='7' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><text x='238' y='158' font-size='10' fill='#0B2545' text-anchor='start' font-weight='normal'>jump only</text><text x='112' y='52' font-size='10' fill='#2E6E62' text-anchor='start' font-weight='bold'>jump + flapping</text></svg>", "question": "A pigeon hops off the ground without flapping. What stops it from going up forever?", "explanation": "Gravity keeps pulling the pigeon down the whole time. Its upward speed shrinks to zero at the top of the hop, then it falls. That makes a curved arc.", "choices": [{"text": "Gravity keeps pulling it down 🌍", "correct": true}, {"text": "The ground pulls it back", "correct": false}, {"text": "Nothing: jumps go up forever", "correct": false}]}, "label": {"items": [{"id": "launch", "name": "Launch push", "icon": "<svg viewBox='0 0 40 40'><line x1='4' y1='34' x2='36' y2='34' stroke='#0B2545' stroke-width='3'/><line x1='12.0' y1='32.0' x2='24.0' y2='16.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='30.0,8.0 28.8,19.6 19.2,12.4' fill='#D9603B'/></svg>", "fact": "🦵 The legs push off the ground. This gives the pigeon its starting speed."}, {"id": "peak", "name": "Peak of the arc", "icon": "<svg viewBox='0 0 40 40'><path d='M3 34 Q20 -8 37 34' fill='none' stroke='#2E6E62' stroke-width='3'/><circle cx='20' cy='13' r='4' fill='#C9A24B' stroke='#0B2545' stroke-width='1.5'/></svg>", "fact": "⛰️ At the top, the upward speed hits zero for a moment. Gravity is still pulling."}, {"id": "thrust", "name": "Wing power", "icon": "<svg viewBox='0 0 40 40'><path d='M5 29 Q18 3 36 13 Q22 35 5 29 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "🪶 Flapping adds a new push, so the pigeon does not have to come back down."}]}, "draw": {"prompt": "Draw the path of a hop: a smooth arc up and back down. Then draw a second path where flapping carries the pigeon higher.", "hintSvg": "<svg viewBox='0 0 300 200' role='img' aria-label='hint: two dotted arcs from the ground'><line x1='10' y1='170' x2='290' y2='170' stroke='#DCD3BC' stroke-width='4'/><path d='M30 165 Q130 20 230 165' fill='none' stroke='#D9603B' stroke-width='3' stroke-dasharray='6 5'/><path d='M30 165 Q95 70 150 85 Q220 100 280 40' fill='none' stroke='#2E6E62' stroke-width='3' stroke-dasharray='6 5'/><circle cx='30' cy='165' r='7' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/></svg>"}, "rotate": {"prompt": "Rotate the arc. Turned upside down it looks like a bowl 🥣. A hop follows a smooth curve called a parabola, which is an upside-down bowl.", "svg": "<line x1='30' y1='220' x2='270' y2='220' stroke='#DCD3BC' stroke-width='4'/><path d='M30 220 Q150 -20 270 220' fill='none' stroke='#2E6E62' stroke-width='4'/><circle cx='30' cy='220' r='7' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><circle cx='150' cy='100' r='7' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/><text x='150' y='84' font-size='12' fill='#0B2545' text-anchor='middle' font-weight='bold'>peak</text>"}, "compare": {"question": "Two pigeons hop off the ground. Tap the one that pushed off with MORE speed.", "explanation": "A faster launch goes higher and farther before gravity wins. The hop on the right is taller and longer, so that pigeon started with more speed.", "choices": [{"label": "A — low short hop", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='small arc'><line x1='5' y1='120' x2='195' y2='120' stroke='#DCD3BC' stroke-width='3'/><path d='M20 120 Q60 80 100 120' fill='none' stroke='#0B2545' stroke-width='3'/><circle cx='20' cy='120' r='5' fill='#8D9BAF' stroke='#0B2545' stroke-width='1.5'/></svg>", "correct": false}, {"label": "B — high long hop", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='big arc'><line x1='5' y1='120' x2='195' y2='120' stroke='#DCD3BC' stroke-width='3'/><path d='M20 120 Q100 10 180 120' fill='none' stroke='#0B2545' stroke-width='3'/><circle cx='20' cy='120' r='5' fill='#8D9BAF' stroke='#0B2545' stroke-width='1.5'/></svg>", "correct": true}]}, "connect": {"items": [{"text": "The legs push off the ground: that is the launch speed", "icon": "<svg viewBox='0 0 40 40'><line x1='4' y1='34' x2='36' y2='34' stroke='#0B2545' stroke-width='3'/><line x1='12.0' y1='32.0' x2='24.0' y2='16.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='30.0,8.0 28.8,19.6 19.2,12.4' fill='#D9603B'/></svg>"}, {"text": "Gravity pulls the pigeon down while it rises", "icon": "<svg viewBox='0 0 40 40'><line x1='20.0' y1='5.0' x2='20.0' y2='24.0' stroke='#0B2545' stroke-width='4' stroke-linecap='round'/><polygon points='20.0,35.0 13.4,24.0 26.6,24.0' fill='#0B2545'/></svg>"}, {"text": "Upward speed shrinks to zero at the peak, then it falls: an arc", "icon": "<svg viewBox='0 0 40 40'><path d='M3 34 Q20 -8 37 34' fill='none' stroke='#2E6E62' stroke-width='3'/><circle cx='20' cy='13' r='4' fill='#C9A24B' stroke='#0B2545' stroke-width='1.5'/></svg>"}, {"text": "🔗 Links to Mario Jump Arc: Mario and the pigeon follow the same curve. Flapping is like an extra power-up", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "How do flapping wings change a pigeon's hop path?", "visualSvg": "<svg viewBox='0 0 200 100' role='img' aria-label='plain arc and a flapping path'><path d='M15 85 Q60 10 105 85' fill='none' stroke='#0B2545' stroke-width='3' stroke-dasharray='5 4'/><path d='M15 85 Q60 30 105 60 Q150 85 185 20' fill='none' stroke='#2E6E62' stroke-width='3'/><circle cx='15' cy='85' r='5' fill='#8D9BAF' stroke='#0B2545' stroke-width='1.5'/></svg>", "starters": ["Without flapping, gravity...", "With flapping, the wings add..."], "keywords": ["gravity", "arc", "thrust", "lift"]}, "predict": {"question": "A pigeon launches with a faster push from its legs. What happens to its hop arc?", "explanation": "More launch speed means the pigeon rises higher and travels farther before gravity pulls it back to the ground.", "choices": [{"text": "Higher and longer", "correct": true}, {"text": "Lower and shorter", "correct": false}, {"text": "The arc stays exactly the same", "correct": false}]}};
+window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 200' role='img' aria-label='A jump arc that returns to the ground and a flapping path that keeps climbing'><line x1='10' y1='170' x2='290' y2='170' stroke='#DCD3BC' stroke-width='4'/><path d='M30 165 Q130 20 230 165' fill='none' stroke='#0B2545' stroke-width='3' stroke-dasharray='6 5'/><path d='M30 165 Q95 70 150 85 Q220 100 280 40' fill='none' stroke='#2E6E62' stroke-width='4'/><line x1='268.0' y1='50.0' x2='274.4' y2='44.5' stroke='#2E6E62' stroke-width='2' stroke-linecap='round'/><polygon points='282.0,38.0 278.3,49.1 270.5,40.0' fill='#2E6E62'/><circle cx='30' cy='165' r='7' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><text x='238' y='158' font-size='10' fill='#0B2545' text-anchor='start' font-weight='normal'>jump only</text><text x='112' y='52' font-size='10' fill='#2E6E62' text-anchor='start' font-weight='bold'>jump + flapping</text></svg>", "question": "A pigeon hops off the ground without flapping. What stops it from going up forever?", "explanation": "Gravity keeps pulling the pigeon down the whole time. Its upward speed shrinks to zero at the top of the hop, then it falls. That makes a curved arc.", "choices": [{"text": "Gravity keeps pulling it down 🌍", "correct": true}, {"text": "The ground pulls it back", "correct": false}, {"text": "Nothing: jumps go up forever", "correct": false}]}, "label": {"items": [{"id": "launch", "name": "Launch push", "icon": "<svg viewBox='0 0 40 40'><line x1='4' y1='34' x2='36' y2='34' stroke='#0B2545' stroke-width='3'/><line x1='12.0' y1='32.0' x2='24.0' y2='16.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='30.0,8.0 28.8,19.6 19.2,12.4' fill='#D9603B'/></svg>", "fact": "🦵 The legs push off the ground. This gives the pigeon its starting speed."}, {"id": "peak", "name": "Peak of the arc", "icon": "<svg viewBox='0 0 40 40'><path d='M3 34 Q20 -8 37 34' fill='none' stroke='#2E6E62' stroke-width='3'/><circle cx='20' cy='13' r='4' fill='#C9A24B' stroke='#0B2545' stroke-width='1.5'/></svg>", "fact": "⛰️ At the top, the upward speed hits zero for a moment. Gravity is still pulling."}, {"id": "thrust", "name": "Wing power", "icon": "<svg viewBox='0 0 40 40'><path d='M5 29 Q18 3 36 13 Q22 35 5 29 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "🪶 Flapping adds a new push, so the pigeon does not have to come back down."}]}, "draw": {"prompt": "Draw the path of a hop: a smooth arc up and back down. Then draw a second path where flapping carries the pigeon higher.", "hintSvg": "<svg viewBox='0 0 300 200' role='img' aria-label='hint: two dotted arcs from the ground'><line x1='10' y1='170' x2='290' y2='170' stroke='#DCD3BC' stroke-width='4'/><path d='M30 165 Q130 20 230 165' fill='none' stroke='#D9603B' stroke-width='3' stroke-dasharray='6 5'/><path d='M30 165 Q95 70 150 85 Q220 100 280 40' fill='none' stroke='#2E6E62' stroke-width='3' stroke-dasharray='6 5'/><circle cx='30' cy='165' r='7' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/></svg>", "pills": ["Peak", "Hop only", "Hop + flapping"]}, "rotate": {"prompt": "Rotate the arc. Turned upside down it looks like a bowl 🥣. A hop follows a smooth curve called a parabola, which is an upside-down bowl.", "svg": "<line x1='30' y1='220' x2='270' y2='220' stroke='#DCD3BC' stroke-width='4'/><path d='M30 220 Q150 -20 270 220' fill='none' stroke='#2E6E62' stroke-width='4'/><circle cx='30' cy='220' r='7' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><circle cx='150' cy='100' r='7' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/><text x='150' y='84' font-size='12' fill='#0B2545' text-anchor='middle' font-weight='bold'>peak</text>"}, "compare": {"question": "Two pigeons hop off the ground. Tap the one that pushed off with MORE speed.", "explanation": "A faster launch goes higher and farther before gravity wins. The hop on the right is taller and longer, so that pigeon started with more speed.", "choices": [{"label": "A — low short hop", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='small arc'><line x1='5' y1='120' x2='195' y2='120' stroke='#DCD3BC' stroke-width='3'/><path d='M20 120 Q60 80 100 120' fill='none' stroke='#0B2545' stroke-width='3'/><circle cx='20' cy='120' r='5' fill='#8D9BAF' stroke='#0B2545' stroke-width='1.5'/></svg>", "correct": false}, {"label": "B — high long hop", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='big arc'><line x1='5' y1='120' x2='195' y2='120' stroke='#DCD3BC' stroke-width='3'/><path d='M20 120 Q100 10 180 120' fill='none' stroke='#0B2545' stroke-width='3'/><circle cx='20' cy='120' r='5' fill='#8D9BAF' stroke='#0B2545' stroke-width='1.5'/></svg>", "correct": true}]}, "connect": {"items": [{"text": "The legs push off the ground: that is the launch speed", "icon": "<svg viewBox='0 0 40 40'><line x1='4' y1='34' x2='36' y2='34' stroke='#0B2545' stroke-width='3'/><line x1='12.0' y1='32.0' x2='24.0' y2='16.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='30.0,8.0 28.8,19.6 19.2,12.4' fill='#D9603B'/></svg>"}, {"text": "Gravity pulls the pigeon down while it rises", "icon": "<svg viewBox='0 0 40 40'><line x1='20.0' y1='5.0' x2='20.0' y2='24.0' stroke='#0B2545' stroke-width='4' stroke-linecap='round'/><polygon points='20.0,35.0 13.4,24.0 26.6,24.0' fill='#0B2545'/></svg>"}, {"text": "Upward speed shrinks to zero at the peak, then it falls: an arc", "icon": "<svg viewBox='0 0 40 40'><path d='M3 34 Q20 -8 37 34' fill='none' stroke='#2E6E62' stroke-width='3'/><circle cx='20' cy='13' r='4' fill='#C9A24B' stroke='#0B2545' stroke-width='1.5'/></svg>"}, {"text": "🔗 Links to Mario Jump Arc: Mario and the pigeon follow the same curve. Flapping is like an extra power-up", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "How do flapping wings change a pigeon's hop path?", "visualSvg": "<svg viewBox='0 0 200 100' role='img' aria-label='plain arc and a flapping path'><path d='M15 85 Q60 10 105 85' fill='none' stroke='#0B2545' stroke-width='3' stroke-dasharray='5 4'/><path d='M15 85 Q60 30 105 60 Q150 85 185 20' fill='none' stroke='#2E6E62' stroke-width='3'/><circle cx='15' cy='85' r='5' fill='#8D9BAF' stroke='#0B2545' stroke-width='1.5'/></svg>", "starters": ["Without flapping, gravity...", "With flapping, the wings add..."], "keywords": ["gravity", "arc", "thrust", "lift"]}, "predict": {"question": "A pigeon launches with a faster push from its legs. What happens to its hop arc?", "explanation": "More launch speed means the pigeon rises higher and travels farther before gravity pulls it back to the ground.", "choices": [{"text": "Higher and longer", "correct": true}, {"text": "Lower and shorter", "correct": false}, {"text": "The arc stays exactly the same", "correct": false}]}};
 /* ============================================================================================ */
 
 (function(){
@@ -481,14 +491,16 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 200' role='img'
   }
   function pushUndo(){
     if(!ctx) return;
-    if(undoStack.length > 19) undoStack.shift();
+    if(undoStack.length > 19){ undoStack.shift(); actionLog.shift(); }
     undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    actionLog.push(null);
   }
   function getPos(e){
     var rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }
   canvas.addEventListener("pointerdown", function(e){
+    if(pillPointerDown(e)) return;
     if(!canvasReady) initCanvasIfNeeded();
     pushUndo();
     drawing = true;
@@ -497,6 +509,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 200' role='img'
     if(canvas.setPointerCapture){ try{ canvas.setPointerCapture(e.pointerId); }catch(err){} }
   });
   canvas.addEventListener("pointermove", function(e){
+    if(drawing) pillStrokeSeen();
     if(!drawing || !ctx) return;
     var pos = getPos(e);
     ctx.strokeStyle = currentColor;
@@ -514,17 +527,133 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 200' role='img'
   canvas.addEventListener("pointercancel", endStroke);
   canvas.addEventListener("pointerleave", endStroke);
 
+  /*PILLS-V1*/
+  /* ---------- Concept pills: tap an idea, tap the drawing to stamp it in; all must be placed to finish ---------- */
+  var PILLS = ((DATA.draw && DATA.draw.pills) || (DATA.practice && DATA.practice.pills) || []).slice();
+  var placed = {};
+  var armedPill = null;
+  var strokeTotal = 0, strokeMarked = false;
+  var actionLog = [];
+  var pillRow = null, pillCount = null, pillHelp = null;
+
+  function stampPill(text, x, y){
+    ctx.save();
+    ctx.font = "700 15px system-ui, -apple-system, 'Segoe UI', sans-serif";
+    var w = Math.ceil(ctx.measureText(text).width) + 22, h = 30, r = 15;
+    var px = Math.min(Math.max(x - w / 2, 4), canvasCSSWidth - w - 4);
+    var py = Math.min(Math.max(y - h / 2, 4), canvasCSSHeight - h - 4);
+    ctx.beginPath();
+    ctx.moveTo(px + r, py);
+    ctx.lineTo(px + w - r, py);
+    ctx.arc(px + w - r, py + r, r, -Math.PI / 2, Math.PI / 2);
+    ctx.lineTo(px + r, py + h);
+    ctx.arc(px + r, py + r, r, Math.PI / 2, Math.PI * 1.5);
+    ctx.closePath();
+    ctx.fillStyle = "#0B2545"; ctx.fill();
+    ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(text, px + w / 2, py + h / 2 + 1);
+    ctx.restore();
+  }
+  function pillRefresh(){
+    if(!pillRow) return;
+    var n = 0;
+    Array.prototype.forEach.call(pillRow.children, function(b){
+      var t = b.dataset.pill, done = !!placed[t];
+      if(done) n++;
+      b.classList.toggle("placed", done);
+      b.classList.toggle("armed", armedPill === t);
+      b.disabled = done;
+      b.textContent = (done ? "✓ " : "") + t;
+      b.setAttribute("aria-pressed", armedPill === t ? "true" : "false");
+    });
+    pillCount.textContent = n + " / " + PILLS.length + " placed";
+    pillHelp.className = "pill-help";
+    pillHelp.textContent = armedPill
+      ? ("Now tap your drawing where “" + armedPill + "” belongs.")
+      : (n === PILLS.length ? "All ideas placed! Join them with lines and arrows, then press finished."
+                            : "Tap an idea, then tap your drawing where it belongs.");
+    canvas.style.cursor = armedPill ? "crosshair" : "";
+  }
+  (function(){
+    if(!PILLS.length) return;
+    var tray = document.createElement("div");
+    tray.className = "pill-tray"; tray.id = "pill-tray";
+    tray.innerHTML = '<p class="pill-title"><span>🧩 Put these ideas in your picture</span><span id="pill-count"></span></p><p class="pill-help" id="pill-help"></p><div class="pill-row" id="pill-row"></div>';
+    canvas.parentNode.insertBefore(tray, canvas);
+    pillRow = tray.querySelector("#pill-row"); pillCount = tray.querySelector("#pill-count"); pillHelp = tray.querySelector("#pill-help");
+    PILLS.forEach(function(p){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "pill"; b.dataset.pill = p; b.textContent = p;
+      b.addEventListener("click", function(){
+        if(placed[p]) return;
+        armedPill = (armedPill === p) ? null : p;
+        pillRefresh();
+      });
+      pillRow.appendChild(b);
+    });
+    pillRefresh();
+  })();
+  function pillPointerDown(e){
+    strokeMarked = false;
+    if(!armedPill) return false;
+    if(!canvasReady) initCanvasIfNeeded();
+    var pos = getPos(e);
+    var text = armedPill;
+    if(ctx){
+      pushUndo();
+      if(actionLog.length) actionLog[actionLog.length - 1] = { type: "stamp", text: text };
+      stampPill(text, pos.x, pos.y);
+    }
+    placed[text] = true;
+    armedPill = null;
+    drawing = false;
+    pillRefresh();
+    return true;
+  }
+  function pillStrokeSeen(){
+    if(strokeMarked) return;
+    strokeMarked = true; strokeTotal++;
+    if(actionLog.length && actionLog[actionLog.length - 1] === null) actionLog[actionLog.length - 1] = { type: "stroke" };
+  }
+  function pillUndoRecord(rec){
+    if(!rec) return;
+    if(rec.type === "stamp"){ placed[rec.text] = false; }
+    else if(rec.type === "stroke"){ strokeTotal = Math.max(0, strokeTotal - 1); }
+    else if(rec.type === "clear"){ placed = rec.placedBefore; strokeTotal = rec.strokesBefore; }
+    pillRefresh();
+  }
+  function pillGateOk(){
+    if(!PILLS.length) return true;
+    var missing = PILLS.filter(function(p){ return !placed[p]; });
+    if(missing.length){
+      pillHelp.textContent = "Almost! Still to place: " + missing.join(", ") + ".";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    if(strokeTotal < 1){
+      pillHelp.textContent = "Now DRAW something too: join your ideas with lines and arrows.";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    return true;
+  }
+
   document.getElementById("undo-btn").addEventListener("click", function(){
     if(!ctx) return;
-    if(undoStack.length > 1){ undoStack.pop(); }
-    var prev = undoStack[undoStack.length - 1];
-    if(prev){ ctx.putImageData(prev, 0, 0); }
+    if(undoStack.length < 2) return;
+    var prev = undoStack.pop();
+    var rec = actionLog.pop();
+    ctx.putImageData(prev, 0, 0);
+    pillUndoRecord(rec);
   });
   document.getElementById("clear-btn").addEventListener("click", function(){
     if(!ctx) return;
     pushUndo();
+    if(actionLog.length) actionLog[actionLog.length - 1] = { type: "clear", placedBefore: JSON.parse(JSON.stringify(placed)), strokesBefore: strokeTotal };
     ctx.fillStyle = "#F3EEE1";
     ctx.fillRect(0, 0, canvasCSSWidth, canvasCSSHeight);
+    placed = {}; strokeTotal = 0; armedPill = null;
+    pillRefresh();
   });
   document.getElementById("hint-toggle").addEventListener("click", function(){
     var panel = document.getElementById("hint-panel");
@@ -542,6 +671,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 200' role='img'
   var drawBtn = document.getElementById("draw-finished-btn");
   var drawNext = document.getElementById("draw-next");
   drawBtn.addEventListener("click", function(){
+    if(!pillGateOk()) return;
     saveDrawingToGallery();
     drawNext.disabled = false;
     drawBtn.textContent = "✓ Marked as finished";

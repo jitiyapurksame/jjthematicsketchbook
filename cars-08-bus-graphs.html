@@ -92,6 +92,16 @@
   #badge-toast{ position:fixed; top:16px; left:50%; transform:translate(-50%,-140%); background:var(--brass-light); color:var(--navy-deep);
     font-weight:700; padding:10px 18px; border-radius:10px; transition:transform .35s ease; z-index:10; }
   #badge-toast.show{ transform:translate(-50%,0); }
+
+/*PILLS-V1-CSS*/
+.pill-tray{ background:#FFFBF0; border:2px dashed #C9A24B; border-radius:10px; padding:10px 12px; margin:10px 0; }
+.pill-title{ margin:0 0 4px; font-weight:700; font-size:.95rem; display:flex; justify-content:space-between; gap:8px; }
+.pill-help{ margin:0 0 8px; font-size:.92rem; }
+.pill-help.warn{ color:#B3401F; font-weight:700; }
+.pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.pill{ border:2px solid #0B2545; background:#FFFFFF; color:#0B2545; border-radius:999px; padding:8px 14px; font-weight:700; font-size:.95rem; min-height:44px; cursor:pointer; }
+.pill.armed{ background:#C9A24B; box-shadow:0 0 0 3px rgba(201,162,75,.45); }
+.pill.placed{ background:#2E6E62; border-color:#2E6E62; color:#FFFFFF; cursor:default; opacity:1; }
 </style>
 </head>
 <body data-concept-id="cars-08-bus-graphs">
@@ -262,7 +272,7 @@
 
 <script>
 /* ============ PER-CONCEPT DATA — this whole block gets swapped per concept file ============ */
-window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 200' role='img' aria-label='Speed-time graph of a bus: speeds up, cruises, brakes, stops, then goes again'><line x1='40' y1='160' x2='285' y2='160' stroke='#0B2545' stroke-width='2'/><line x1='40' y1='160' x2='40' y2='20' stroke='#0B2545' stroke-width='2'/><polygon points='289,160 282,156 282,164' fill='#0B2545'/><polygon points='40,16 36,25 44,25' fill='#0B2545'/><polyline points='40,160 80,60 140,60 170,160 210,160 250,70' fill='none' stroke='#2E6E62' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/><text x='46' y='16' font-size='11' fill='#0B2545' text-anchor='start' font-weight='normal'>speed</text><text x='288' y='178' font-size='11' fill='#0B2545' text-anchor='end' font-weight='normal'>time</text><text x='64' y='124' font-size='10' fill='#3F8F5C' text-anchor='start' font-weight='bold'>go</text><text x='110' y='50' font-size='10' fill='#2E6E62' text-anchor='middle' font-weight='bold'>cruise</text><text x='178' y='108' font-size='10' fill='#D9603B' text-anchor='start' font-weight='bold'>brake</text><text x='190' y='148' font-size='10' fill='#D9603B' text-anchor='middle' font-weight='bold'>stop</text><text x='236' y='118' font-size='10' fill='#3F8F5C' text-anchor='start' font-weight='bold'>go</text></svg>", "question": "This is a SPEED–time graph of a bus. Where is the bus standing still at a bus stop?", "explanation": "On a speed–time graph, standing still means speed is zero, so the line sits on the bottom. (Careful: on a distance–time graph, still means a flat line. Different graph, different clue!)", "choices": [{"text": "Where the line sits on zero", "correct": true}, {"text": "Where the line goes up", "correct": false}, {"text": "Where the line is flat high up", "correct": false}]}, "label": {"items": [{"id": "rise", "name": "Rising line", "icon": "<svg viewBox='0 0 40 40'><path d='M6 6 V34 H34' fill='none' stroke='#0B2545' stroke-width='2'/><line x1='8' y1='32' x2='28' y2='10' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/></svg>", "fact": "📈 Speeding up (acceleration). The drive force is bigger than the drag."}, {"id": "flat", "name": "Flat high line", "icon": "<svg viewBox='0 0 40 40'><path d='M6 6 V34 H34' fill='none' stroke='#0B2545' stroke-width='2'/><line x1='8' y1='12' x2='32' y2='12' stroke='#2E6E62' stroke-width='4' stroke-linecap='round'/></svg>", "fact": "➡️ Cruising at a steady speed. The forces are balanced."}, {"id": "zero", "name": "Line on zero", "icon": "<svg viewBox='0 0 40 40'><path d='M6 6 V34 H34' fill='none' stroke='#0B2545' stroke-width='2'/><line x1='8' y1='32' x2='32' y2='32' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/></svg>", "fact": "🛑 Speed is zero. The bus is stopped at the bus stop."}]}, "draw": {"prompt": "Draw a speed–time graph for a bus: speed up, cruise, brake, stop at a bus stop, then go again.", "hintSvg": "<svg viewBox='0 0 300 200' role='img' aria-label='hint: axes with a dotted go, cruise, brake, stop, go line'><line x1='40' y1='160' x2='285' y2='160' stroke='#0B2545' stroke-width='2'/><line x1='40' y1='160' x2='40' y2='20' stroke='#0B2545' stroke-width='2'/><polygon points='289,160 282,156 282,164' fill='#0B2545'/><polygon points='40,16 36,25 44,25' fill='#0B2545'/><polyline points='40,160 80,60 140,60 170,160 210,160 250,70' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='6 5'/><text x='46' y='16' font-size='11' fill='#0B2545' text-anchor='start' font-weight='normal'>speed</text><text x='288' y='178' font-size='11' fill='#0B2545' text-anchor='end' font-weight='normal'>time</text></svg>"}, "rotate": {"prompt": "Rotate the graph. It looks different, but the meaning is the same. Rising means speeding up, flat at the top means cruising, falling means braking.", "svg": "<line x1='50' y1='250' x2='275' y2='250' stroke='#0B2545' stroke-width='2'/><line x1='50' y1='250' x2='50' y2='40' stroke='#0B2545' stroke-width='2'/><polygon points='279,250 272,246 272,254' fill='#0B2545'/><polygon points='50,36 46,45 54,45' fill='#0B2545'/><polyline points='50,250 100,120 170,120 205,250 235,250 270,150' fill='none' stroke='#2E6E62' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/><text x='84' y='204' font-size='12' fill='#3F8F5C' text-anchor='start' font-weight='bold'>go</text><text x='135' y='108' font-size='12' fill='#2E6E62' text-anchor='middle' font-weight='bold'>cruise</text><text x='190' y='185' font-size='12' fill='#D9603B' text-anchor='start' font-weight='bold'>brake</text><text x='220' y='240' font-size='12' fill='#D9603B' text-anchor='middle' font-weight='bold'>stop</text>"}, "compare": {"question": "Tap the graph of the bus that is braking HARD.", "explanation": "A steeper fall means the speed drops faster, so the brakes are working harder. The gentler fall is a bus slowing down gradually.", "choices": [{"label": "A — gentle fall", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='gently falling line'><line x1='30' y1='115' x2='185' y2='115' stroke='#0B2545' stroke-width='2'/><line x1='30' y1='115' x2='30' y2='15' stroke='#0B2545' stroke-width='2'/><polygon points='189,115 182,111 182,119' fill='#0B2545'/><polygon points='30,11 26,20 34,20' fill='#0B2545'/><polyline points='30,35 170,108' fill='none' stroke='#D9603B' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/></svg>", "correct": false}, {"label": "B — steep fall", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='steeply falling line'><line x1='30' y1='115' x2='185' y2='115' stroke='#0B2545' stroke-width='2'/><line x1='30' y1='115' x2='30' y2='15' stroke='#0B2545' stroke-width='2'/><polygon points='189,115 182,111 182,119' fill='#0B2545'/><polygon points='30,11 26,20 34,20' fill='#0B2545'/><polyline points='30,35 80,115 170,115' fill='none' stroke='#D9603B' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/></svg>", "correct": true}]}, "connect": {"items": [{"text": "The bus pulls away from the stop: the line rises", "icon": "<svg viewBox='0 0 40 40'><path d='M6 6 V34 H34' fill='none' stroke='#0B2545' stroke-width='2'/><line x1='8' y1='32' x2='28' y2='10' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/></svg>"}, {"text": "It cruises at a steady speed: the line is flat", "icon": "<svg viewBox='0 0 40 40'><path d='M6 6 V34 H34' fill='none' stroke='#0B2545' stroke-width='2'/><line x1='8' y1='12' x2='32' y2='12' stroke='#2E6E62' stroke-width='4' stroke-linecap='round'/></svg>"}, {"text": "It brakes: speed falls (the brakes turn motion into heat, page 5)", "icon": "<svg viewBox='0 0 40 40'><path d='M6 6 V34 H34' fill='none' stroke='#0B2545' stroke-width='2'/><line x1='8' y1='10' x2='28' y2='32' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/></svg>"}, {"text": "🔗 Links back to Forces on the Road (page 4), plus Mario graphs: rising = drive bigger than drag, flat = forces balanced, falling = braking wins", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "A bus is cruising at a steady speed. What does that look like on the speed–time graph, and what do the forces look like?", "visualSvg": "<svg viewBox='0 0 200 100' role='img' aria-label='speed graph rising then flat'><line x1='25' y1='85' x2='185' y2='85' stroke='#0B2545' stroke-width='2'/><line x1='25' y1='85' x2='25' y2='10' stroke='#0B2545' stroke-width='2'/><polygon points='189,85 182,81 182,89' fill='#0B2545'/><polygon points='25,6 21,15 29,15' fill='#0B2545'/><polyline points='25,85 60,35 170,35' fill='none' stroke='#2E6E62' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><text x='110' y='28' font-size='10' fill='#2E6E62' text-anchor='middle' font-weight='bold'>cruise</text></svg>", "starters": ["A flat line means the speed is...", "So the forces are..."], "keywords": ["flat", "speed", "balanced", "drive"]}, "predict": {"question": "The driver brakes GENTLY instead of hard. How does the falling part of the graph change?", "explanation": "Gentle braking slows the bus gradually, so the speed line falls more slowly. That makes the falling part of the graph less steep.", "choices": [{"text": "It gets gentler (less steep)", "correct": true}, {"text": "It gets steeper", "correct": false}, {"text": "It goes upward", "correct": false}]}};
+window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 200' role='img' aria-label='Speed-time graph of a bus: speeds up, cruises, brakes, stops, then goes again'><line x1='40' y1='160' x2='285' y2='160' stroke='#0B2545' stroke-width='2'/><line x1='40' y1='160' x2='40' y2='20' stroke='#0B2545' stroke-width='2'/><polygon points='289,160 282,156 282,164' fill='#0B2545'/><polygon points='40,16 36,25 44,25' fill='#0B2545'/><polyline points='40,160 80,60 140,60 170,160 210,160 250,70' fill='none' stroke='#2E6E62' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/><text x='46' y='16' font-size='11' fill='#0B2545' text-anchor='start' font-weight='normal'>speed</text><text x='288' y='178' font-size='11' fill='#0B2545' text-anchor='end' font-weight='normal'>time</text><text x='64' y='124' font-size='10' fill='#3F8F5C' text-anchor='start' font-weight='bold'>go</text><text x='110' y='50' font-size='10' fill='#2E6E62' text-anchor='middle' font-weight='bold'>cruise</text><text x='178' y='108' font-size='10' fill='#D9603B' text-anchor='start' font-weight='bold'>brake</text><text x='190' y='148' font-size='10' fill='#D9603B' text-anchor='middle' font-weight='bold'>stop</text><text x='236' y='118' font-size='10' fill='#3F8F5C' text-anchor='start' font-weight='bold'>go</text></svg>", "question": "This is a SPEED–time graph of a bus. Where is the bus standing still at a bus stop?", "explanation": "On a speed–time graph, standing still means speed is zero, so the line sits on the bottom. (Careful: on a distance–time graph, still means a flat line. Different graph, different clue!)", "choices": [{"text": "Where the line sits on zero", "correct": true}, {"text": "Where the line goes up", "correct": false}, {"text": "Where the line is flat high up", "correct": false}]}, "label": {"items": [{"id": "rise", "name": "Rising line", "icon": "<svg viewBox='0 0 40 40'><path d='M6 6 V34 H34' fill='none' stroke='#0B2545' stroke-width='2'/><line x1='8' y1='32' x2='28' y2='10' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/></svg>", "fact": "📈 Speeding up (acceleration). The drive force is bigger than the drag."}, {"id": "flat", "name": "Flat high line", "icon": "<svg viewBox='0 0 40 40'><path d='M6 6 V34 H34' fill='none' stroke='#0B2545' stroke-width='2'/><line x1='8' y1='12' x2='32' y2='12' stroke='#2E6E62' stroke-width='4' stroke-linecap='round'/></svg>", "fact": "➡️ Cruising at a steady speed. The forces are balanced."}, {"id": "zero", "name": "Line on zero", "icon": "<svg viewBox='0 0 40 40'><path d='M6 6 V34 H34' fill='none' stroke='#0B2545' stroke-width='2'/><line x1='8' y1='32' x2='32' y2='32' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/></svg>", "fact": "🛑 Speed is zero. The bus is stopped at the bus stop."}]}, "draw": {"prompt": "Draw a speed–time graph for a bus: speed up, cruise, brake, stop at a bus stop, then go again.", "hintSvg": "<svg viewBox='0 0 300 200' role='img' aria-label='hint: axes with a dotted go, cruise, brake, stop, go line'><line x1='40' y1='160' x2='285' y2='160' stroke='#0B2545' stroke-width='2'/><line x1='40' y1='160' x2='40' y2='20' stroke='#0B2545' stroke-width='2'/><polygon points='289,160 282,156 282,164' fill='#0B2545'/><polygon points='40,16 36,25 44,25' fill='#0B2545'/><polyline points='40,160 80,60 140,60 170,160 210,160 250,70' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='6 5'/><text x='46' y='16' font-size='11' fill='#0B2545' text-anchor='start' font-weight='normal'>speed</text><text x='288' y='178' font-size='11' fill='#0B2545' text-anchor='end' font-weight='normal'>time</text></svg>", "pills": ["Speeding up", "Cruising", "Braking", "Stopped", "Time"]}, "rotate": {"prompt": "Rotate the graph. It looks different, but the meaning is the same. Rising means speeding up, flat at the top means cruising, falling means braking.", "svg": "<line x1='50' y1='250' x2='275' y2='250' stroke='#0B2545' stroke-width='2'/><line x1='50' y1='250' x2='50' y2='40' stroke='#0B2545' stroke-width='2'/><polygon points='279,250 272,246 272,254' fill='#0B2545'/><polygon points='50,36 46,45 54,45' fill='#0B2545'/><polyline points='50,250 100,120 170,120 205,250 235,250 270,150' fill='none' stroke='#2E6E62' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/><text x='84' y='204' font-size='12' fill='#3F8F5C' text-anchor='start' font-weight='bold'>go</text><text x='135' y='108' font-size='12' fill='#2E6E62' text-anchor='middle' font-weight='bold'>cruise</text><text x='190' y='185' font-size='12' fill='#D9603B' text-anchor='start' font-weight='bold'>brake</text><text x='220' y='240' font-size='12' fill='#D9603B' text-anchor='middle' font-weight='bold'>stop</text>"}, "compare": {"question": "Tap the graph of the bus that is braking HARD.", "explanation": "A steeper fall means the speed drops faster, so the brakes are working harder. The gentler fall is a bus slowing down gradually.", "choices": [{"label": "A — gentle fall", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='gently falling line'><line x1='30' y1='115' x2='185' y2='115' stroke='#0B2545' stroke-width='2'/><line x1='30' y1='115' x2='30' y2='15' stroke='#0B2545' stroke-width='2'/><polygon points='189,115 182,111 182,119' fill='#0B2545'/><polygon points='30,11 26,20 34,20' fill='#0B2545'/><polyline points='30,35 170,108' fill='none' stroke='#D9603B' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/></svg>", "correct": false}, {"label": "B — steep fall", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='steeply falling line'><line x1='30' y1='115' x2='185' y2='115' stroke='#0B2545' stroke-width='2'/><line x1='30' y1='115' x2='30' y2='15' stroke='#0B2545' stroke-width='2'/><polygon points='189,115 182,111 182,119' fill='#0B2545'/><polygon points='30,11 26,20 34,20' fill='#0B2545'/><polyline points='30,35 80,115 170,115' fill='none' stroke='#D9603B' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/></svg>", "correct": true}]}, "connect": {"items": [{"text": "The bus pulls away from the stop: the line rises", "icon": "<svg viewBox='0 0 40 40'><path d='M6 6 V34 H34' fill='none' stroke='#0B2545' stroke-width='2'/><line x1='8' y1='32' x2='28' y2='10' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/></svg>"}, {"text": "It cruises at a steady speed: the line is flat", "icon": "<svg viewBox='0 0 40 40'><path d='M6 6 V34 H34' fill='none' stroke='#0B2545' stroke-width='2'/><line x1='8' y1='12' x2='32' y2='12' stroke='#2E6E62' stroke-width='4' stroke-linecap='round'/></svg>"}, {"text": "It brakes: speed falls (the brakes turn motion into heat, page 5)", "icon": "<svg viewBox='0 0 40 40'><path d='M6 6 V34 H34' fill='none' stroke='#0B2545' stroke-width='2'/><line x1='8' y1='10' x2='28' y2='32' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/></svg>"}, {"text": "🔗 Links back to Forces on the Road (page 4), plus Mario graphs: rising = drive bigger than drag, flat = forces balanced, falling = braking wins", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "A bus is cruising at a steady speed. What does that look like on the speed–time graph, and what do the forces look like?", "visualSvg": "<svg viewBox='0 0 200 100' role='img' aria-label='speed graph rising then flat'><line x1='25' y1='85' x2='185' y2='85' stroke='#0B2545' stroke-width='2'/><line x1='25' y1='85' x2='25' y2='10' stroke='#0B2545' stroke-width='2'/><polygon points='189,85 182,81 182,89' fill='#0B2545'/><polygon points='25,6 21,15 29,15' fill='#0B2545'/><polyline points='25,85 60,35 170,35' fill='none' stroke='#2E6E62' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><text x='110' y='28' font-size='10' fill='#2E6E62' text-anchor='middle' font-weight='bold'>cruise</text></svg>", "starters": ["A flat line means the speed is...", "So the forces are..."], "keywords": ["flat", "speed", "balanced", "drive"]}, "predict": {"question": "The driver brakes GENTLY instead of hard. How does the falling part of the graph change?", "explanation": "Gentle braking slows the bus gradually, so the speed line falls more slowly. That makes the falling part of the graph less steep.", "choices": [{"text": "It gets gentler (less steep)", "correct": true}, {"text": "It gets steeper", "correct": false}, {"text": "It goes upward", "correct": false}]}};
 /* ============================================================================================ */
 
 (function(){
@@ -481,14 +491,16 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 200' role='img'
   }
   function pushUndo(){
     if(!ctx) return;
-    if(undoStack.length > 19) undoStack.shift();
+    if(undoStack.length > 19){ undoStack.shift(); actionLog.shift(); }
     undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    actionLog.push(null);
   }
   function getPos(e){
     var rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }
   canvas.addEventListener("pointerdown", function(e){
+    if(pillPointerDown(e)) return;
     if(!canvasReady) initCanvasIfNeeded();
     pushUndo();
     drawing = true;
@@ -497,6 +509,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 200' role='img'
     if(canvas.setPointerCapture){ try{ canvas.setPointerCapture(e.pointerId); }catch(err){} }
   });
   canvas.addEventListener("pointermove", function(e){
+    if(drawing) pillStrokeSeen();
     if(!drawing || !ctx) return;
     var pos = getPos(e);
     ctx.strokeStyle = currentColor;
@@ -514,17 +527,133 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 200' role='img'
   canvas.addEventListener("pointercancel", endStroke);
   canvas.addEventListener("pointerleave", endStroke);
 
+  /*PILLS-V1*/
+  /* ---------- Concept pills: tap an idea, tap the drawing to stamp it in; all must be placed to finish ---------- */
+  var PILLS = ((DATA.draw && DATA.draw.pills) || (DATA.practice && DATA.practice.pills) || []).slice();
+  var placed = {};
+  var armedPill = null;
+  var strokeTotal = 0, strokeMarked = false;
+  var actionLog = [];
+  var pillRow = null, pillCount = null, pillHelp = null;
+
+  function stampPill(text, x, y){
+    ctx.save();
+    ctx.font = "700 15px system-ui, -apple-system, 'Segoe UI', sans-serif";
+    var w = Math.ceil(ctx.measureText(text).width) + 22, h = 30, r = 15;
+    var px = Math.min(Math.max(x - w / 2, 4), canvasCSSWidth - w - 4);
+    var py = Math.min(Math.max(y - h / 2, 4), canvasCSSHeight - h - 4);
+    ctx.beginPath();
+    ctx.moveTo(px + r, py);
+    ctx.lineTo(px + w - r, py);
+    ctx.arc(px + w - r, py + r, r, -Math.PI / 2, Math.PI / 2);
+    ctx.lineTo(px + r, py + h);
+    ctx.arc(px + r, py + r, r, Math.PI / 2, Math.PI * 1.5);
+    ctx.closePath();
+    ctx.fillStyle = "#0B2545"; ctx.fill();
+    ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(text, px + w / 2, py + h / 2 + 1);
+    ctx.restore();
+  }
+  function pillRefresh(){
+    if(!pillRow) return;
+    var n = 0;
+    Array.prototype.forEach.call(pillRow.children, function(b){
+      var t = b.dataset.pill, done = !!placed[t];
+      if(done) n++;
+      b.classList.toggle("placed", done);
+      b.classList.toggle("armed", armedPill === t);
+      b.disabled = done;
+      b.textContent = (done ? "✓ " : "") + t;
+      b.setAttribute("aria-pressed", armedPill === t ? "true" : "false");
+    });
+    pillCount.textContent = n + " / " + PILLS.length + " placed";
+    pillHelp.className = "pill-help";
+    pillHelp.textContent = armedPill
+      ? ("Now tap your drawing where “" + armedPill + "” belongs.")
+      : (n === PILLS.length ? "All ideas placed! Join them with lines and arrows, then press finished."
+                            : "Tap an idea, then tap your drawing where it belongs.");
+    canvas.style.cursor = armedPill ? "crosshair" : "";
+  }
+  (function(){
+    if(!PILLS.length) return;
+    var tray = document.createElement("div");
+    tray.className = "pill-tray"; tray.id = "pill-tray";
+    tray.innerHTML = '<p class="pill-title"><span>🧩 Put these ideas in your picture</span><span id="pill-count"></span></p><p class="pill-help" id="pill-help"></p><div class="pill-row" id="pill-row"></div>';
+    canvas.parentNode.insertBefore(tray, canvas);
+    pillRow = tray.querySelector("#pill-row"); pillCount = tray.querySelector("#pill-count"); pillHelp = tray.querySelector("#pill-help");
+    PILLS.forEach(function(p){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "pill"; b.dataset.pill = p; b.textContent = p;
+      b.addEventListener("click", function(){
+        if(placed[p]) return;
+        armedPill = (armedPill === p) ? null : p;
+        pillRefresh();
+      });
+      pillRow.appendChild(b);
+    });
+    pillRefresh();
+  })();
+  function pillPointerDown(e){
+    strokeMarked = false;
+    if(!armedPill) return false;
+    if(!canvasReady) initCanvasIfNeeded();
+    var pos = getPos(e);
+    var text = armedPill;
+    if(ctx){
+      pushUndo();
+      if(actionLog.length) actionLog[actionLog.length - 1] = { type: "stamp", text: text };
+      stampPill(text, pos.x, pos.y);
+    }
+    placed[text] = true;
+    armedPill = null;
+    drawing = false;
+    pillRefresh();
+    return true;
+  }
+  function pillStrokeSeen(){
+    if(strokeMarked) return;
+    strokeMarked = true; strokeTotal++;
+    if(actionLog.length && actionLog[actionLog.length - 1] === null) actionLog[actionLog.length - 1] = { type: "stroke" };
+  }
+  function pillUndoRecord(rec){
+    if(!rec) return;
+    if(rec.type === "stamp"){ placed[rec.text] = false; }
+    else if(rec.type === "stroke"){ strokeTotal = Math.max(0, strokeTotal - 1); }
+    else if(rec.type === "clear"){ placed = rec.placedBefore; strokeTotal = rec.strokesBefore; }
+    pillRefresh();
+  }
+  function pillGateOk(){
+    if(!PILLS.length) return true;
+    var missing = PILLS.filter(function(p){ return !placed[p]; });
+    if(missing.length){
+      pillHelp.textContent = "Almost! Still to place: " + missing.join(", ") + ".";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    if(strokeTotal < 1){
+      pillHelp.textContent = "Now DRAW something too: join your ideas with lines and arrows.";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    return true;
+  }
+
   document.getElementById("undo-btn").addEventListener("click", function(){
     if(!ctx) return;
-    if(undoStack.length > 1){ undoStack.pop(); }
-    var prev = undoStack[undoStack.length - 1];
-    if(prev){ ctx.putImageData(prev, 0, 0); }
+    if(undoStack.length < 2) return;
+    var prev = undoStack.pop();
+    var rec = actionLog.pop();
+    ctx.putImageData(prev, 0, 0);
+    pillUndoRecord(rec);
   });
   document.getElementById("clear-btn").addEventListener("click", function(){
     if(!ctx) return;
     pushUndo();
+    if(actionLog.length) actionLog[actionLog.length - 1] = { type: "clear", placedBefore: JSON.parse(JSON.stringify(placed)), strokesBefore: strokeTotal };
     ctx.fillStyle = "#F3EEE1";
     ctx.fillRect(0, 0, canvasCSSWidth, canvasCSSHeight);
+    placed = {}; strokeTotal = 0; armedPill = null;
+    pillRefresh();
   });
   document.getElementById("hint-toggle").addEventListener("click", function(){
     var panel = document.getElementById("hint-panel");
@@ -542,6 +671,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 200' role='img'
   var drawBtn = document.getElementById("draw-finished-btn");
   var drawNext = document.getElementById("draw-next");
   drawBtn.addEventListener("click", function(){
+    if(!pillGateOk()) return;
     saveDrawingToGallery();
     drawNext.disabled = false;
     drawBtn.textContent = "✓ Marked as finished";

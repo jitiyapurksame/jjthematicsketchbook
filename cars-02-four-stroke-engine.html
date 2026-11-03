@@ -92,6 +92,16 @@
   #badge-toast{ position:fixed; top:16px; left:50%; transform:translate(-50%,-140%); background:var(--brass-light); color:var(--navy-deep);
     font-weight:700; padding:10px 18px; border-radius:10px; transition:transform .35s ease; z-index:10; }
   #badge-toast.show{ transform:translate(-50%,0); }
+
+/*PILLS-V1-CSS*/
+.pill-tray{ background:#FFFBF0; border:2px dashed #C9A24B; border-radius:10px; padding:10px 12px; margin:10px 0; }
+.pill-title{ margin:0 0 4px; font-weight:700; font-size:.95rem; display:flex; justify-content:space-between; gap:8px; }
+.pill-help{ margin:0 0 8px; font-size:.92rem; }
+.pill-help.warn{ color:#B3401F; font-weight:700; }
+.pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.pill{ border:2px solid #0B2545; background:#FFFFFF; color:#0B2545; border-radius:999px; padding:8px 14px; font-weight:700; font-size:.95rem; min-height:44px; cursor:pointer; }
+.pill.armed{ background:#C9A24B; box-shadow:0 0 0 3px rgba(201,162,75,.45); }
+.pill.placed{ background:#2E6E62; border-color:#2E6E62; color:#FFFFFF; cursor:default; opacity:1; }
 </style>
 </head>
 <body data-concept-id="cars-02-four-stroke-engine">
@@ -262,7 +272,7 @@
 
 <script>
 /* ============ PER-CONCEPT DATA — this whole block gets swapped per concept file ============ */
-window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 180' role='img' aria-label='Four steps of an engine: suck, squeeze, bang, blow, shown as pistons in cylinders'><rect x='17' y='32' width='46' height='58' fill='#CFE3EE'/><path d='M15 140 V30 H65 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='17' y='90' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='40' y1='102' x2='40' y2='148' stroke='#0B2545' stroke-width='3'/><line x1='40.0' y1='110.0' x2='40.0' y2='124.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='40.0,132.0 35.2,124.0 44.8,124.0' fill='#D9603B'/><text x='40' y='168' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>1 suck</text><rect x='90' y='32' width='46' height='16' fill='#8FB8D0'/><path d='M88 140 V30 H138 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='90' y='48' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='113' y1='60' x2='113' y2='148' stroke='#0B2545' stroke-width='3'/><line x1='113.0' y1='90.0' x2='113.0' y2='76.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='113.0,68.0 117.8,76.0 108.2,76.0' fill='#D9603B'/><text x='113' y='168' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>2 squeeze</text><rect x='163' y='32' width='46' height='30' fill='#F2B36B'/><path d='M161 140 V30 H211 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='163' y='62' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='186' y1='74' x2='186' y2='148' stroke='#0B2545' stroke-width='3'/><polygon points='188,34 180,46 185,46 182,56 192,42 187,42' fill='#C9A24B' stroke='#0B2545' stroke-width='1'/><line x1='186.0' y1='82.0' x2='186.0' y2='96.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='186.0,104.0 181.2,96.0 190.8,96.0' fill='#D9603B'/><text x='186' y='168' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>3 bang</text><rect x='236' y='32' width='46' height='48' fill='#C9C9C9'/><path d='M234 140 V30 H284 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='236' y='80' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='259' y1='92' x2='259' y2='148' stroke='#0B2545' stroke-width='3'/><line x1='259.0' y1='122.0' x2='259.0' y2='108.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='259.0,100.0 263.8,108.0 254.2,108.0' fill='#D9603B'/><text x='259' y='168' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>4 blow</text></svg>", "question": "An engine repeats four steps. Which step gives the engine its push?", "explanation": "In the BANG step a spark lights the squeezed fuel-and-air mix. It burns, gets very hot, and the hot gas expands and shoves the piston down. That push is what turns the wheels.", "choices": [{"text": "Bang: burning gas expands and pushes the piston 💥", "correct": true}, {"text": "Suck: fresh air and fuel come in", "correct": false}, {"text": "Squeeze: the piston crushes the mix", "correct": false}]}, "label": {"items": [{"id": "piston", "name": "Piston", "icon": "<svg viewBox='0 0 40 40'><path d='M9 4 V36 M31 4 V36 M9 4 H31' fill='none' stroke='#0B2545' stroke-width='2.5'/><rect x='11' y='16' width='18' height='8' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "🔩 The piston slides up and down inside the cylinder. The hot gas pushes it."}, {"id": "spark", "name": "Spark", "icon": "<svg viewBox='0 0 40 40'><polygon points='22,3 10,22 19,22 15,37 30,16 21,16' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "⚡ A spark lights the squeezed fuel-and-air mix. It burns fast and gets very hot."}, {"id": "gas", "name": "Hot expanding gas", "icon": "<svg viewBox='0 0 40 40'><path d='M20 6 Q32 16 28 28 Q24 36 20 34 Q12 36 11 26 Q10 16 20 6 Z' fill='#D9603B' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "🔥 Hot gas takes up MORE space. It pushes the piston down hard."}]}, "draw": {"prompt": "Draw one cylinder with a piston inside. Add arrows: DOWN for suck, UP for squeeze, DOWN for bang, UP for blow.", "hintSvg": "<svg viewBox='0 0 300 200' role='img' aria-label='hint: dotted cylinder with a piston and up and down arrows'><path d='M110 170 V30 H190 V170' fill='none' stroke='#D9603B' stroke-width='3' stroke-dasharray='7 5'/><rect x='112' y='95' width='76' height='14' fill='none' stroke='#0B2545' stroke-width='3' stroke-dasharray='6 4'/><line x1='215.0' y1='75.0' x2='215.0' y2='126.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='215.0,135.0 209.6,126.0 220.4,126.0' fill='#D9603B'/><line x1='85.0' y1='135.0' x2='85.0' y2='84.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='85.0,75.0 90.4,84.0 79.6,84.0' fill='#D9603B'/><text x='222' y='108' font-size='11' fill='#0B2545' text-anchor='start' font-weight='normal'>down</text><text x='78' y='108' font-size='11' fill='#0B2545' text-anchor='end' font-weight='normal'>up</text></svg>"}, "rotate": {"prompt": "Rotate the picture. The Beetle's engine is a FLAT engine: its cylinders lie on their sides and face each other, pushing in and out like boxers punching 🥊.", "svg": "<rect x='36' y='128' width='92' height='44' fill='none' stroke='#0B2545' stroke-width='4'/><rect x='172' y='128' width='92' height='44' fill='none' stroke='#0B2545' stroke-width='4'/><rect x='96' y='132' width='12' height='36' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><rect x='192' y='132' width='12' height='36' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='108' y1='150' x2='150' y2='150' stroke='#0B2545' stroke-width='4'/><line x1='192' y1='150' x2='150' y2='150' stroke='#0B2545' stroke-width='4'/><circle cx='150' cy='150' r='12' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/><line x1='70.0' y1='100.0' x2='91.0' y2='100.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='100.0,100.0 91.0,105.4 91.0,94.6' fill='#D9603B'/><line x1='230.0' y1='100.0' x2='209.0' y2='100.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='200.0,100.0 209.0,94.6 209.0,105.4' fill='#D9603B'/><text x='150' y='205' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>flat engine: pistons face each other</text>"}, "compare": {"question": "Tap the step where the gas is squeezed into the SMALLEST space.", "explanation": "In the squeeze step the piston is high, so the same gas is packed into a tiny space. Same gas, less room means it is packed tighter (higher density and pressure).", "choices": [{"label": "A — suck", "svg": "<svg viewBox='0 0 200 170' role='img' aria-label='piston low, lots of room for gas'><rect x='77' y='32' width='46' height='58' fill='#CFE3EE'/><path d='M75 140 V30 H125 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='77' y='90' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='100' y1='102' x2='100' y2='148' stroke='#0B2545' stroke-width='3'/><line x1='100.0' y1='110.0' x2='100.0' y2='124.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='100.0,132.0 95.2,124.0 104.8,124.0' fill='#D9603B'/></svg>", "correct": false}, {"label": "B — squeeze", "svg": "<svg viewBox='0 0 200 170' role='img' aria-label='piston high, gas squeezed small'><rect x='77' y='32' width='46' height='16' fill='#8FB8D0'/><path d='M75 140 V30 H125 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='77' y='48' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='100' y1='60' x2='100' y2='148' stroke='#0B2545' stroke-width='3'/><line x1='100.0' y1='90.0' x2='100.0' y2='76.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='100.0,68.0 104.8,76.0 95.2,76.0' fill='#D9603B'/></svg>", "correct": true}]}, "connect": {"items": [{"text": "A spark lights the squeezed fuel-and-air mix", "icon": "<svg viewBox='0 0 40 40'><polygon points='22,3 10,22 19,22 15,37 30,16 21,16' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "Burning makes the gas VERY hot", "icon": "<svg viewBox='0 0 40 40'><path d='M10 34 q6 -10 0 -20 M20 34 q6 -10 0 -20 M30 34 q6 -10 0 -20' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/></svg>"}, {"text": "Hot gas expands and pushes the piston down", "icon": "<svg viewBox='0 0 40 40'><path d='M20 6 Q32 16 28 28 Q24 36 20 34 Q12 36 11 26 Q10 16 20 6 Z' fill='#D9603B' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "🔗 Links to Cooking States of Matter and Mario Energy: heat makes gas spread out (like steam lifting a pot lid), and fuel's chemical energy becomes motion energy", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "Why does hot gas push the piston down in the bang step?", "visualSvg": "<svg viewBox='0 0 200 100' role='img' aria-label='cylinder with hot gas pushing the piston down'><g transform='translate(70,-15) scale(0.8)'><rect x='17' y='32' width='46' height='30' fill='#F2B36B'/><path d='M15 140 V30 H65 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='17' y='62' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='40' y1='74' x2='40' y2='148' stroke='#0B2545' stroke-width='3'/><polygon points='42,34 34,46 39,46 36,56 46,42 41,42' fill='#C9A24B' stroke='#0B2545' stroke-width='1'/><line x1='40.0' y1='82.0' x2='40.0' y2='96.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='40.0,104.0 35.2,96.0 44.8,96.0' fill='#D9603B'/></g></svg>", "starters": ["Hot gas takes up...", "That pushes the piston..."], "keywords": ["gas", "heat", "expand", "piston"]}, "predict": {"question": "The spark stops working for one round. What happens in the bang step?", "explanation": "No spark means no burning, so the gas does not get hot and expand. There is no push for that round. The engine needs the spark every time to keep going.", "choices": [{"text": "No bang, so no push that round", "correct": true}, {"text": "An extra big bang", "correct": false}, {"text": "The piston flies out of the engine", "correct": false}]}};
+window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 180' role='img' aria-label='Four steps of an engine: suck, squeeze, bang, blow, shown as pistons in cylinders'><rect x='17' y='32' width='46' height='58' fill='#CFE3EE'/><path d='M15 140 V30 H65 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='17' y='90' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='40' y1='102' x2='40' y2='148' stroke='#0B2545' stroke-width='3'/><line x1='40.0' y1='110.0' x2='40.0' y2='124.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='40.0,132.0 35.2,124.0 44.8,124.0' fill='#D9603B'/><text x='40' y='168' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>1 suck</text><rect x='90' y='32' width='46' height='16' fill='#8FB8D0'/><path d='M88 140 V30 H138 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='90' y='48' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='113' y1='60' x2='113' y2='148' stroke='#0B2545' stroke-width='3'/><line x1='113.0' y1='90.0' x2='113.0' y2='76.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='113.0,68.0 117.8,76.0 108.2,76.0' fill='#D9603B'/><text x='113' y='168' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>2 squeeze</text><rect x='163' y='32' width='46' height='30' fill='#F2B36B'/><path d='M161 140 V30 H211 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='163' y='62' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='186' y1='74' x2='186' y2='148' stroke='#0B2545' stroke-width='3'/><polygon points='188,34 180,46 185,46 182,56 192,42 187,42' fill='#C9A24B' stroke='#0B2545' stroke-width='1'/><line x1='186.0' y1='82.0' x2='186.0' y2='96.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='186.0,104.0 181.2,96.0 190.8,96.0' fill='#D9603B'/><text x='186' y='168' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>3 bang</text><rect x='236' y='32' width='46' height='48' fill='#C9C9C9'/><path d='M234 140 V30 H284 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='236' y='80' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='259' y1='92' x2='259' y2='148' stroke='#0B2545' stroke-width='3'/><line x1='259.0' y1='122.0' x2='259.0' y2='108.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='259.0,100.0 263.8,108.0 254.2,108.0' fill='#D9603B'/><text x='259' y='168' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>4 blow</text></svg>", "question": "An engine repeats four steps. Which step gives the engine its push?", "explanation": "In the BANG step a spark lights the squeezed fuel-and-air mix. It burns, gets very hot, and the hot gas expands and shoves the piston down. That push is what turns the wheels.", "choices": [{"text": "Bang: burning gas expands and pushes the piston 💥", "correct": true}, {"text": "Suck: fresh air and fuel come in", "correct": false}, {"text": "Squeeze: the piston crushes the mix", "correct": false}]}, "label": {"items": [{"id": "piston", "name": "Piston", "icon": "<svg viewBox='0 0 40 40'><path d='M9 4 V36 M31 4 V36 M9 4 H31' fill='none' stroke='#0B2545' stroke-width='2.5'/><rect x='11' y='16' width='18' height='8' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "🔩 The piston slides up and down inside the cylinder. The hot gas pushes it."}, {"id": "spark", "name": "Spark", "icon": "<svg viewBox='0 0 40 40'><polygon points='22,3 10,22 19,22 15,37 30,16 21,16' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "⚡ A spark lights the squeezed fuel-and-air mix. It burns fast and gets very hot."}, {"id": "gas", "name": "Hot expanding gas", "icon": "<svg viewBox='0 0 40 40'><path d='M20 6 Q32 16 28 28 Q24 36 20 34 Q12 36 11 26 Q10 16 20 6 Z' fill='#D9603B' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "🔥 Hot gas takes up MORE space. It pushes the piston down hard."}]}, "draw": {"prompt": "Draw one cylinder with a piston inside. Add arrows: DOWN for suck, UP for squeeze, DOWN for bang, UP for blow.", "hintSvg": "<svg viewBox='0 0 300 200' role='img' aria-label='hint: dotted cylinder with a piston and up and down arrows'><path d='M110 170 V30 H190 V170' fill='none' stroke='#D9603B' stroke-width='3' stroke-dasharray='7 5'/><rect x='112' y='95' width='76' height='14' fill='none' stroke='#0B2545' stroke-width='3' stroke-dasharray='6 4'/><line x1='215.0' y1='75.0' x2='215.0' y2='126.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='215.0,135.0 209.6,126.0 220.4,126.0' fill='#D9603B'/><line x1='85.0' y1='135.0' x2='85.0' y2='84.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='85.0,75.0 90.4,84.0 79.6,84.0' fill='#D9603B'/><text x='222' y='108' font-size='11' fill='#0B2545' text-anchor='start' font-weight='normal'>down</text><text x='78' y='108' font-size='11' fill='#0B2545' text-anchor='end' font-weight='normal'>up</text></svg>", "pills": ["Piston", "Suck (down)", "Squeeze (up)", "Bang (down)", "Blow (up)"]}, "rotate": {"prompt": "Rotate the picture. The Beetle's engine is a FLAT engine: its cylinders lie on their sides and face each other, pushing in and out like boxers punching 🥊.", "svg": "<rect x='36' y='128' width='92' height='44' fill='none' stroke='#0B2545' stroke-width='4'/><rect x='172' y='128' width='92' height='44' fill='none' stroke='#0B2545' stroke-width='4'/><rect x='96' y='132' width='12' height='36' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><rect x='192' y='132' width='12' height='36' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='108' y1='150' x2='150' y2='150' stroke='#0B2545' stroke-width='4'/><line x1='192' y1='150' x2='150' y2='150' stroke='#0B2545' stroke-width='4'/><circle cx='150' cy='150' r='12' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/><line x1='70.0' y1='100.0' x2='91.0' y2='100.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='100.0,100.0 91.0,105.4 91.0,94.6' fill='#D9603B'/><line x1='230.0' y1='100.0' x2='209.0' y2='100.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='200.0,100.0 209.0,94.6 209.0,105.4' fill='#D9603B'/><text x='150' y='205' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>flat engine: pistons face each other</text>"}, "compare": {"question": "Tap the step where the gas is squeezed into the SMALLEST space.", "explanation": "In the squeeze step the piston is high, so the same gas is packed into a tiny space. Same gas, less room means it is packed tighter (higher density and pressure).", "choices": [{"label": "A — suck", "svg": "<svg viewBox='0 0 200 170' role='img' aria-label='piston low, lots of room for gas'><rect x='77' y='32' width='46' height='58' fill='#CFE3EE'/><path d='M75 140 V30 H125 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='77' y='90' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='100' y1='102' x2='100' y2='148' stroke='#0B2545' stroke-width='3'/><line x1='100.0' y1='110.0' x2='100.0' y2='124.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='100.0,132.0 95.2,124.0 104.8,124.0' fill='#D9603B'/></svg>", "correct": false}, {"label": "B — squeeze", "svg": "<svg viewBox='0 0 200 170' role='img' aria-label='piston high, gas squeezed small'><rect x='77' y='32' width='46' height='16' fill='#8FB8D0'/><path d='M75 140 V30 H125 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='77' y='48' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='100' y1='60' x2='100' y2='148' stroke='#0B2545' stroke-width='3'/><line x1='100.0' y1='90.0' x2='100.0' y2='76.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='100.0,68.0 104.8,76.0 95.2,76.0' fill='#D9603B'/></svg>", "correct": true}]}, "connect": {"items": [{"text": "A spark lights the squeezed fuel-and-air mix", "icon": "<svg viewBox='0 0 40 40'><polygon points='22,3 10,22 19,22 15,37 30,16 21,16' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "Burning makes the gas VERY hot", "icon": "<svg viewBox='0 0 40 40'><path d='M10 34 q6 -10 0 -20 M20 34 q6 -10 0 -20 M30 34 q6 -10 0 -20' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/></svg>"}, {"text": "Hot gas expands and pushes the piston down", "icon": "<svg viewBox='0 0 40 40'><path d='M20 6 Q32 16 28 28 Q24 36 20 34 Q12 36 11 26 Q10 16 20 6 Z' fill='#D9603B' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "🔗 Links to Cooking States of Matter and Mario Energy: heat makes gas spread out (like steam lifting a pot lid), and fuel's chemical energy becomes motion energy", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "Why does hot gas push the piston down in the bang step?", "visualSvg": "<svg viewBox='0 0 200 100' role='img' aria-label='cylinder with hot gas pushing the piston down'><g transform='translate(70,-15) scale(0.8)'><rect x='17' y='32' width='46' height='30' fill='#F2B36B'/><path d='M15 140 V30 H65 V140' fill='none' stroke='#0B2545' stroke-width='3'/><rect x='17' y='62' width='46' height='12' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='40' y1='74' x2='40' y2='148' stroke='#0B2545' stroke-width='3'/><polygon points='42,34 34,46 39,46 36,56 46,42 41,42' fill='#C9A24B' stroke='#0B2545' stroke-width='1'/><line x1='40.0' y1='82.0' x2='40.0' y2='96.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='40.0,104.0 35.2,96.0 44.8,96.0' fill='#D9603B'/></g></svg>", "starters": ["Hot gas takes up...", "That pushes the piston..."], "keywords": ["gas", "heat", "expand", "piston"]}, "predict": {"question": "The spark stops working for one round. What happens in the bang step?", "explanation": "No spark means no burning, so the gas does not get hot and expand. There is no push for that round. The engine needs the spark every time to keep going.", "choices": [{"text": "No bang, so no push that round", "correct": true}, {"text": "An extra big bang", "correct": false}, {"text": "The piston flies out of the engine", "correct": false}]}};
 /* ============================================================================================ */
 
 (function(){
@@ -481,14 +491,16 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 180' role='img'
   }
   function pushUndo(){
     if(!ctx) return;
-    if(undoStack.length > 19) undoStack.shift();
+    if(undoStack.length > 19){ undoStack.shift(); actionLog.shift(); }
     undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    actionLog.push(null);
   }
   function getPos(e){
     var rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }
   canvas.addEventListener("pointerdown", function(e){
+    if(pillPointerDown(e)) return;
     if(!canvasReady) initCanvasIfNeeded();
     pushUndo();
     drawing = true;
@@ -497,6 +509,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 180' role='img'
     if(canvas.setPointerCapture){ try{ canvas.setPointerCapture(e.pointerId); }catch(err){} }
   });
   canvas.addEventListener("pointermove", function(e){
+    if(drawing) pillStrokeSeen();
     if(!drawing || !ctx) return;
     var pos = getPos(e);
     ctx.strokeStyle = currentColor;
@@ -514,17 +527,133 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 180' role='img'
   canvas.addEventListener("pointercancel", endStroke);
   canvas.addEventListener("pointerleave", endStroke);
 
+  /*PILLS-V1*/
+  /* ---------- Concept pills: tap an idea, tap the drawing to stamp it in; all must be placed to finish ---------- */
+  var PILLS = ((DATA.draw && DATA.draw.pills) || (DATA.practice && DATA.practice.pills) || []).slice();
+  var placed = {};
+  var armedPill = null;
+  var strokeTotal = 0, strokeMarked = false;
+  var actionLog = [];
+  var pillRow = null, pillCount = null, pillHelp = null;
+
+  function stampPill(text, x, y){
+    ctx.save();
+    ctx.font = "700 15px system-ui, -apple-system, 'Segoe UI', sans-serif";
+    var w = Math.ceil(ctx.measureText(text).width) + 22, h = 30, r = 15;
+    var px = Math.min(Math.max(x - w / 2, 4), canvasCSSWidth - w - 4);
+    var py = Math.min(Math.max(y - h / 2, 4), canvasCSSHeight - h - 4);
+    ctx.beginPath();
+    ctx.moveTo(px + r, py);
+    ctx.lineTo(px + w - r, py);
+    ctx.arc(px + w - r, py + r, r, -Math.PI / 2, Math.PI / 2);
+    ctx.lineTo(px + r, py + h);
+    ctx.arc(px + r, py + r, r, Math.PI / 2, Math.PI * 1.5);
+    ctx.closePath();
+    ctx.fillStyle = "#0B2545"; ctx.fill();
+    ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(text, px + w / 2, py + h / 2 + 1);
+    ctx.restore();
+  }
+  function pillRefresh(){
+    if(!pillRow) return;
+    var n = 0;
+    Array.prototype.forEach.call(pillRow.children, function(b){
+      var t = b.dataset.pill, done = !!placed[t];
+      if(done) n++;
+      b.classList.toggle("placed", done);
+      b.classList.toggle("armed", armedPill === t);
+      b.disabled = done;
+      b.textContent = (done ? "✓ " : "") + t;
+      b.setAttribute("aria-pressed", armedPill === t ? "true" : "false");
+    });
+    pillCount.textContent = n + " / " + PILLS.length + " placed";
+    pillHelp.className = "pill-help";
+    pillHelp.textContent = armedPill
+      ? ("Now tap your drawing where “" + armedPill + "” belongs.")
+      : (n === PILLS.length ? "All ideas placed! Join them with lines and arrows, then press finished."
+                            : "Tap an idea, then tap your drawing where it belongs.");
+    canvas.style.cursor = armedPill ? "crosshair" : "";
+  }
+  (function(){
+    if(!PILLS.length) return;
+    var tray = document.createElement("div");
+    tray.className = "pill-tray"; tray.id = "pill-tray";
+    tray.innerHTML = '<p class="pill-title"><span>🧩 Put these ideas in your picture</span><span id="pill-count"></span></p><p class="pill-help" id="pill-help"></p><div class="pill-row" id="pill-row"></div>';
+    canvas.parentNode.insertBefore(tray, canvas);
+    pillRow = tray.querySelector("#pill-row"); pillCount = tray.querySelector("#pill-count"); pillHelp = tray.querySelector("#pill-help");
+    PILLS.forEach(function(p){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "pill"; b.dataset.pill = p; b.textContent = p;
+      b.addEventListener("click", function(){
+        if(placed[p]) return;
+        armedPill = (armedPill === p) ? null : p;
+        pillRefresh();
+      });
+      pillRow.appendChild(b);
+    });
+    pillRefresh();
+  })();
+  function pillPointerDown(e){
+    strokeMarked = false;
+    if(!armedPill) return false;
+    if(!canvasReady) initCanvasIfNeeded();
+    var pos = getPos(e);
+    var text = armedPill;
+    if(ctx){
+      pushUndo();
+      if(actionLog.length) actionLog[actionLog.length - 1] = { type: "stamp", text: text };
+      stampPill(text, pos.x, pos.y);
+    }
+    placed[text] = true;
+    armedPill = null;
+    drawing = false;
+    pillRefresh();
+    return true;
+  }
+  function pillStrokeSeen(){
+    if(strokeMarked) return;
+    strokeMarked = true; strokeTotal++;
+    if(actionLog.length && actionLog[actionLog.length - 1] === null) actionLog[actionLog.length - 1] = { type: "stroke" };
+  }
+  function pillUndoRecord(rec){
+    if(!rec) return;
+    if(rec.type === "stamp"){ placed[rec.text] = false; }
+    else if(rec.type === "stroke"){ strokeTotal = Math.max(0, strokeTotal - 1); }
+    else if(rec.type === "clear"){ placed = rec.placedBefore; strokeTotal = rec.strokesBefore; }
+    pillRefresh();
+  }
+  function pillGateOk(){
+    if(!PILLS.length) return true;
+    var missing = PILLS.filter(function(p){ return !placed[p]; });
+    if(missing.length){
+      pillHelp.textContent = "Almost! Still to place: " + missing.join(", ") + ".";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    if(strokeTotal < 1){
+      pillHelp.textContent = "Now DRAW something too: join your ideas with lines and arrows.";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    return true;
+  }
+
   document.getElementById("undo-btn").addEventListener("click", function(){
     if(!ctx) return;
-    if(undoStack.length > 1){ undoStack.pop(); }
-    var prev = undoStack[undoStack.length - 1];
-    if(prev){ ctx.putImageData(prev, 0, 0); }
+    if(undoStack.length < 2) return;
+    var prev = undoStack.pop();
+    var rec = actionLog.pop();
+    ctx.putImageData(prev, 0, 0);
+    pillUndoRecord(rec);
   });
   document.getElementById("clear-btn").addEventListener("click", function(){
     if(!ctx) return;
     pushUndo();
+    if(actionLog.length) actionLog[actionLog.length - 1] = { type: "clear", placedBefore: JSON.parse(JSON.stringify(placed)), strokesBefore: strokeTotal };
     ctx.fillStyle = "#F3EEE1";
     ctx.fillRect(0, 0, canvasCSSWidth, canvasCSSHeight);
+    placed = {}; strokeTotal = 0; armedPill = null;
+    pillRefresh();
   });
   document.getElementById("hint-toggle").addEventListener("click", function(){
     var panel = document.getElementById("hint-panel");
@@ -542,6 +671,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 180' role='img'
   var drawBtn = document.getElementById("draw-finished-btn");
   var drawNext = document.getElementById("draw-next");
   drawBtn.addEventListener("click", function(){
+    if(!pillGateOk()) return;
     saveDrawingToGallery();
     drawNext.disabled = false;
     drawBtn.textContent = "✓ Marked as finished";

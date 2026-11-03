@@ -92,6 +92,16 @@
   #badge-toast{ position:fixed; top:16px; left:50%; transform:translate(-50%,-140%); background:var(--brass-light); color:var(--navy-deep);
     font-weight:700; padding:10px 18px; border-radius:10px; transition:transform .35s ease; z-index:10; }
   #badge-toast.show{ transform:translate(-50%,0); }
+
+/*PILLS-V1-CSS*/
+.pill-tray{ background:#FFFBF0; border:2px dashed #C9A24B; border-radius:10px; padding:10px 12px; margin:10px 0; }
+.pill-title{ margin:0 0 4px; font-weight:700; font-size:.95rem; display:flex; justify-content:space-between; gap:8px; }
+.pill-help{ margin:0 0 8px; font-size:.92rem; }
+.pill-help.warn{ color:#B3401F; font-weight:700; }
+.pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.pill{ border:2px solid #0B2545; background:#FFFFFF; color:#0B2545; border-radius:999px; padding:8px 14px; font-weight:700; font-size:.95rem; min-height:44px; cursor:pointer; }
+.pill.armed{ background:#C9A24B; box-shadow:0 0 0 3px rgba(201,162,75,.45); }
+.pill.placed{ background:#2E6E62; border-color:#2E6E62; color:#FFFFFF; cursor:default; opacity:1; }
 </style>
 </head>
 <body data-concept-id="birds-05-flap-cycle">
@@ -262,7 +272,7 @@
 
 <script>
 /* ============ PER-CONCEPT DATA — this whole block gets swapped per concept file ============ */
-window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 170' role='img' aria-label='Energy chain: food, chest muscle, flapping wing, heat'><ellipse cx='34' cy='66' rx='13' ry='7' fill='#C9A24B' stroke='#0B2545' stroke-width='2' transform='rotate(-30 34 66)'/><ellipse cx='48' cy='76' rx='13' ry='7' fill='#C9A24B' stroke='#0B2545' stroke-width='2' transform='rotate(25 48 76)'/><ellipse cx='112' cy='70' rx='24' ry='17' fill='#D9603B' stroke='#0B2545' stroke-width='2'/><path d='M92 70 Q112 56 132 70 M94 77 Q112 64 130 77' fill='none' stroke='#0B2545' stroke-width='2'/><path d='M165 85 Q185 40 215 55 Q200 90 165 85 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><path d='M248 90 q6 -12 0 -24 q-6 -12 0 -24' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><path d='M262 90 q6 -12 0 -24 q-6 -12 0 -24' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><path d='M276 90 q6 -12 0 -24 q-6 -12 0 -24' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><line x1='62.0' y1='70.0' x2='76.0' y2='70.0' stroke='#0B2545' stroke-width='2.5' stroke-linecap='round'/><polygon points='84.0,70.0 76.0,74.8 76.0,65.2' fill='#0B2545'/><line x1='140.0' y1='70.0' x2='152.0' y2='70.0' stroke='#0B2545' stroke-width='2.5' stroke-linecap='round'/><polygon points='160.0,70.0 152.0,74.8 152.0,65.2' fill='#0B2545'/><line x1='222.0' y1='70.0' x2='232.0' y2='70.0' stroke='#0B2545' stroke-width='2.5' stroke-linecap='round'/><polygon points='240.0,70.0 232.0,74.8 232.0,65.2' fill='#0B2545'/><text x='40' y='130' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>food</text><text x='112' y='130' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>chest muscle</text><text x='190' y='130' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>flap</text><text x='262' y='130' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>heat</text><text x='40' y='146' font-size='9' fill='#2E6E62' text-anchor='middle' font-weight='normal'>stored energy</text><text x='112' y='146' font-size='9' fill='#2E6E62' text-anchor='middle' font-weight='normal'>converts it</text><text x='190' y='146' font-size='9' fill='#2E6E62' text-anchor='middle' font-weight='normal'>motion</text><text x='262' y='146' font-size='9' fill='#2E6E62' text-anchor='middle' font-weight='normal'>leaks out</text></svg>", "question": "A pigeon eats seeds, then flaps hard. Where does the energy for flapping come from?", "explanation": "Seeds store chemical energy. The chest muscle changes that stored energy into motion. Energy changes form, and some always leaks out as heat.", "choices": [{"text": "Chemical energy stored in its food 🌾", "correct": true}, {"text": "Only from the wind 🌬️", "correct": false}, {"text": "From nothing: wings make energy ✨", "correct": false}]}, "label": {"items": [{"id": "food", "name": "Seeds", "icon": "<svg viewBox='0 0 40 40'><ellipse cx='15' cy='22' rx='9' ry='5' fill='#C9A24B' stroke='#0B2545' stroke-width='2' transform='rotate(-30 15 22)'/><ellipse cx='27' cy='17' rx='9' ry='5' fill='#C9A24B' stroke='#0B2545' stroke-width='2' transform='rotate(20 27 17)'/></svg>", "fact": "🌾 Seeds store chemical energy. That is the pigeon's fuel."}, {"id": "muscle", "name": "Chest muscle", "icon": "<svg viewBox='0 0 40 40'><ellipse cx='20' cy='21' rx='14' ry='11' fill='#D9603B' stroke='#0B2545' stroke-width='2'/><path d='M10 21 Q20 13 30 21 M11 26 Q20 19 29 26' fill='none' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "💪 The muscle changes stored chemical energy into movement (and some heat)."}, {"id": "heat", "name": "Heat", "icon": "<svg viewBox='0 0 40 40'><path d='M10 34 q6 -10 0 -20 M20 34 q6 -10 0 -20 M30 34 q6 -10 0 -20' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/></svg>", "fact": "🔥 Some energy always leaks out as heat. That is why hard exercise makes you warm too."}]}, "draw": {"prompt": "Draw an energy chain: seed, then muscle, then wing, then heat. Put an arrow between each one.", "hintSvg": "<svg viewBox='0 0 300 200' role='img' aria-label='hint: four circles joined by arrows'><circle cx='40' cy='90' r='24' fill='none' stroke='#D9603B' stroke-width='3' stroke-dasharray='6 4'/><circle cx='115' cy='90' r='24' fill='none' stroke='#D9603B' stroke-width='3' stroke-dasharray='6 4'/><circle cx='190' cy='90' r='24' fill='none' stroke='#D9603B' stroke-width='3' stroke-dasharray='6 4'/><circle cx='265' cy='90' r='24' fill='none' stroke='#D9603B' stroke-width='3' stroke-dasharray='6 4'/><line x1='66.0' y1='90.0' x2='79.0' y2='90.0' stroke='#0B2545' stroke-width='3' stroke-linecap='round'/><polygon points='88.0,90.0 79.0,95.4 79.0,84.6' fill='#0B2545'/><line x1='141.0' y1='90.0' x2='154.0' y2='90.0' stroke='#0B2545' stroke-width='3' stroke-linecap='round'/><polygon points='163.0,90.0 154.0,95.4 154.0,84.6' fill='#0B2545'/><line x1='216.0' y1='90.0' x2='229.0' y2='90.0' stroke='#0B2545' stroke-width='3' stroke-linecap='round'/><polygon points='238.0,90.0 229.0,95.4 229.0,84.6' fill='#0B2545'/><text x='40' y='140' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='normal'>seed</text><text x='115' y='140' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='normal'>muscle</text><text x='190' y='140' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='normal'>wing</text><text x='265' y='140' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='normal'>heat</text></svg>"}, "rotate": {"prompt": "Rotate the picture and look at the two arrows. The downstroke is the POWER stroke: the wing pushes air down. The upstroke just resets the wing.", "svg": "<g transform='translate(8,70) scale(0.95)'><g><polygon points='92,100 40,86 38,116 92,120' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><ellipse cx='150' cy='105' rx='66' ry='38' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><circle cx='222' cy='76' r='18' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><ellipse cx='207' cy='92' rx='20' ry='16' fill='#5B8F7B'/><polygon points='239,74 254,78 239,82' fill='#E8D9B5' stroke='#0B2545' stroke-width='1.5'/><circle cx='227' cy='72' r='3' fill='#D9603B'/><path d='M118 96 Q152 66 198 98 Q160 128 108 120 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><line x1='150' y1='143' x2='150' y2='168' stroke='#D9603B' stroke-width='3'/><line x1='170' y1='141' x2='170' y2='168' stroke='#D9603B' stroke-width='3'/></g></g><line x1='120.0' y1='122.0' x2='120.0' y2='95.0' stroke='#6F7F95' stroke-width='4' stroke-linecap='round'/><polygon points='120.0,84.0 126.6,95.0 113.4,95.0' fill='#6F7F95'/><text x='120' y='74' font-size='12' fill='#6F7F95' text-anchor='middle' font-weight='bold'>up</text><line x1='178.0' y1='80.0' x2='178.0' y2='108.0' stroke='#D9603B' stroke-width='7' stroke-linecap='round'/><polygon points='178.0,122.0 169.6,108.0 186.4,108.0' fill='#D9603B'/><text x='185' y='70' font-size='12' fill='#D9603B' text-anchor='middle' font-weight='bold'>down: power!</text>"}, "compare": {"question": "Tap the picture where the pigeon is using MORE energy every second.", "explanation": "Taking off needs big, fast flaps, so the chest muscle burns lots of food energy. Cruising needs less. More energy used also means more heat given off.", "choices": [{"label": "A — cruising", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='short energy bar'><g transform='translate(48.9,-1.2) scale(0.35)'><g><polygon points='92,100 40,86 38,116 92,120' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><ellipse cx='150' cy='105' rx='66' ry='38' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><circle cx='222' cy='76' r='18' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><ellipse cx='207' cy='92' rx='20' ry='16' fill='#5B8F7B'/><polygon points='239,74 254,78 239,82' fill='#E8D9B5' stroke='#0B2545' stroke-width='1.5'/><circle cx='227' cy='72' r='3' fill='#D9603B'/><path d='M118 96 Q152 66 198 98 Q160 128 108 120 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><line x1='150' y1='143' x2='150' y2='168' stroke='#D9603B' stroke-width='3'/><line x1='170' y1='141' x2='170' y2='168' stroke='#D9603B' stroke-width='3'/></g></g><rect x='20' y='90' width='50' height='18' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/><text x='20' y='130' font-size='10' fill='#0B2545' text-anchor='start' font-weight='normal'>energy used</text></svg>", "correct": false}, {"label": "B — taking off", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='long energy bar'><g transform='translate(48.9,-1.2) scale(0.35)'><g><polygon points='92,100 40,86 38,116 92,120' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><ellipse cx='150' cy='105' rx='66' ry='38' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><circle cx='222' cy='76' r='18' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><ellipse cx='207' cy='92' rx='20' ry='16' fill='#5B8F7B'/><polygon points='239,74 254,78 239,82' fill='#E8D9B5' stroke='#0B2545' stroke-width='1.5'/><circle cx='227' cy='72' r='3' fill='#D9603B'/><path d='M118 96 Q152 66 198 98 Q160 128 108 120 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><line x1='150' y1='143' x2='150' y2='168' stroke='#D9603B' stroke-width='3'/><line x1='170' y1='141' x2='170' y2='168' stroke='#D9603B' stroke-width='3'/></g></g><line x1='100.0' y1='62.0' x2='100.0' y2='71.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='100.0,78.0 95.8,71.0 104.2,71.0' fill='#D9603B'/><rect x='20' y='90' width='160' height='18' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/><text x='20' y='130' font-size='10' fill='#0B2545' text-anchor='start' font-weight='normal'>energy used</text></svg>", "correct": true}]}, "connect": {"items": [{"text": "The pigeon eats seeds: chemical energy is stored", "icon": "<svg viewBox='0 0 40 40'><ellipse cx='15' cy='22' rx='9' ry='5' fill='#C9A24B' stroke='#0B2545' stroke-width='2' transform='rotate(-30 15 22)'/><ellipse cx='27' cy='17' rx='9' ry='5' fill='#C9A24B' stroke='#0B2545' stroke-width='2' transform='rotate(20 27 17)'/></svg>"}, {"text": "The chest muscle changes it into movement", "icon": "<svg viewBox='0 0 40 40'><ellipse cx='20' cy='21' rx='14' ry='11' fill='#D9603B' stroke='#0B2545' stroke-width='2'/><path d='M10 21 Q20 13 30 21 M11 26 Q20 19 29 26' fill='none' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "The wing moves air, and some energy leaks out as heat", "icon": "<svg viewBox='0 0 40 40'><path d='M10 34 q6 -10 0 -20 M20 34 q6 -10 0 -20 M30 34 q6 -10 0 -20' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/></svg>"}, {"text": "🔗 Links to Mario Energy Transformation: Mario's jump swaps energy forms the same way. Energy changes shape but never just vanishes", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "After flapping hard, why does a pigeon's body feel warm, even on a cool day?", "visualSvg": "<svg viewBox='0 0 200 100' role='img' aria-label='seed turning into heat'><ellipse cx='36' cy='50' rx='13' ry='7' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/><line x1='60.0' y1='50.0' x2='91.0' y2='50.0' stroke='#0B2545' stroke-width='3' stroke-linecap='round'/><polygon points='100.0,50.0 91.0,55.4 91.0,44.6' fill='#0B2545'/><path d='M125 68 q6 -10 0 -20 q-6 -10 0 -20' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><path d='M142 68 q6 -10 0 -20 q-6 -10 0 -20' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><path d='M159 68 q6 -10 0 -20 q-6 -10 0 -20' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/></svg>", "starters": ["The muscle changes chemical energy into...", "Some energy leaks out as..."], "keywords": ["energy", "muscle", "heat", "food"]}, "predict": {"question": "A pigeon flaps twice as hard as before. What happens to the heat its body gives off?", "explanation": "Harder flapping means the muscle changes more food energy every second. Some of it always leaks out as heat, so more heat is given off.", "choices": [{"text": "More heat 🔥", "correct": true}, {"text": "Less heat ❄️", "correct": false}, {"text": "No heat at all", "correct": false}]}};
+window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 170' role='img' aria-label='Energy chain: food, chest muscle, flapping wing, heat'><ellipse cx='34' cy='66' rx='13' ry='7' fill='#C9A24B' stroke='#0B2545' stroke-width='2' transform='rotate(-30 34 66)'/><ellipse cx='48' cy='76' rx='13' ry='7' fill='#C9A24B' stroke='#0B2545' stroke-width='2' transform='rotate(25 48 76)'/><ellipse cx='112' cy='70' rx='24' ry='17' fill='#D9603B' stroke='#0B2545' stroke-width='2'/><path d='M92 70 Q112 56 132 70 M94 77 Q112 64 130 77' fill='none' stroke='#0B2545' stroke-width='2'/><path d='M165 85 Q185 40 215 55 Q200 90 165 85 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><path d='M248 90 q6 -12 0 -24 q-6 -12 0 -24' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><path d='M262 90 q6 -12 0 -24 q-6 -12 0 -24' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><path d='M276 90 q6 -12 0 -24 q-6 -12 0 -24' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><line x1='62.0' y1='70.0' x2='76.0' y2='70.0' stroke='#0B2545' stroke-width='2.5' stroke-linecap='round'/><polygon points='84.0,70.0 76.0,74.8 76.0,65.2' fill='#0B2545'/><line x1='140.0' y1='70.0' x2='152.0' y2='70.0' stroke='#0B2545' stroke-width='2.5' stroke-linecap='round'/><polygon points='160.0,70.0 152.0,74.8 152.0,65.2' fill='#0B2545'/><line x1='222.0' y1='70.0' x2='232.0' y2='70.0' stroke='#0B2545' stroke-width='2.5' stroke-linecap='round'/><polygon points='240.0,70.0 232.0,74.8 232.0,65.2' fill='#0B2545'/><text x='40' y='130' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>food</text><text x='112' y='130' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>chest muscle</text><text x='190' y='130' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>flap</text><text x='262' y='130' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='bold'>heat</text><text x='40' y='146' font-size='9' fill='#2E6E62' text-anchor='middle' font-weight='normal'>stored energy</text><text x='112' y='146' font-size='9' fill='#2E6E62' text-anchor='middle' font-weight='normal'>converts it</text><text x='190' y='146' font-size='9' fill='#2E6E62' text-anchor='middle' font-weight='normal'>motion</text><text x='262' y='146' font-size='9' fill='#2E6E62' text-anchor='middle' font-weight='normal'>leaks out</text></svg>", "question": "A pigeon eats seeds, then flaps hard. Where does the energy for flapping come from?", "explanation": "Seeds store chemical energy. The chest muscle changes that stored energy into motion. Energy changes form, and some always leaks out as heat.", "choices": [{"text": "Chemical energy stored in its food 🌾", "correct": true}, {"text": "Only from the wind 🌬️", "correct": false}, {"text": "From nothing: wings make energy ✨", "correct": false}]}, "label": {"items": [{"id": "food", "name": "Seeds", "icon": "<svg viewBox='0 0 40 40'><ellipse cx='15' cy='22' rx='9' ry='5' fill='#C9A24B' stroke='#0B2545' stroke-width='2' transform='rotate(-30 15 22)'/><ellipse cx='27' cy='17' rx='9' ry='5' fill='#C9A24B' stroke='#0B2545' stroke-width='2' transform='rotate(20 27 17)'/></svg>", "fact": "🌾 Seeds store chemical energy. That is the pigeon's fuel."}, {"id": "muscle", "name": "Chest muscle", "icon": "<svg viewBox='0 0 40 40'><ellipse cx='20' cy='21' rx='14' ry='11' fill='#D9603B' stroke='#0B2545' stroke-width='2'/><path d='M10 21 Q20 13 30 21 M11 26 Q20 19 29 26' fill='none' stroke='#0B2545' stroke-width='2'/></svg>", "fact": "💪 The muscle changes stored chemical energy into movement (and some heat)."}, {"id": "heat", "name": "Heat", "icon": "<svg viewBox='0 0 40 40'><path d='M10 34 q6 -10 0 -20 M20 34 q6 -10 0 -20 M30 34 q6 -10 0 -20' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/></svg>", "fact": "🔥 Some energy always leaks out as heat. That is why hard exercise makes you warm too."}]}, "draw": {"prompt": "Draw an energy chain: seed, then muscle, then wing, then heat. Put an arrow between each one.", "hintSvg": "<svg viewBox='0 0 300 200' role='img' aria-label='hint: four circles joined by arrows'><circle cx='40' cy='90' r='24' fill='none' stroke='#D9603B' stroke-width='3' stroke-dasharray='6 4'/><circle cx='115' cy='90' r='24' fill='none' stroke='#D9603B' stroke-width='3' stroke-dasharray='6 4'/><circle cx='190' cy='90' r='24' fill='none' stroke='#D9603B' stroke-width='3' stroke-dasharray='6 4'/><circle cx='265' cy='90' r='24' fill='none' stroke='#D9603B' stroke-width='3' stroke-dasharray='6 4'/><line x1='66.0' y1='90.0' x2='79.0' y2='90.0' stroke='#0B2545' stroke-width='3' stroke-linecap='round'/><polygon points='88.0,90.0 79.0,95.4 79.0,84.6' fill='#0B2545'/><line x1='141.0' y1='90.0' x2='154.0' y2='90.0' stroke='#0B2545' stroke-width='3' stroke-linecap='round'/><polygon points='163.0,90.0 154.0,95.4 154.0,84.6' fill='#0B2545'/><line x1='216.0' y1='90.0' x2='229.0' y2='90.0' stroke='#0B2545' stroke-width='3' stroke-linecap='round'/><polygon points='238.0,90.0 229.0,95.4 229.0,84.6' fill='#0B2545'/><text x='40' y='140' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='normal'>seed</text><text x='115' y='140' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='normal'>muscle</text><text x='190' y='140' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='normal'>wing</text><text x='265' y='140' font-size='11' fill='#0B2545' text-anchor='middle' font-weight='normal'>heat</text></svg>", "pills": ["Seed", "Muscle", "Wing", "Heat"]}, "rotate": {"prompt": "Rotate the picture and look at the two arrows. The downstroke is the POWER stroke: the wing pushes air down. The upstroke just resets the wing.", "svg": "<g transform='translate(8,70) scale(0.95)'><g><polygon points='92,100 40,86 38,116 92,120' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><ellipse cx='150' cy='105' rx='66' ry='38' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><circle cx='222' cy='76' r='18' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><ellipse cx='207' cy='92' rx='20' ry='16' fill='#5B8F7B'/><polygon points='239,74 254,78 239,82' fill='#E8D9B5' stroke='#0B2545' stroke-width='1.5'/><circle cx='227' cy='72' r='3' fill='#D9603B'/><path d='M118 96 Q152 66 198 98 Q160 128 108 120 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><line x1='150' y1='143' x2='150' y2='168' stroke='#D9603B' stroke-width='3'/><line x1='170' y1='141' x2='170' y2='168' stroke='#D9603B' stroke-width='3'/></g></g><line x1='120.0' y1='122.0' x2='120.0' y2='95.0' stroke='#6F7F95' stroke-width='4' stroke-linecap='round'/><polygon points='120.0,84.0 126.6,95.0 113.4,95.0' fill='#6F7F95'/><text x='120' y='74' font-size='12' fill='#6F7F95' text-anchor='middle' font-weight='bold'>up</text><line x1='178.0' y1='80.0' x2='178.0' y2='108.0' stroke='#D9603B' stroke-width='7' stroke-linecap='round'/><polygon points='178.0,122.0 169.6,108.0 186.4,108.0' fill='#D9603B'/><text x='185' y='70' font-size='12' fill='#D9603B' text-anchor='middle' font-weight='bold'>down: power!</text>"}, "compare": {"question": "Tap the picture where the pigeon is using MORE energy every second.", "explanation": "Taking off needs big, fast flaps, so the chest muscle burns lots of food energy. Cruising needs less. More energy used also means more heat given off.", "choices": [{"label": "A — cruising", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='short energy bar'><g transform='translate(48.9,-1.2) scale(0.35)'><g><polygon points='92,100 40,86 38,116 92,120' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><ellipse cx='150' cy='105' rx='66' ry='38' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><circle cx='222' cy='76' r='18' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><ellipse cx='207' cy='92' rx='20' ry='16' fill='#5B8F7B'/><polygon points='239,74 254,78 239,82' fill='#E8D9B5' stroke='#0B2545' stroke-width='1.5'/><circle cx='227' cy='72' r='3' fill='#D9603B'/><path d='M118 96 Q152 66 198 98 Q160 128 108 120 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><line x1='150' y1='143' x2='150' y2='168' stroke='#D9603B' stroke-width='3'/><line x1='170' y1='141' x2='170' y2='168' stroke='#D9603B' stroke-width='3'/></g></g><rect x='20' y='90' width='50' height='18' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/><text x='20' y='130' font-size='10' fill='#0B2545' text-anchor='start' font-weight='normal'>energy used</text></svg>", "correct": false}, {"label": "B — taking off", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='long energy bar'><g transform='translate(48.9,-1.2) scale(0.35)'><g><polygon points='92,100 40,86 38,116 92,120' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><ellipse cx='150' cy='105' rx='66' ry='38' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><circle cx='222' cy='76' r='18' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><ellipse cx='207' cy='92' rx='20' ry='16' fill='#5B8F7B'/><polygon points='239,74 254,78 239,82' fill='#E8D9B5' stroke='#0B2545' stroke-width='1.5'/><circle cx='227' cy='72' r='3' fill='#D9603B'/><path d='M118 96 Q152 66 198 98 Q160 128 108 120 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><line x1='150' y1='143' x2='150' y2='168' stroke='#D9603B' stroke-width='3'/><line x1='170' y1='141' x2='170' y2='168' stroke='#D9603B' stroke-width='3'/></g></g><line x1='100.0' y1='62.0' x2='100.0' y2='71.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='100.0,78.0 95.8,71.0 104.2,71.0' fill='#D9603B'/><rect x='20' y='90' width='160' height='18' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/><text x='20' y='130' font-size='10' fill='#0B2545' text-anchor='start' font-weight='normal'>energy used</text></svg>", "correct": true}]}, "connect": {"items": [{"text": "The pigeon eats seeds: chemical energy is stored", "icon": "<svg viewBox='0 0 40 40'><ellipse cx='15' cy='22' rx='9' ry='5' fill='#C9A24B' stroke='#0B2545' stroke-width='2' transform='rotate(-30 15 22)'/><ellipse cx='27' cy='17' rx='9' ry='5' fill='#C9A24B' stroke='#0B2545' stroke-width='2' transform='rotate(20 27 17)'/></svg>"}, {"text": "The chest muscle changes it into movement", "icon": "<svg viewBox='0 0 40 40'><ellipse cx='20' cy='21' rx='14' ry='11' fill='#D9603B' stroke='#0B2545' stroke-width='2'/><path d='M10 21 Q20 13 30 21 M11 26 Q20 19 29 26' fill='none' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "The wing moves air, and some energy leaks out as heat", "icon": "<svg viewBox='0 0 40 40'><path d='M10 34 q6 -10 0 -20 M20 34 q6 -10 0 -20 M30 34 q6 -10 0 -20' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/></svg>"}, {"text": "🔗 Links to Mario Energy Transformation: Mario's jump swaps energy forms the same way. Energy changes shape but never just vanishes", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "After flapping hard, why does a pigeon's body feel warm, even on a cool day?", "visualSvg": "<svg viewBox='0 0 200 100' role='img' aria-label='seed turning into heat'><ellipse cx='36' cy='50' rx='13' ry='7' fill='#C9A24B' stroke='#0B2545' stroke-width='2'/><line x1='60.0' y1='50.0' x2='91.0' y2='50.0' stroke='#0B2545' stroke-width='3' stroke-linecap='round'/><polygon points='100.0,50.0 91.0,55.4 91.0,44.6' fill='#0B2545'/><path d='M125 68 q6 -10 0 -20 q-6 -10 0 -20' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><path d='M142 68 q6 -10 0 -20 q-6 -10 0 -20' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><path d='M159 68 q6 -10 0 -20 q-6 -10 0 -20' fill='none' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/></svg>", "starters": ["The muscle changes chemical energy into...", "Some energy leaks out as..."], "keywords": ["energy", "muscle", "heat", "food"]}, "predict": {"question": "A pigeon flaps twice as hard as before. What happens to the heat its body gives off?", "explanation": "Harder flapping means the muscle changes more food energy every second. Some of it always leaks out as heat, so more heat is given off.", "choices": [{"text": "More heat 🔥", "correct": true}, {"text": "Less heat ❄️", "correct": false}, {"text": "No heat at all", "correct": false}]}};
 /* ============================================================================================ */
 
 (function(){
@@ -481,14 +491,16 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 170' role='img'
   }
   function pushUndo(){
     if(!ctx) return;
-    if(undoStack.length > 19) undoStack.shift();
+    if(undoStack.length > 19){ undoStack.shift(); actionLog.shift(); }
     undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    actionLog.push(null);
   }
   function getPos(e){
     var rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }
   canvas.addEventListener("pointerdown", function(e){
+    if(pillPointerDown(e)) return;
     if(!canvasReady) initCanvasIfNeeded();
     pushUndo();
     drawing = true;
@@ -497,6 +509,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 170' role='img'
     if(canvas.setPointerCapture){ try{ canvas.setPointerCapture(e.pointerId); }catch(err){} }
   });
   canvas.addEventListener("pointermove", function(e){
+    if(drawing) pillStrokeSeen();
     if(!drawing || !ctx) return;
     var pos = getPos(e);
     ctx.strokeStyle = currentColor;
@@ -514,17 +527,133 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 170' role='img'
   canvas.addEventListener("pointercancel", endStroke);
   canvas.addEventListener("pointerleave", endStroke);
 
+  /*PILLS-V1*/
+  /* ---------- Concept pills: tap an idea, tap the drawing to stamp it in; all must be placed to finish ---------- */
+  var PILLS = ((DATA.draw && DATA.draw.pills) || (DATA.practice && DATA.practice.pills) || []).slice();
+  var placed = {};
+  var armedPill = null;
+  var strokeTotal = 0, strokeMarked = false;
+  var actionLog = [];
+  var pillRow = null, pillCount = null, pillHelp = null;
+
+  function stampPill(text, x, y){
+    ctx.save();
+    ctx.font = "700 15px system-ui, -apple-system, 'Segoe UI', sans-serif";
+    var w = Math.ceil(ctx.measureText(text).width) + 22, h = 30, r = 15;
+    var px = Math.min(Math.max(x - w / 2, 4), canvasCSSWidth - w - 4);
+    var py = Math.min(Math.max(y - h / 2, 4), canvasCSSHeight - h - 4);
+    ctx.beginPath();
+    ctx.moveTo(px + r, py);
+    ctx.lineTo(px + w - r, py);
+    ctx.arc(px + w - r, py + r, r, -Math.PI / 2, Math.PI / 2);
+    ctx.lineTo(px + r, py + h);
+    ctx.arc(px + r, py + r, r, Math.PI / 2, Math.PI * 1.5);
+    ctx.closePath();
+    ctx.fillStyle = "#0B2545"; ctx.fill();
+    ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(text, px + w / 2, py + h / 2 + 1);
+    ctx.restore();
+  }
+  function pillRefresh(){
+    if(!pillRow) return;
+    var n = 0;
+    Array.prototype.forEach.call(pillRow.children, function(b){
+      var t = b.dataset.pill, done = !!placed[t];
+      if(done) n++;
+      b.classList.toggle("placed", done);
+      b.classList.toggle("armed", armedPill === t);
+      b.disabled = done;
+      b.textContent = (done ? "✓ " : "") + t;
+      b.setAttribute("aria-pressed", armedPill === t ? "true" : "false");
+    });
+    pillCount.textContent = n + " / " + PILLS.length + " placed";
+    pillHelp.className = "pill-help";
+    pillHelp.textContent = armedPill
+      ? ("Now tap your drawing where “" + armedPill + "” belongs.")
+      : (n === PILLS.length ? "All ideas placed! Join them with lines and arrows, then press finished."
+                            : "Tap an idea, then tap your drawing where it belongs.");
+    canvas.style.cursor = armedPill ? "crosshair" : "";
+  }
+  (function(){
+    if(!PILLS.length) return;
+    var tray = document.createElement("div");
+    tray.className = "pill-tray"; tray.id = "pill-tray";
+    tray.innerHTML = '<p class="pill-title"><span>🧩 Put these ideas in your picture</span><span id="pill-count"></span></p><p class="pill-help" id="pill-help"></p><div class="pill-row" id="pill-row"></div>';
+    canvas.parentNode.insertBefore(tray, canvas);
+    pillRow = tray.querySelector("#pill-row"); pillCount = tray.querySelector("#pill-count"); pillHelp = tray.querySelector("#pill-help");
+    PILLS.forEach(function(p){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "pill"; b.dataset.pill = p; b.textContent = p;
+      b.addEventListener("click", function(){
+        if(placed[p]) return;
+        armedPill = (armedPill === p) ? null : p;
+        pillRefresh();
+      });
+      pillRow.appendChild(b);
+    });
+    pillRefresh();
+  })();
+  function pillPointerDown(e){
+    strokeMarked = false;
+    if(!armedPill) return false;
+    if(!canvasReady) initCanvasIfNeeded();
+    var pos = getPos(e);
+    var text = armedPill;
+    if(ctx){
+      pushUndo();
+      if(actionLog.length) actionLog[actionLog.length - 1] = { type: "stamp", text: text };
+      stampPill(text, pos.x, pos.y);
+    }
+    placed[text] = true;
+    armedPill = null;
+    drawing = false;
+    pillRefresh();
+    return true;
+  }
+  function pillStrokeSeen(){
+    if(strokeMarked) return;
+    strokeMarked = true; strokeTotal++;
+    if(actionLog.length && actionLog[actionLog.length - 1] === null) actionLog[actionLog.length - 1] = { type: "stroke" };
+  }
+  function pillUndoRecord(rec){
+    if(!rec) return;
+    if(rec.type === "stamp"){ placed[rec.text] = false; }
+    else if(rec.type === "stroke"){ strokeTotal = Math.max(0, strokeTotal - 1); }
+    else if(rec.type === "clear"){ placed = rec.placedBefore; strokeTotal = rec.strokesBefore; }
+    pillRefresh();
+  }
+  function pillGateOk(){
+    if(!PILLS.length) return true;
+    var missing = PILLS.filter(function(p){ return !placed[p]; });
+    if(missing.length){
+      pillHelp.textContent = "Almost! Still to place: " + missing.join(", ") + ".";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    if(strokeTotal < 1){
+      pillHelp.textContent = "Now DRAW something too: join your ideas with lines and arrows.";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    return true;
+  }
+
   document.getElementById("undo-btn").addEventListener("click", function(){
     if(!ctx) return;
-    if(undoStack.length > 1){ undoStack.pop(); }
-    var prev = undoStack[undoStack.length - 1];
-    if(prev){ ctx.putImageData(prev, 0, 0); }
+    if(undoStack.length < 2) return;
+    var prev = undoStack.pop();
+    var rec = actionLog.pop();
+    ctx.putImageData(prev, 0, 0);
+    pillUndoRecord(rec);
   });
   document.getElementById("clear-btn").addEventListener("click", function(){
     if(!ctx) return;
     pushUndo();
+    if(actionLog.length) actionLog[actionLog.length - 1] = { type: "clear", placedBefore: JSON.parse(JSON.stringify(placed)), strokesBefore: strokeTotal };
     ctx.fillStyle = "#F3EEE1";
     ctx.fillRect(0, 0, canvasCSSWidth, canvasCSSHeight);
+    placed = {}; strokeTotal = 0; armedPill = null;
+    pillRefresh();
   });
   document.getElementById("hint-toggle").addEventListener("click", function(){
     var panel = document.getElementById("hint-panel");
@@ -542,6 +671,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 170' role='img'
   var drawBtn = document.getElementById("draw-finished-btn");
   var drawNext = document.getElementById("draw-next");
   drawBtn.addEventListener("click", function(){
+    if(!pillGateOk()) return;
     saveDrawingToGallery();
     drawNext.disabled = false;
     drawBtn.textContent = "✓ Marked as finished";

@@ -92,6 +92,16 @@
   #badge-toast{ position:fixed; top:16px; left:50%; transform:translate(-50%,-140%); background:var(--brass-light); color:var(--navy-deep);
     font-weight:700; padding:10px 18px; border-radius:10px; transition:transform .35s ease; z-index:10; }
   #badge-toast.show{ transform:translate(-50%,0); }
+
+/*PILLS-V1-CSS*/
+.pill-tray{ background:#FFFBF0; border:2px dashed #C9A24B; border-radius:10px; padding:10px 12px; margin:10px 0; }
+.pill-title{ margin:0 0 4px; font-weight:700; font-size:.95rem; display:flex; justify-content:space-between; gap:8px; }
+.pill-help{ margin:0 0 8px; font-size:.92rem; }
+.pill-help.warn{ color:#B3401F; font-weight:700; }
+.pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.pill{ border:2px solid #0B2545; background:#FFFFFF; color:#0B2545; border-radius:999px; padding:8px 14px; font-weight:700; font-size:.95rem; min-height:44px; cursor:pointer; }
+.pill.armed{ background:#C9A24B; box-shadow:0 0 0 3px rgba(201,162,75,.45); }
+.pill.placed{ background:#2E6E62; border-color:#2E6E62; color:#FFFFFF; cursor:default; opacity:1; }
 </style>
 </head>
 <body data-concept-id="birds-03-forces-in-flight">
@@ -262,7 +272,7 @@
 
 <script>
 /* ============ PER-CONCEPT DATA — this whole block gets swapped per concept file ============ */
-window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 220' role='img' aria-label='A pigeon with four force arrows: lift up, weight down, thrust forward, drag back, all balanced'><g transform='translate(84.3,59.6) scale(0.45)'><g><polygon points='92,100 40,86 38,116 92,120' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><ellipse cx='150' cy='105' rx='66' ry='38' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><circle cx='222' cy='76' r='18' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><ellipse cx='207' cy='92' rx='20' ry='16' fill='#5B8F7B'/><polygon points='239,74 254,78 239,82' fill='#E8D9B5' stroke='#0B2545' stroke-width='1.5'/><circle cx='227' cy='72' r='3' fill='#D9603B'/><path d='M118 96 Q152 66 198 98 Q160 128 108 120 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><line x1='150' y1='143' x2='150' y2='168' stroke='#D9603B' stroke-width='3'/><line x1='170' y1='141' x2='170' y2='168' stroke='#D9603B' stroke-width='3'/></g></g><line x1='150.0' y1='80.0' x2='150.0' y2='35.0' stroke='#2E6E62' stroke-width='4' stroke-linecap='round'/><polygon points='150.0,24.0 156.6,35.0 143.4,35.0' fill='#2E6E62'/><text x='158' y='34' font-size='12' fill='#2E6E62' text-anchor='start' font-weight='bold'>Lift</text><line x1='150.0' y1='140.0' x2='150.0' y2='185.0' stroke='#0B2545' stroke-width='4' stroke-linecap='round'/><polygon points='150.0,196.0 143.4,185.0 156.6,185.0' fill='#0B2545'/><text x='158' y='196' font-size='12' fill='#0B2545' text-anchor='start' font-weight='bold'>Weight</text><line x1='205.0' y1='110.0' x2='264.0' y2='110.0' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/><polygon points='275.0,110.0 264.0,116.6 264.0,103.4' fill='#3F8F5C'/><text x='222' y='100' font-size='12' fill='#3F8F5C' text-anchor='start' font-weight='bold'>Thrust</text><line x1='97.0' y1='110.0' x2='38.0' y2='110.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='27.0,110.0 38.0,103.4 38.0,116.6' fill='#D9603B'/><text x='30' y='100' font-size='12' fill='#D9603B' text-anchor='start' font-weight='bold'>Drag</text></svg>", "question": "The pigeon is flying straight and level at a steady speed. What do the equal arrows tell you?", "explanation": "Equal arrows in opposite directions cancel out. Lift balances weight, and thrust balances drag. Balanced forces mean the pigeon keeps cruising smoothly, with no change in speed or height.", "choices": [{"text": "The forces are balanced, so it cruises steadily", "correct": true}, {"text": "Lift is bigger, so it is climbing fast", "correct": false}, {"text": "There are no forces on it", "correct": false}]}, "label": {"items": [{"id": "lift", "name": "Lift", "icon": "<svg viewBox='0 0 40 40'><line x1='20.0' y1='35.0' x2='20.0' y2='17.0' stroke='#2E6E62' stroke-width='4' stroke-linecap='round'/><polygon points='20.0,6.0 26.6,17.0 13.4,17.0' fill='#2E6E62'/></svg>", "fact": "⬆️ Lift pushes the pigeon UP. It comes from air flowing over the wings."}, {"id": "weight", "name": "Weight", "icon": "<svg viewBox='0 0 40 40'><line x1='20.0' y1='5.0' x2='20.0' y2='24.0' stroke='#0B2545' stroke-width='4' stroke-linecap='round'/><polygon points='20.0,35.0 13.4,24.0 26.6,24.0' fill='#0B2545'/></svg>", "fact": "⬇️ Weight is gravity pulling the pigeon DOWN toward the ground."}, {"id": "thrust", "name": "Thrust", "icon": "<svg viewBox='0 0 40 40'><line x1='5.0' y1='20.0' x2='24.0' y2='20.0' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/><polygon points='35.0,20.0 24.0,26.6 24.0,13.4' fill='#3F8F5C'/></svg>", "fact": "➡️ Thrust pushes the pigeon FORWARD. Flapping makes it."}, {"id": "drag", "name": "Drag", "icon": "<svg viewBox='0 0 40 40'><line x1='35.0' y1='20.0' x2='16.0' y2='20.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='5.0,20.0 16.0,13.4 16.0,26.6' fill='#D9603B'/></svg>", "fact": "⬅️ Drag is air pushing BACK against the pigeon. A teardrop body keeps it small."}]}, "draw": {"prompt": "Draw the pigeon as a simple dot. Add 4 arrows: lift up, weight down, thrust forward, drag back.", "hintSvg": "<svg viewBox='0 0 300 200' role='img' aria-label='hint: dot with four arrows'><circle cx='150' cy='100' r='14' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='150.0' y1='80.0' x2='150.0' y2='34.0' stroke='#2E6E62' stroke-width='3' stroke-linecap='round'/><polygon points='150.0,24.0 156.0,34.0 144.0,34.0' fill='#2E6E62'/><text x='158' y='34' font-size='11' fill='#2E6E62' text-anchor='start' font-weight='normal'>lift</text><line x1='150.0' y1='120.0' x2='150.0' y2='166.0' stroke='#0B2545' stroke-width='3' stroke-linecap='round'/><polygon points='150.0,176.0 144.0,166.0 156.0,166.0' fill='#0B2545'/><text x='158' y='176' font-size='11' fill='#0B2545' text-anchor='start' font-weight='normal'>weight</text><line x1='170.0' y1='100.0' x2='240.0' y2='100.0' stroke='#3F8F5C' stroke-width='3' stroke-linecap='round'/><polygon points='250.0,100.0 240.0,106.0 240.0,94.0' fill='#3F8F5C'/><text x='205' y='90' font-size='11' fill='#3F8F5C' text-anchor='start' font-weight='normal'>thrust</text><line x1='130.0' y1='100.0' x2='60.0' y2='100.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='50.0,100.0 60.0,94.0 60.0,106.0' fill='#D9603B'/><text x='52' y='90' font-size='11' fill='#D9603B' text-anchor='start' font-weight='normal'>drag</text></svg>"}, "rotate": {"prompt": "Rotate the force picture. The arrows turn, but the balance stays the same. Equal arrows pointing opposite ways still cancel out.", "svg": "<circle cx='150' cy='150' r='14' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='150.0' y1='130.0' x2='150.0' y2='73.0' stroke='#2E6E62' stroke-width='4' stroke-linecap='round'/><polygon points='150.0,62.0 156.6,73.0 143.4,73.0' fill='#2E6E62'/><text x='158' y='76' font-size='12' fill='#2E6E62' text-anchor='start' font-weight='bold'>lift</text><line x1='150.0' y1='170.0' x2='150.0' y2='227.0' stroke='#0B2545' stroke-width='4' stroke-linecap='round'/><polygon points='150.0,238.0 143.4,227.0 156.6,227.0' fill='#0B2545'/><text x='158' y='236' font-size='12' fill='#0B2545' text-anchor='start' font-weight='bold'>weight</text><line x1='172.0' y1='150.0' x2='229.0' y2='150.0' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/><polygon points='240.0,150.0 229.0,156.6 229.0,143.4' fill='#3F8F5C'/><text x='196' y='140' font-size='12' fill='#3F8F5C' text-anchor='start' font-weight='bold'>thrust</text><line x1='128.0' y1='150.0' x2='71.0' y2='150.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='60.0,150.0 71.0,143.4 71.0,156.6' fill='#D9603B'/><text x='62' y='140' font-size='12' fill='#D9603B' text-anchor='start' font-weight='bold'>drag</text>"}, "compare": {"question": "Tap the picture where the pigeon is speeding up.", "explanation": "When thrust is bigger than drag, the forces are not balanced. A leftover push goes forward, so the pigeon speeds up. Equal arrows mean steady speed.", "choices": [{"label": "A — thrust is bigger", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='long thrust arrow, short drag arrow'><circle cx='100' cy='75' r='10' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='112.0' y1='75.0' x2='182.0' y2='75.0' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/><polygon points='192.0,75.0 182.0,81.0 182.0,69.0' fill='#3F8F5C'/><line x1='88.0' y1='75.0' x2='70.0' y2='75.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='60.0,75.0 70.0,69.0 70.0,81.0' fill='#D9603B'/><text x='130' y='62' font-size='10' fill='#3F8F5C' text-anchor='start' font-weight='normal'>thrust</text><text x='40' y='62' font-size='10' fill='#D9603B' text-anchor='start' font-weight='normal'>drag</text></svg>", "correct": true}, {"label": "B — thrust = drag", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='equal thrust and drag arrows'><circle cx='100' cy='75' r='10' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='112.0' y1='75.0' x2='150.0' y2='75.0' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/><polygon points='160.0,75.0 150.0,81.0 150.0,69.0' fill='#3F8F5C'/><line x1='88.0' y1='75.0' x2='50.0' y2='75.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='40.0,75.0 50.0,69.0 50.0,81.0' fill='#D9603B'/><text x='120' y='62' font-size='10' fill='#3F8F5C' text-anchor='start' font-weight='normal'>thrust</text><text x='40' y='62' font-size='10' fill='#D9603B' text-anchor='start' font-weight='normal'>drag</text></svg>", "correct": false}]}, "connect": {"items": [{"text": "The pigeon flaps its wings", "icon": "<svg viewBox='0 0 40 40'><path d='M5 29 Q18 3 36 13 Q22 35 5 29 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "The wings push air down and back", "icon": "<svg viewBox='0 0 40 40'><path d='M4 14 Q20 6 36 14' fill='none' stroke='#2E6E62' stroke-width='3'/><line x1='20.0' y1='18.0' x2='20.0' y2='28.0' stroke='#C9A24B' stroke-width='3' stroke-linecap='round'/><polygon points='20.0,36.0 15.2,28.0 24.8,28.0' fill='#C9A24B'/></svg>"}, {"text": "The air pushes the pigeon up and forward: lift + thrust", "icon": "<svg viewBox='0 0 40 40'><line x1='20.0' y1='35.0' x2='20.0' y2='17.0' stroke='#2E6E62' stroke-width='4' stroke-linecap='round'/><polygon points='20.0,6.0 26.6,17.0 13.4,17.0' fill='#2E6E62'/></svg>"}, {"text": "🔗 Links to Titanic Free Body Diagram: the ship's buoyancy arrow balances its weight, just like lift balances weight for the pigeon", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "If a pigeon stops flapping, which force disappears? What happens next?", "visualSvg": "<svg viewBox='0 0 200 100' role='img' aria-label='bird with only a drag arrow'><circle cx='100' cy='50' r='10' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='88.0' y1='50.0' x2='50.0' y2='50.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='40.0,50.0 50.0,44.0 50.0,56.0' fill='#D9603B'/><text x='30' y='38' font-size='11' fill='#D9603B' text-anchor='start' font-weight='normal'>drag</text><text x='112' y='38' font-size='11' fill='#3F8F5C' text-anchor='start' font-weight='normal'>thrust?</text></svg>", "starters": ["Without flapping, thrust is...", "Then drag will..."], "keywords": ["thrust", "drag", "slow", "sink"]}, "predict": {"question": "Thrust becomes bigger than drag. What happens to the pigeon's speed?", "explanation": "Unbalanced forces change motion. Extra push forward means the pigeon speeds up, until drag grows and balances the thrust again.", "choices": [{"text": "It speeds up", "correct": true}, {"text": "It slows down", "correct": false}, {"text": "It stays exactly the same", "correct": false}]}};
+window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 220' role='img' aria-label='A pigeon with four force arrows: lift up, weight down, thrust forward, drag back, all balanced'><g transform='translate(84.3,59.6) scale(0.45)'><g><polygon points='92,100 40,86 38,116 92,120' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><ellipse cx='150' cy='105' rx='66' ry='38' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><circle cx='222' cy='76' r='18' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><ellipse cx='207' cy='92' rx='20' ry='16' fill='#5B8F7B'/><polygon points='239,74 254,78 239,82' fill='#E8D9B5' stroke='#0B2545' stroke-width='1.5'/><circle cx='227' cy='72' r='3' fill='#D9603B'/><path d='M118 96 Q152 66 198 98 Q160 128 108 120 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/><line x1='150' y1='143' x2='150' y2='168' stroke='#D9603B' stroke-width='3'/><line x1='170' y1='141' x2='170' y2='168' stroke='#D9603B' stroke-width='3'/></g></g><line x1='150.0' y1='80.0' x2='150.0' y2='35.0' stroke='#2E6E62' stroke-width='4' stroke-linecap='round'/><polygon points='150.0,24.0 156.6,35.0 143.4,35.0' fill='#2E6E62'/><text x='158' y='34' font-size='12' fill='#2E6E62' text-anchor='start' font-weight='bold'>Lift</text><line x1='150.0' y1='140.0' x2='150.0' y2='185.0' stroke='#0B2545' stroke-width='4' stroke-linecap='round'/><polygon points='150.0,196.0 143.4,185.0 156.6,185.0' fill='#0B2545'/><text x='158' y='196' font-size='12' fill='#0B2545' text-anchor='start' font-weight='bold'>Weight</text><line x1='205.0' y1='110.0' x2='264.0' y2='110.0' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/><polygon points='275.0,110.0 264.0,116.6 264.0,103.4' fill='#3F8F5C'/><text x='222' y='100' font-size='12' fill='#3F8F5C' text-anchor='start' font-weight='bold'>Thrust</text><line x1='97.0' y1='110.0' x2='38.0' y2='110.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='27.0,110.0 38.0,103.4 38.0,116.6' fill='#D9603B'/><text x='30' y='100' font-size='12' fill='#D9603B' text-anchor='start' font-weight='bold'>Drag</text></svg>", "question": "The pigeon is flying straight and level at a steady speed. What do the equal arrows tell you?", "explanation": "Equal arrows in opposite directions cancel out. Lift balances weight, and thrust balances drag. Balanced forces mean the pigeon keeps cruising smoothly, with no change in speed or height.", "choices": [{"text": "The forces are balanced, so it cruises steadily", "correct": true}, {"text": "Lift is bigger, so it is climbing fast", "correct": false}, {"text": "There are no forces on it", "correct": false}]}, "label": {"items": [{"id": "lift", "name": "Lift", "icon": "<svg viewBox='0 0 40 40'><line x1='20.0' y1='35.0' x2='20.0' y2='17.0' stroke='#2E6E62' stroke-width='4' stroke-linecap='round'/><polygon points='20.0,6.0 26.6,17.0 13.4,17.0' fill='#2E6E62'/></svg>", "fact": "⬆️ Lift pushes the pigeon UP. It comes from air flowing over the wings."}, {"id": "weight", "name": "Weight", "icon": "<svg viewBox='0 0 40 40'><line x1='20.0' y1='5.0' x2='20.0' y2='24.0' stroke='#0B2545' stroke-width='4' stroke-linecap='round'/><polygon points='20.0,35.0 13.4,24.0 26.6,24.0' fill='#0B2545'/></svg>", "fact": "⬇️ Weight is gravity pulling the pigeon DOWN toward the ground."}, {"id": "thrust", "name": "Thrust", "icon": "<svg viewBox='0 0 40 40'><line x1='5.0' y1='20.0' x2='24.0' y2='20.0' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/><polygon points='35.0,20.0 24.0,26.6 24.0,13.4' fill='#3F8F5C'/></svg>", "fact": "➡️ Thrust pushes the pigeon FORWARD. Flapping makes it."}, {"id": "drag", "name": "Drag", "icon": "<svg viewBox='0 0 40 40'><line x1='35.0' y1='20.0' x2='16.0' y2='20.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='5.0,20.0 16.0,13.4 16.0,26.6' fill='#D9603B'/></svg>", "fact": "⬅️ Drag is air pushing BACK against the pigeon. A teardrop body keeps it small."}]}, "draw": {"prompt": "Draw the pigeon as a simple dot. Add 4 arrows: lift up, weight down, thrust forward, drag back.", "hintSvg": "<svg viewBox='0 0 300 200' role='img' aria-label='hint: dot with four arrows'><circle cx='150' cy='100' r='14' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='150.0' y1='80.0' x2='150.0' y2='34.0' stroke='#2E6E62' stroke-width='3' stroke-linecap='round'/><polygon points='150.0,24.0 156.0,34.0 144.0,34.0' fill='#2E6E62'/><text x='158' y='34' font-size='11' fill='#2E6E62' text-anchor='start' font-weight='normal'>lift</text><line x1='150.0' y1='120.0' x2='150.0' y2='166.0' stroke='#0B2545' stroke-width='3' stroke-linecap='round'/><polygon points='150.0,176.0 144.0,166.0 156.0,166.0' fill='#0B2545'/><text x='158' y='176' font-size='11' fill='#0B2545' text-anchor='start' font-weight='normal'>weight</text><line x1='170.0' y1='100.0' x2='240.0' y2='100.0' stroke='#3F8F5C' stroke-width='3' stroke-linecap='round'/><polygon points='250.0,100.0 240.0,106.0 240.0,94.0' fill='#3F8F5C'/><text x='205' y='90' font-size='11' fill='#3F8F5C' text-anchor='start' font-weight='normal'>thrust</text><line x1='130.0' y1='100.0' x2='60.0' y2='100.0' stroke='#D9603B' stroke-width='3' stroke-linecap='round'/><polygon points='50.0,100.0 60.0,94.0 60.0,106.0' fill='#D9603B'/><text x='52' y='90' font-size='11' fill='#D9603B' text-anchor='start' font-weight='normal'>drag</text></svg>", "pills": ["Lift", "Weight", "Thrust", "Drag"]}, "rotate": {"prompt": "Rotate the force picture. The arrows turn, but the balance stays the same. Equal arrows pointing opposite ways still cancel out.", "svg": "<circle cx='150' cy='150' r='14' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='150.0' y1='130.0' x2='150.0' y2='73.0' stroke='#2E6E62' stroke-width='4' stroke-linecap='round'/><polygon points='150.0,62.0 156.6,73.0 143.4,73.0' fill='#2E6E62'/><text x='158' y='76' font-size='12' fill='#2E6E62' text-anchor='start' font-weight='bold'>lift</text><line x1='150.0' y1='170.0' x2='150.0' y2='227.0' stroke='#0B2545' stroke-width='4' stroke-linecap='round'/><polygon points='150.0,238.0 143.4,227.0 156.6,227.0' fill='#0B2545'/><text x='158' y='236' font-size='12' fill='#0B2545' text-anchor='start' font-weight='bold'>weight</text><line x1='172.0' y1='150.0' x2='229.0' y2='150.0' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/><polygon points='240.0,150.0 229.0,156.6 229.0,143.4' fill='#3F8F5C'/><text x='196' y='140' font-size='12' fill='#3F8F5C' text-anchor='start' font-weight='bold'>thrust</text><line x1='128.0' y1='150.0' x2='71.0' y2='150.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='60.0,150.0 71.0,143.4 71.0,156.6' fill='#D9603B'/><text x='62' y='140' font-size='12' fill='#D9603B' text-anchor='start' font-weight='bold'>drag</text>"}, "compare": {"question": "Tap the picture where the pigeon is speeding up.", "explanation": "When thrust is bigger than drag, the forces are not balanced. A leftover push goes forward, so the pigeon speeds up. Equal arrows mean steady speed.", "choices": [{"label": "A — thrust is bigger", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='long thrust arrow, short drag arrow'><circle cx='100' cy='75' r='10' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='112.0' y1='75.0' x2='182.0' y2='75.0' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/><polygon points='192.0,75.0 182.0,81.0 182.0,69.0' fill='#3F8F5C'/><line x1='88.0' y1='75.0' x2='70.0' y2='75.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='60.0,75.0 70.0,69.0 70.0,81.0' fill='#D9603B'/><text x='130' y='62' font-size='10' fill='#3F8F5C' text-anchor='start' font-weight='normal'>thrust</text><text x='40' y='62' font-size='10' fill='#D9603B' text-anchor='start' font-weight='normal'>drag</text></svg>", "correct": true}, {"label": "B — thrust = drag", "svg": "<svg viewBox='0 0 200 140' role='img' aria-label='equal thrust and drag arrows'><circle cx='100' cy='75' r='10' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='112.0' y1='75.0' x2='150.0' y2='75.0' stroke='#3F8F5C' stroke-width='4' stroke-linecap='round'/><polygon points='160.0,75.0 150.0,81.0 150.0,69.0' fill='#3F8F5C'/><line x1='88.0' y1='75.0' x2='50.0' y2='75.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='40.0,75.0 50.0,69.0 50.0,81.0' fill='#D9603B'/><text x='120' y='62' font-size='10' fill='#3F8F5C' text-anchor='start' font-weight='normal'>thrust</text><text x='40' y='62' font-size='10' fill='#D9603B' text-anchor='start' font-weight='normal'>drag</text></svg>", "correct": false}]}, "connect": {"items": [{"text": "The pigeon flaps its wings", "icon": "<svg viewBox='0 0 40 40'><path d='M5 29 Q18 3 36 13 Q22 35 5 29 Z' fill='#6F7F95' stroke='#0B2545' stroke-width='2'/></svg>"}, {"text": "The wings push air down and back", "icon": "<svg viewBox='0 0 40 40'><path d='M4 14 Q20 6 36 14' fill='none' stroke='#2E6E62' stroke-width='3'/><line x1='20.0' y1='18.0' x2='20.0' y2='28.0' stroke='#C9A24B' stroke-width='3' stroke-linecap='round'/><polygon points='20.0,36.0 15.2,28.0 24.8,28.0' fill='#C9A24B'/></svg>"}, {"text": "The air pushes the pigeon up and forward: lift + thrust", "icon": "<svg viewBox='0 0 40 40'><line x1='20.0' y1='35.0' x2='20.0' y2='17.0' stroke='#2E6E62' stroke-width='4' stroke-linecap='round'/><polygon points='20.0,6.0 26.6,17.0 13.4,17.0' fill='#2E6E62'/></svg>"}, {"text": "🔗 Links to Titanic Free Body Diagram: the ship's buoyancy arrow balances its weight, just like lift balances weight for the pigeon", "icon": "<svg viewBox='0 0 40 40'><circle cx='14' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/><circle cx='26' cy='20' r='8' fill='none' stroke='#C9A24B' stroke-width='3'/></svg>"}]}, "explain": {"prompt": "If a pigeon stops flapping, which force disappears? What happens next?", "visualSvg": "<svg viewBox='0 0 200 100' role='img' aria-label='bird with only a drag arrow'><circle cx='100' cy='50' r='10' fill='#8D9BAF' stroke='#0B2545' stroke-width='2'/><line x1='88.0' y1='50.0' x2='50.0' y2='50.0' stroke='#D9603B' stroke-width='4' stroke-linecap='round'/><polygon points='40.0,50.0 50.0,44.0 50.0,56.0' fill='#D9603B'/><text x='30' y='38' font-size='11' fill='#D9603B' text-anchor='start' font-weight='normal'>drag</text><text x='112' y='38' font-size='11' fill='#3F8F5C' text-anchor='start' font-weight='normal'>thrust?</text></svg>", "starters": ["Without flapping, thrust is...", "Then drag will..."], "keywords": ["thrust", "drag", "slow", "sink"]}, "predict": {"question": "Thrust becomes bigger than drag. What happens to the pigeon's speed?", "explanation": "Unbalanced forces change motion. Extra push forward means the pigeon speeds up, until drag grows and balances the thrust again.", "choices": [{"text": "It speeds up", "correct": true}, {"text": "It slows down", "correct": false}, {"text": "It stays exactly the same", "correct": false}]}};
 /* ============================================================================================ */
 
 (function(){
@@ -481,14 +491,16 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 220' role='img'
   }
   function pushUndo(){
     if(!ctx) return;
-    if(undoStack.length > 19) undoStack.shift();
+    if(undoStack.length > 19){ undoStack.shift(); actionLog.shift(); }
     undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    actionLog.push(null);
   }
   function getPos(e){
     var rect = canvas.getBoundingClientRect();
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   }
   canvas.addEventListener("pointerdown", function(e){
+    if(pillPointerDown(e)) return;
     if(!canvasReady) initCanvasIfNeeded();
     pushUndo();
     drawing = true;
@@ -497,6 +509,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 220' role='img'
     if(canvas.setPointerCapture){ try{ canvas.setPointerCapture(e.pointerId); }catch(err){} }
   });
   canvas.addEventListener("pointermove", function(e){
+    if(drawing) pillStrokeSeen();
     if(!drawing || !ctx) return;
     var pos = getPos(e);
     ctx.strokeStyle = currentColor;
@@ -514,17 +527,133 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 220' role='img'
   canvas.addEventListener("pointercancel", endStroke);
   canvas.addEventListener("pointerleave", endStroke);
 
+  /*PILLS-V1*/
+  /* ---------- Concept pills: tap an idea, tap the drawing to stamp it in; all must be placed to finish ---------- */
+  var PILLS = ((DATA.draw && DATA.draw.pills) || (DATA.practice && DATA.practice.pills) || []).slice();
+  var placed = {};
+  var armedPill = null;
+  var strokeTotal = 0, strokeMarked = false;
+  var actionLog = [];
+  var pillRow = null, pillCount = null, pillHelp = null;
+
+  function stampPill(text, x, y){
+    ctx.save();
+    ctx.font = "700 15px system-ui, -apple-system, 'Segoe UI', sans-serif";
+    var w = Math.ceil(ctx.measureText(text).width) + 22, h = 30, r = 15;
+    var px = Math.min(Math.max(x - w / 2, 4), canvasCSSWidth - w - 4);
+    var py = Math.min(Math.max(y - h / 2, 4), canvasCSSHeight - h - 4);
+    ctx.beginPath();
+    ctx.moveTo(px + r, py);
+    ctx.lineTo(px + w - r, py);
+    ctx.arc(px + w - r, py + r, r, -Math.PI / 2, Math.PI / 2);
+    ctx.lineTo(px + r, py + h);
+    ctx.arc(px + r, py + r, r, Math.PI / 2, Math.PI * 1.5);
+    ctx.closePath();
+    ctx.fillStyle = "#0B2545"; ctx.fill();
+    ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(text, px + w / 2, py + h / 2 + 1);
+    ctx.restore();
+  }
+  function pillRefresh(){
+    if(!pillRow) return;
+    var n = 0;
+    Array.prototype.forEach.call(pillRow.children, function(b){
+      var t = b.dataset.pill, done = !!placed[t];
+      if(done) n++;
+      b.classList.toggle("placed", done);
+      b.classList.toggle("armed", armedPill === t);
+      b.disabled = done;
+      b.textContent = (done ? "✓ " : "") + t;
+      b.setAttribute("aria-pressed", armedPill === t ? "true" : "false");
+    });
+    pillCount.textContent = n + " / " + PILLS.length + " placed";
+    pillHelp.className = "pill-help";
+    pillHelp.textContent = armedPill
+      ? ("Now tap your drawing where “" + armedPill + "” belongs.")
+      : (n === PILLS.length ? "All ideas placed! Join them with lines and arrows, then press finished."
+                            : "Tap an idea, then tap your drawing where it belongs.");
+    canvas.style.cursor = armedPill ? "crosshair" : "";
+  }
+  (function(){
+    if(!PILLS.length) return;
+    var tray = document.createElement("div");
+    tray.className = "pill-tray"; tray.id = "pill-tray";
+    tray.innerHTML = '<p class="pill-title"><span>🧩 Put these ideas in your picture</span><span id="pill-count"></span></p><p class="pill-help" id="pill-help"></p><div class="pill-row" id="pill-row"></div>';
+    canvas.parentNode.insertBefore(tray, canvas);
+    pillRow = tray.querySelector("#pill-row"); pillCount = tray.querySelector("#pill-count"); pillHelp = tray.querySelector("#pill-help");
+    PILLS.forEach(function(p){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "pill"; b.dataset.pill = p; b.textContent = p;
+      b.addEventListener("click", function(){
+        if(placed[p]) return;
+        armedPill = (armedPill === p) ? null : p;
+        pillRefresh();
+      });
+      pillRow.appendChild(b);
+    });
+    pillRefresh();
+  })();
+  function pillPointerDown(e){
+    strokeMarked = false;
+    if(!armedPill) return false;
+    if(!canvasReady) initCanvasIfNeeded();
+    var pos = getPos(e);
+    var text = armedPill;
+    if(ctx){
+      pushUndo();
+      if(actionLog.length) actionLog[actionLog.length - 1] = { type: "stamp", text: text };
+      stampPill(text, pos.x, pos.y);
+    }
+    placed[text] = true;
+    armedPill = null;
+    drawing = false;
+    pillRefresh();
+    return true;
+  }
+  function pillStrokeSeen(){
+    if(strokeMarked) return;
+    strokeMarked = true; strokeTotal++;
+    if(actionLog.length && actionLog[actionLog.length - 1] === null) actionLog[actionLog.length - 1] = { type: "stroke" };
+  }
+  function pillUndoRecord(rec){
+    if(!rec) return;
+    if(rec.type === "stamp"){ placed[rec.text] = false; }
+    else if(rec.type === "stroke"){ strokeTotal = Math.max(0, strokeTotal - 1); }
+    else if(rec.type === "clear"){ placed = rec.placedBefore; strokeTotal = rec.strokesBefore; }
+    pillRefresh();
+  }
+  function pillGateOk(){
+    if(!PILLS.length) return true;
+    var missing = PILLS.filter(function(p){ return !placed[p]; });
+    if(missing.length){
+      pillHelp.textContent = "Almost! Still to place: " + missing.join(", ") + ".";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    if(strokeTotal < 1){
+      pillHelp.textContent = "Now DRAW something too: join your ideas with lines and arrows.";
+      pillHelp.className = "pill-help warn";
+      return false;
+    }
+    return true;
+  }
+
   document.getElementById("undo-btn").addEventListener("click", function(){
     if(!ctx) return;
-    if(undoStack.length > 1){ undoStack.pop(); }
-    var prev = undoStack[undoStack.length - 1];
-    if(prev){ ctx.putImageData(prev, 0, 0); }
+    if(undoStack.length < 2) return;
+    var prev = undoStack.pop();
+    var rec = actionLog.pop();
+    ctx.putImageData(prev, 0, 0);
+    pillUndoRecord(rec);
   });
   document.getElementById("clear-btn").addEventListener("click", function(){
     if(!ctx) return;
     pushUndo();
+    if(actionLog.length) actionLog[actionLog.length - 1] = { type: "clear", placedBefore: JSON.parse(JSON.stringify(placed)), strokesBefore: strokeTotal };
     ctx.fillStyle = "#F3EEE1";
     ctx.fillRect(0, 0, canvasCSSWidth, canvasCSSHeight);
+    placed = {}; strokeTotal = 0; armedPill = null;
+    pillRefresh();
   });
   document.getElementById("hint-toggle").addEventListener("click", function(){
     var panel = document.getElementById("hint-panel");
@@ -542,6 +671,7 @@ window.CONCEPT_DATA = {"observe": {"svg": "<svg viewBox='0 0 300 220' role='img'
   var drawBtn = document.getElementById("draw-finished-btn");
   var drawNext = document.getElementById("draw-next");
   drawBtn.addEventListener("click", function(){
+    if(!pillGateOk()) return;
     saveDrawingToGallery();
     drawNext.disabled = false;
     drawBtn.textContent = "✓ Marked as finished";
