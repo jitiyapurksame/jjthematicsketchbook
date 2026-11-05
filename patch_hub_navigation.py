@@ -37,6 +37,10 @@ CONNECTION_ORDER = [
     "connection-09-streamlining.html",
     "connection-10-hollow-light-strong.html",
     "connection-11-heat-has-to-go-somewhere.html",
+    "connection-12-slope-tells-the-story.html",
+    "connection-13-friction.html",
+    "connection-14-push-back-go-forward.html",
+    "connection-15-low-and-wide.html",
 ]
 
 VST_ORDER = [

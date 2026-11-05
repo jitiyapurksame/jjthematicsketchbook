@@ -21,9 +21,9 @@ done
 echo "  syntax failures: $syn_fail"
 fail_total=$((fail_total+syn_fail))
 
-echo "== 2/3  Click-through: 8-mission books (titanic/ocean/mario/cooking/birds/cars) =="
+echo "== 2/3  Click-through: 8-mission books (titanic/ocean/mario/cooking/birds/cars/haunted) =="
 p=0; q=0
-for f in deliverables/titanic-*.html deliverables/ocean-*.html deliverables/mario-*.html deliverables/cooking-*.html deliverables/birds-*.html deliverables/cars-*.html; do
+for f in deliverables/titanic-*.html deliverables/ocean-*.html deliverables/mario-*.html deliverables/cooking-*.html deliverables/birds-*.html deliverables/cars-*.html deliverables/haunted-*.html; do
   [ -e "$f" ] || continue
   if node build-tools/test_clickthrough.js "$f" >/tmp/_ct.log 2>&1; then p=$((p+1)); else q=$((q+1)); echo "  FAIL: $f"; head -4 /tmp/_ct.log; fi
 done
@@ -42,6 +42,9 @@ for f in deliverables/vst-*.html; do
 done
 echo "  pass=$p fail=$q"
 fail_total=$((fail_total+q))
+
+echo "== 4/4  Real-canvas test: concept pills (stamp, gate, undo, clear) =="
+if node build-tools/test_pills_canvas.js >/tmp/_pill.log 2>&1; then grep -v scrollTo /tmp/_pill.log; else cat /tmp/_pill.log | grep -v scrollTo; fail_total=$((fail_total+1)); fi
 
 echo
 if [ "$fail_total" -eq 0 ]; then echo "ALL GREEN"; else echo "$fail_total FAILURE(S)"; exit 1; fi

@@ -52,7 +52,22 @@ function runTest(htmlPath, label){
   if(data.practice.mode === "draw"){
     const drawBlock = doc.getElementById("practice-draw-block");
     if(drawBlock.hasAttribute("hidden")) errors.push("draw block should be visible in draw mode");
-    click(doc.getElementById("draw-finished-btn"));
+    const pillBtns = Array.from(doc.querySelectorAll("#pill-row .pill"));
+    const expectedPills = ((data.draw && data.draw.pills) || (data.practice && data.practice.pills) || []).length;
+    if(pillBtns.length !== expectedPills) errors.push("pill count (" + pillBtns.length + ") != expected (" + expectedPills + ")");
+    const finishedBtn = doc.getElementById("draw-finished-btn");
+    const canvasEl = doc.getElementById("draw-canvas");
+    const fire = (type) => canvasEl.dispatchEvent(new window.MouseEvent(type, { bubbles: true, clientX: 40, clientY: 40 }));
+    if(expectedPills){
+      click(finishedBtn);
+      if(!practiceNext.disabled) errors.push("practice-next should stay locked until all pills are placed");
+      pillBtns.forEach((b) => { click(b); fire("pointerdown"); });
+      if(pillBtns.some((b) => !b.classList.contains("placed"))) errors.push("a pill was not marked placed after stamping");
+      click(finishedBtn);
+      if(!practiceNext.disabled) errors.push("practice-next should stay locked until at least one stroke is drawn");
+      fire("pointerdown"); fire("pointermove"); fire("pointerup");
+    }
+    click(finishedBtn);
   } else {
     const textBlock = doc.getElementById("practice-text-block");
     if(textBlock.hasAttribute("hidden")) errors.push("text block should be visible in text mode");
